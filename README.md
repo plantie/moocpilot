@@ -28,4 +28,5 @@ Le cours est maintenant installé.
 “Forcer une collectes manuelle” permet de lancer un collecte sur le cours FUN depuis notre application.  
 
 # License
-This project is licensed under the terms of the FREE SOFTWARE LICENSING AGREEMENT CeCILL license.
+
+This project is licensed under the terms of the [FREE SOFTWARE LICENSING AGREEMENT CeCILL](LICENSE.txt) license.
