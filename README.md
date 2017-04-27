@@ -5,7 +5,7 @@
 Moocpilot est une application web dédié au suivi des apprenants, destiné aux équipes d’enseignants de cours sur les plateformes FUN et EDX. 
 Elle permet la visualiser les résultats et les forums des cours et sont généré à partir des fichier “Grade-report” obtenu sur FUN ou EDX.
 
-## Configuration serveur recommandé
+## Configuration serveur recommandée
 
 -Apache Tomcat version 7.0.52
 -Java 7 
