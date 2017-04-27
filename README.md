@@ -1,12 +1,17 @@
-# moocpilot
+# Moocpilot
 
 ## Qu'est ce que moocpilot?
 
-Mooc pilot est une application....
+Moocpilot est une application web dédié au suivi des apprenants, destiné aux équipes d’enseignants de cours sur les plateformes FUN et EDX. 
+Elle permet la visualiser les résultats et les forums des cours et sont généré à partir des fichier “Grade-report” obtenu sur FUN ou EDX.
 
-# Installation Tomcat
+## Configuration serveur recommandé
 
-# Methode d'installation
+-Apache Tomcat version 7.0.52
+-Java 7 
+-Ubuntu pour assurer une compatibilité avec les shellscript
+
+## Methode d'installation
 
 Renommé le fichier war selon le nom de l’instance souhaité.    
 Mettre le fichier à la base du dossier webapps.  
@@ -27,6 +32,6 @@ Le cours est maintenant installé.
 “Récupération des collectes” permet de lancer la récupération de toute les collectes manuelle FUN.  
 “Forcer une collectes manuelle” permet de lancer un collecte sur le cours FUN depuis notre application.  
 
-# License
+## License
 
 This project is licensed under the terms of the [FREE SOFTWARE LICENSING AGREEMENT CeCILL](LICENSE.txt) license.
