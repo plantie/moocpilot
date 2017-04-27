@@ -7,9 +7,9 @@ Elle permet la visualiser les résultats et les forums des cours et sont génér
 
 ## Configuration serveur recommandée
 
--Apache Tomcat version 7.0.52
--Java 7 
--Ubuntu pour assurer une compatibilité avec les shellscript
+-Apache Tomcat version 7.0.52   
+-Java 7     
+-Ubuntu pour assurer une compatibilité avec les shellscript 
 
 ## Methode d'installation
 
