@@ -1,0 +1,535 @@
+#menu{
+  overflow-y: inherit;
+  z-index: 6;
+}
+
+#header{
+  z-index: 20 !important;
+}
+
+#tutorParameters{
+  display: none;
+}
+
+html{
+	height:100%;
+}
+body{
+}
+
+#svgCore{
+  overflow: visible;
+	margin-left : 280px;
+	margin-top : 130px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently*/
+}
+
+#panel{
+	position:fixed;
+	width:230px;
+	height:100%;
+  border-right: 1px solid;
+}
+
+.node {
+  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  fill: #bbb;
+  cursor: pointer;
+}
+.nodeHover{
+  font-size: 14px;
+	fill: #000;
+  	font-weight: 700;
+}
+
+.link {
+  stroke: #99bede;/*steelblue;*/
+  stroke-opacity: .4;
+  fill: none;
+  pointer-events: none;
+}
+
+.node--source,
+.node--target ,
+.node--message {
+  font-weight: 700;
+}
+
+.node--source {
+  fill: #d62728;
+}
+
+.node--target {
+  fill: #2ca02c;
+}
+
+.node--message {
+  fill: #4219b1;
+}
+
+.link--source,
+.link--target,
+.link--message{
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.link--source {
+  stroke: #d62728;
+}
+
+.link--target {
+  stroke: #2ca02c;
+}
+
+.link--message{
+  stroke: #4219b1;
+}
+
+#forumCursor{
+  cursor: grab;
+  cursor: -webkit-grab;
+}
+
+.grabbing{
+  cursor: grabbing !important;
+  cursor: -webkit-grabbing !important;
+}
+
+
+/*------------------------------------------*/
+
+#weekPosText{
+  margin-left: 15px;
+}
+
+#weekPos{
+  width: 195px;
+  margin-left: 15px;
+}
+
+.orderByDateText{
+  margin-left: 15px;
+}
+
+.orderType{
+    float: right;
+    margin-right: 40px;
+}
+
+
+/*------------------------------------------*/
+
+.tableContainer{
+  position: relative;    
+  margin-top: 10px;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.topTableContainer{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 138px;
+  background-color: #EBE8DE;
+}
+
+.tablePost tr td:nth-child(2){
+  cursor: pointer;
+  color:red;
+  width: 82px;
+  max-width: 82px;
+}
+
+.tablePost tr td:nth-child(2):hover{
+  color:black;
+  background-color: red;
+}
+
+.tableComment tr td:nth-child(3){
+  cursor:pointer;
+  color:green;
+  max-width: 104px;
+}
+
+.tableComment tr td:nth-child(3):hover{
+  color:black;
+  background-color:green; 
+}
+
+
+#orphanContainer tr td:nth-child(2){
+  cursor:pointer;
+  color:red;
+  width: 180px;
+  max-width: 180px;
+}
+
+#orphanContainer tr td:nth-child(2):hover{
+  color:black;
+  background-color: red;
+}
+
+#noOrphanContainer tr td:nth-child(2){
+  cursor:pointer;
+  color:#4219b1;
+  width: 180px;
+  max-width: 180px;
+}
+
+#noOrphanContainer tr td:nth-child(2):hover{
+  color:black;
+  background-color: #4219b1;
+}
+
+.topTable{
+  width:100%;
+  border-collapse: collapse;
+  width:213px;
+}
+
+.topTable td{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.topTable td:nth-child(1){
+  width: 18px;
+  min-width: 18px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.topTable th:nth-child(1){
+  width:17px;
+  min-width: 17px;
+}
+.tablePost th:nth-child(2){
+  width:82px;
+  max-width: 82px;
+  font-size:15px;
+}
+.tableComment th:nth-child(3){
+  width:104px;
+  max-width: 104px;
+  font-size:15px;
+}
+
+
+.tableMessage th:nth-child(2){
+  width:189px;
+  max-width: 189px;
+  font-size:15px;
+}
+
+.topTable tr{
+  width: 213px;
+}
+
+.firstRow{
+  position: absolute;
+  top:0px;
+  left: 0px;
+  background-color: #EBE8DE;
+  border-bottom: 1px solid;
+  z-index:5;
+}
+
+
+.topTableContainer > span{
+  position: absolute;
+  top: 0px;
+  left: 221px;
+  border: 1px solid;
+  padding: 10px;
+  pointer-events: none;
+  position: absolute;
+  width: 250px;
+  color: black;
+  background: rgba(224, 224, 224, 0.9);
+  line-height: 16px;
+  text-align: left;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid black;
+  display: none;
+}
+
+.topTableContainer > span > span{
+  display: block;
+  font-weight: bold;
+  text-align: right;
+}
+
+.topTableContainer > span:after{
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: -9px;
+  width: 0; height: 0;
+  border-right: 8px solid #000000;
+  border-bottom: 8px solid transparent;
+  border-top: 8px solid transparent;
+  margin-top: -8px;
+}
+/*---------------------------------------------------------personPanel---------------------------------------------------------------------*/
+
+#personMessagesPanel, #personAnswersPanel{
+  width: 230px;
+  height: 208px;
+  position: fixed;
+  right: 0px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 10;
+  transition: transform 0.5s;
+}
+
+#personMessagesPanel{
+  top: 60px;
+} 
+
+#personAnswersPanel{
+  top: 463px;
+}
+
+.personInfos{
+  width: 95%;
+  height: 50px;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.personName{
+  display:block;
+}
+.personCohort
+{
+  color:#5a5a5a;
+  font-size: 14px;
+}
+
+.personMessages{
+  width:100%;
+  height: 138px;
+}
+
+.personMessages > div{
+  height: 100%;
+  width:95%;
+  margin-left: 2.5%;
+  display: inline-block;
+  position: relative;
+}
+
+.personMessages > div > div{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 138px;
+  border: 1px solid;
+  background-color: #EBE8DE;
+}
+
+.personTables{
+  border-collapse: collapse;
+}
+
+
+.personTables th{
+  width:196px;
+}
+
+.personTables td{
+  width:196px;
+  max-width: 196px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+#personPostsTable td{
+  color:red;
+}
+
+#personAnswersTable td{
+  color:green;
+}
+
+
+#personPostsTable td:hover{
+  color:black;
+  background-color:red !important;
+}
+
+#personAnswersTable td:hover{
+  color:black;
+  background-color:green !important;
+}
+
+.personMessages > div > div > span, #postAnswers > div > div > span{
+  position: absolute;
+  top: 0px;
+  right: 225px;
+  border: 1px solid;
+  padding: 10px;
+  pointer-events: none;
+  position: absolute;
+  width: 250px;
+  color: black;
+  background: rgba(224, 224, 224, 0.9);
+  line-height: 16px;
+  text-align: left;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid black;
+  display: none;
+}
+
+.personMessages > div > div > span > span, #postAnswers > div > div > span > span{
+  display: block;
+  font-weight: bold;
+}
+
+#postAnswers > div > div > span > span{
+  text-align: right;
+}
+
+.personMessages > div > div > span:after, #postAnswers > div > div > span:after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 100%;
+  width: 0; height: 0;
+  border-left: 8px solid #000000;
+  border-bottom: 8px solid transparent;
+  border-top: 8px solid transparent;
+  margin-top: -8px;
+}
+
+#personAnswers{
+  margin-top: 5px;
+}
+
+
+/*------------------------------------POST PANEL-------------------------------------------*/
+
+#postPanel{
+  width: 230px;
+  height: 150px;
+  position: fixed;
+  right: 0px;
+  top: 280px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 5;
+  transition: transform 0.5s;
+}
+
+#postInfos{
+  width: 95%;
+  height: 50px;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+#postTitle{
+  color: #4219b1;
+  display:block;
+}
+
+#postAnswers{
+  width:100%;
+  height: 138px;
+  margin-top: 5px;
+}
+
+#postAnswers > div{
+  height: 100%;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  display: inline-block;
+  position: relative;
+}
+
+#postAnswers > div > div{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 138px;
+  border: 1px solid;
+  background-color: #EBE8DE;
+}
+
+
+
+#postAnswersTable th{
+  width:196px;
+}
+
+#postAnswersTable tr{
+  height:23px;
+}
+
+
+#postAnswersTable td{
+  width:196px;
+  max-width: 196px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: pre;
+}
+
+#postAnswersTable{
+  border-collapse: collapse;
+}
+
+#postBodyContainer{    
+  width: 230px;
+  height: 230px;
+  position: absolute;
+  top: -219px;
+  right: 230px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 20px;
+  border: 1px solid black;
+  display: none;
+  background: rgba(224, 224, 224, 0.9);
+  font-size: 12px;
+}
+
+#postBodyContainer > div{
+  margin: 15px 25px;
+  overflow: auto;
+  width: 75%;
+  height: 65%;
+}
+
+#postBodyContainer span:first-child{
+  display: block;
+  margin-left: 25px;
+  margin-top: 10px;
+  font-weight: bold;
+}    
+
+#postBodyContainer span:last-child{
+    float: right;
+    margin-right: 30px;
+    font-weight: bold;
+}    
+
+
+.irrelevant{
+  opacity: 0.3;
+}
+

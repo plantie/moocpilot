@@ -1,0 +1,351 @@
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: auto;
+	position: relative;
+	min-width: 1200;
+	height :100%;
+}
+
+#menu{
+	z-index:0;
+}
+
+#tableau{
+	margin:15px 0px 0px 15px;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+.xAxis path,
+.xAxis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+ .d3-tip {
+ 	z-index:14;	
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+#svgContainer{
+	width: 100%;
+	float:left;
+}
+
+#contentContainer{
+	margin-top: 140px;
+	margin-left: 250px;
+	max-width: 100%;
+	position:relative;
+}
+
+#visualisationMode{
+	width: 162px;
+	margin-left: 22px;
+	margin-top: 7px;
+}
+
+#sizeBarText{
+	margin-top:-5px;
+	display: inline-block;
+	text-align: left;
+	margin-left:21px;
+	margin-bottom: 10px;
+}
+
+#sizeBar{
+	display: inline-block;
+	vertical-align:sub;
+	margin-top:5px;
+	width: 110px;
+}
+
+
+/* Special styling for WebKit/Blink */
+#sizeBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+
+#sizeBar::-webkit-slider-thumb:hover{
+	background-color: #2F2585;
+}
+
+/* All the same stuff for Firefox */
+#sizeBar::-moz-range-thumb {
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+#sizeBar::-moz-range-thumb:hover{
+	background-color: #2F2585;
+}
+
+/* All the same stuff for IE */
+#sizeBar::-ms-thumb {
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+#sizeBar::-ms-thumb:hover{
+	background-color: #2F2585;
+}
+
+#sizeBar::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: black;
+}
+
+#sizeBar::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: black;
+}
+
+#sizeBar::-ms-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: black;
+}
+
+
+
+#exerciceNumberText{
+	margin-top:5px;
+	display: block;
+	text-align: center;
+	display:none;
+}
+
+#exerciceNumber{
+	vertical-align:sub;
+	margin-left:21px;
+	margin-top:5px;
+	display:none;
+}
+
+
+/* Special styling for WebKit/Blink */
+#exerciceNumber::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+
+#exerciceNumber::-webkit-slider-thumb:hover{
+	background-color: #2F2585;
+}
+
+/* All the same stuff for Firefox */
+#exerciceNumber::-moz-range-thumb {
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+#exerciceNumber::-moz-range-thumb:hover{
+	background-color: #2F2585;
+}
+
+/* All the same stuff for IE */
+#exerciceNumber::-ms-thumb {
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+#exerciceNumber::-ms-thumb:hover{
+	background-color: #2F2585;
+}
+
+#exerciceNumber::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: black;
+}
+
+#exerciceNumber::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: black;
+}
+
+#exerciceNumber::-ms-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: black;
+}
+
+#pourcentDiv{
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+#pourcentDiv a{    
+	margin-left: 10%;
+    width: 60%;
+    display: block;
+}
+
+#pourcentDiv input{
+	cursor:pointer;
+	position: absolute;
+	right: 10%;
+	top: calc(50% - 9px);
+}
+
+#weekModeDiv{
+	margin: 10px 0px;
+}
+
+#weekModeDiv input{
+	cursor:pointer;
+	position: absolute;
+	right: 10%;
+	top: calc(50% - 9px);
+}
+
+.yAxis path {
+  display: none;
+}
+
+.yAxis line {
+  /*shape-rendering: crispEdges;*/
+  stroke: #000;
+}
+
+.yAxis .minor line {
+  stroke: #000;
+  stroke-dasharray: 2,2;
+}
+
+#diagPanel{
+	
+	width:280px;
+	float:right;
+	margin-top: 30px;
+}
+
+#exerciseSelector{
+	margin-left: 17px;
+	margin-top: 7px;
+}
+
+#exerciseSelector a{
+	font-size:20px;
+	width: 100% !important;
+	margin-left: 0px !important;
+}
+
+#menu #parameters div{
+	position:relative;
+}
+
+#menu #parameters a{
+	margin-left:10%;
+	width:60%;
+	display:block;
+}
+
+#menu #parameters #cohorteSelect{
+	background-color: yellow;
+	width: 56px;
+	top: calc(50% - 13px);
+	position: absolute;
+	right: 10%;
+}
+
+#studentSelect{
+	background-color: #00f6;
+	width: 56px;
+	top: calc(50% - 13px);
+	position: absolute;
+	right: 10%;
+}
+
+#moreOfDiv{
+	margin-bottom: 10px;
+	margin-top:10px; 
+}
+
+#moreOf{
+	width: 40px;
+	position: absolute;
+	right: 10%;
+	top: calc(50% - 12px);
+}
+
+#tipDiag1{
+	font-size:24px;
+}
+
+.yAxis text{
+	font-size:18px;
+}

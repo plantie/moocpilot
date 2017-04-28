@@ -1,0 +1,35 @@
+#simpleGraphContainer{
+    width: 230px;
+    cursor: pointer;
+}
+
+#simpleGraphDuplicate{
+    width: calc(100% - 540px);
+    position: fixed;
+    bottom: 100px;
+    left: 270px;
+    background: #EBE8DE;
+    display: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 45px;
+}
+#svgSimpleGraph path { 
+    stroke: red;
+    stroke-width: 2;
+    fill: none;
+}
+
+#svgSimpleGraph .axis path,
+#svgSimpleGraph .axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+}
+
+#svgSimpleGraph .tick{
+    font-size: 6px;
+}
+
+.noOrphan{
+    stroke:#4219b1 !important;
+}

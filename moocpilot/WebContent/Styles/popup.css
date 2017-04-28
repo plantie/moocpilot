@@ -1,0 +1,14 @@
+/*---------------------------------------------------------------popup obtenu par les bulles--------------------------------------------------------*/
+
+
+#tableauDeux
+{
+	text-align: center;
+	border: medium solid #000;
+	border-collapse:collapse;
+}
+#tableauDeux td, th
+{
+	border: thin solid #000;
+	border-collapse:collapse;
+}
