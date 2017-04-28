@@ -20,7 +20,7 @@ Attendre quelque seconde le déploiement du fichier.
 Après actualisation un dossier doit apparaître du même nom que le fichier war.  
 L’application est désormais accessible en ligne, mais ne possède pas encore de données. 
 Connectez-vous ensuite à l’interface administrateur : adresseduserv/nomduwar/admin  
-Le mot de passe est : moocpilot 
+Le mot de passe est : github     
 Remplissez les champs demandés :    
     -identifiant d’un compte FUN/EDX ayant l’accès enseignant sur le cours  
     -mot de passe FUN/EDX associé à l’identifiant   
