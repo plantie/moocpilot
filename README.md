@@ -1,4 +1,4 @@
-# Moocpilottest
+# Moocpilot
 
 ## Qu'est ce que moocpilot?
 
