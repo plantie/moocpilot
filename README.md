@@ -1,4 +1,4 @@
-# Moocpilot eee
+# Moocpilot
 
 ## Qu'est ce que moocpilot?
 
@@ -31,6 +31,54 @@ Le cours est maintenant installé.
 “activer la collecte automatique” Vous permet de configurer des collectes automatiques avec le bouton  
 “Récupération des collectes” permet de lancer la récupération de toute les collectes manuelle FUN.  
 “Forcer une collectes manuelle” permet de lancer un collecte sur le cours FUN depuis notre application.  
+
+## Architecture
+
+Les fichier jsp sont les page web de moocpilot
+
+Répertoire Admin :
+-contient la page admin.jsp
+
+Répertoire Csv :
+-L’ensemble des fichier csv du cours
+-csvList.json: fichier de config des fichier csv
+    -Id : référence au nom du csv 0-ID
+    -pos : ordre d’affichage dans l’administrateur
+    -name : nom originale du fichier
+    -isActive : si le fichier est coché ou non dans l’interface administrateur
+-Le fichier forum.json
+
+Répertoire Librairies :
+    -L’ensemble des bibliothèque JavaScript utilisées
+
+Répertoire META-INF :
+    -Manifest tomcat
+
+Répertoire Ressources :
+    -L’ensemble des images utilisé par le site
+
+Répertoire Scripts :
+    -L’ensemble des scripts javascripts
+
+Répertoire ShellScripts :
+    -verifUser et verifCourse permettent de vérifier que le cours existe lors de l’initialisation d’un nouveau cours
+    -funUserParameters : fichier contenant les sauvegardes d’identifiants utilisateurs et cours
+    -password.txt : le mot de passe de l’interface administrateur
+    -timerDatas : les information de collecte automatique permet leur lancement au restart du serveur.
+    -get-reports : récupère la liste des grades reports disponibles
+    -extract-grade-report : récupère le grade report indiqué
+    -generate-grade-report : Lance une collecte
+    -Les version edx lance les mêmes fonctions qu’au dessus mais sur EDX
+    -get-post :  récupère la liste de tous les posts d’un page
+    -get-thread : récupère le post indiqué.
+
+Répertoire Styles : L’ensemble des css du site
+
+Répertoire UploadedFiles : 
+    -demoVersion: Le jeu de données de démo
+    -versionLoaded : le fichier contenant les données actuellement visualisées
+
+Répertoire WEB-INF : classes et librairies Java.
 
 ## License
 
