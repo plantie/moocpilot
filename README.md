@@ -13,24 +13,36 @@ Elle permet de visualiser les résultats et les forums des cours. Les visualisat
 
 ## Methode d'installation
 
-Renommé le fichier war selon le nom de l’instance souhaité.    
-Mettre le fichier à la base du dossier webapps.  
-Attendre quelque seconde le déploiement du fichier.  
+
+Renommer le fichier war selon le nom de l’instance souhaitée.   
+Mettre le fichier à la base du dossier webapps sur le serveur tomcat.   
+Attendre quelque seconde le déploiement du fichier. 
 Après actualisation un dossier doit apparaître du même nom que le fichier war.  
-L’application est désormais accessible en ligne mais ne possède pas encore de données.  
-Connectez-vous ensuite à l’interface administrateur : adresseduserv/nomduwar/admin.  
-Le mot de passe est : moocpilot  
-Remplissez les champs demandés :  
-    -identifiant administrateur du cours  
-    -mot de passe associé à l’identifiant  
-    -Les trois élément suivant sont accessible dans l’adresse de la page FUN du cours  
-    https://www.fun-mooc.fr/courses/nom/identifiant/session/info  
-    Ou https://www.fun-mooc.fr/courses/course-v1:nom+identifiant+session/info  
-Le cours est maintenant installé.   
-“Récupération du forum” Vous permet récupérer le contenu du forum avec le bouton    
-“activer la collecte automatique” Vous permet de configurer des collectes automatiques avec le bouton  
-“Récupération des collectes” permet de lancer la récupération de toute les collectes manuelle FUN.  
-“Forcer une collectes manuelle” permet de lancer un collecte sur le cours FUN depuis notre application.  
+L’application est désormais accessible en ligne, mais ne possède pas encore de données. 
+Connectez-vous ensuite à l’interface administrateur : adresseduserv/nomduwar/admin  
+Le mot de passe est : moocpilot 
+Remplissez les champs demandés :    
+    -identifiant d’un compte FUN/EDX ayant l’accès enseignant sur le cours  
+    -mot de passe FUN/EDX associé à l’identifiant   
+    -Les trois champs nom,identifiant,session sont accessibles dans l’adresse URL de la page FUN du cours, exemple :     https://www.fun-mooc.fr/courses/nom/identifiant/session/info   
+    Ou https://www.fun-mooc.fr/courses/course-v1:nom+identifiant+session/info   
+Le cours est alors maintenant installé.     
+Dans votre interface administrateur de moocpilot, les quatres boutons suivant se connectent à FUN pour :    
+Le bouton “Récupération du forum” Vous permet de récupérer le contenu du forum.  
+Le bouton “activer la collecte automatique” Vous permet de configurer des collectes automatiques.    
+Le bouton “Récupération des collectes” permet de lancer la récupération de toutes les collectes manuelle FUN.   
+Le buton “Forcer une collectes manuelle” permet de lancer une collecte sur le cours FUN depuis moocpilot.  
+
+
+## Données d’un cours:
+
+La liste des fichiers suivants représentent l’ensemble des fichiers qui sont uniques à une instance moocpilot. Il faut récupérer ces fichiers dans les répertoires indiqués ci-dessous sur la sauvegarde associée au cours que l’on souhaite visualiser et les recopier dans les dossiers suivants :    
+-Le dossier CSV au complet (contient les grades reports et les données du forum)    
+-Dans le dossier ShellScripts : 
+    -Le fichier funUserParameters.ser qui contient les informations de connexion a FUN/EDX  
+    -Le fichier timerDatas.ser qui contient les informations de collecte automatique    
+
+Il faut ensuite accéder à l’interface administrateur du cours et cliquer sur le bouton actualiser et “Actualisation et retour en mode tuteur” pour générer le jeu de données.
 
 ## Architecture
 
