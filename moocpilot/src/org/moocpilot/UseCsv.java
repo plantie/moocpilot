@@ -34,10 +34,10 @@ public class UseCsv extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		/*
-		 * Entr�e : num�ro cours
-		 * Effet : change le fichier JSON avec les donn�es CSV de num�ro cours
+		 * Entrée : numéro cours
+		 * Effet : change le fichier JSON avec les données CSV de numéro cours
 		 * Sortie : Rien
-		 * Faire des tests de s�curit�
+		 * Faire des tests de sécurité
 		 */
 	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 	    	return;

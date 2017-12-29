@@ -219,7 +219,7 @@ public class ShellScriptTaskListener implements ServletContextListener,  Seriali
         	this.delay = delay;
         }
         
-        public long getTimeBefore(){//v�rifi� la logique
+        public long getTimeBefore(){//vérifié la logique
         	
         	Date nextDate = new Date(this.dayStart.getTime());//on prend le time de daystart
         	Date actualDate = new Date();//on prend le time de actualDate

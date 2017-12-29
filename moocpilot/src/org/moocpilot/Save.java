@@ -35,8 +35,8 @@ public class Save extends HttpServlet {
 	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*Cette fonction prend en request un fichier XLS
-		 * Elle le traite est l'�crit � l'emplacement voulu
-		 * Elle return "done" si elle a bien march�
+		 * Elle le traite est l'écrit à l'emplacement voulu
+		 * Elle return "done" si elle a bien marché
 		 */
 	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 	    	return;

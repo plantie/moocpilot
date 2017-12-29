@@ -13,13 +13,13 @@ public class XlsTraitement {
 	/*Class permettant le traitement du fichier xls
 	 *1-Lis le fichier
 	 *2-Utilise POI pour le transformer en objet java
-	 *3-Lis l'objet java afin de rep�rer des �l�ments significatif du fichier(d�tection des bords, des pages utils, du noms des exercices...)
-	 *4-On creer le tableau contenant l'ensemble des donnees (les �l�ves avec leurs notes)
-	 *5-maintenant que le fichier est traiter on peut utilis� Response afin d'en ressortir un fichier JSON et de le return
+	 *3-Lis l'objet java afin de repérer des élèments significatif du fichier(détection des bords, des pages utils, du noms des exercices...)
+	 *4-On creer le tableau contenant l'ensemble des donnees (les élèves avec leurs notes)
+	 *5-maintenant que le fichier est traiter on peut utilisé Response afin d'en ressortir un fichier JSON et de le return
 	 */
 	
-	//-------------Donn�es en dure :
-	//Repr�sente le marquage pr�d�fini du fichier XLS a modifi� en cas de changement de format
+	//-------------Données en dure :
+	//Représente le marquage prédéfini du fichier XLS a modifié en cas de changement de format
 
 	int indexEntete;
 	int columnUsername;
@@ -28,17 +28,17 @@ public class XlsTraitement {
 
 	//--------------
 	HSSFWorkbook workbook;//Objet obtenu par POI
-	ArrayList<Eleve> tabEleves;//Liste de l'ensemble des �l�ves
-	ArrayList<Integer> sheetList;//Liste des diff�rentes pages contenant les donn�es
-	Hashtable<Integer, Hashtable<Integer, Integer>> tabHashtable;//List qui pour une semaine donn�es return une Liste avec en cl� l'id de l'�l�ve et en attribut �a position dans workbook
-	ArrayList<Integer> tabEleveIndex;//Liste contenant tout les id des �l�ves existants
+	ArrayList<Eleve> tabEleves;//Liste de l'ensemble des élèves
+	ArrayList<Integer> sheetList;//Liste des différentes pages contenant les données
+	Hashtable<Integer, Hashtable<Integer, Integer>> tabHashtable;//List qui pour une semaine données return une Liste avec en clé l'id de l'élève et en attribut ça position dans workbook
+	ArrayList<Integer> tabEleveIndex;//Liste contenant tout les id des élèves existants
 	ArrayList<String> listColumnName;//Noms des colonnes (Ex : login, td, ...)
 	ArrayList<String> listColumnNoteName;//Noms des types de notes du fichier
-	Response response;//L'objet response repr�sentant le r�sultat utile de l'objet
+	Response response;//L'objet response représentant le résultat utile de l'objet
 	
 	/*public XlsTraitement(String path) throws IOException{
 		/*
-		 * !!!!!!!!A mettre � jour � l'aide de l'autre constructeur avant utilisation
+		 * !!!!!!!!A mettre à jour à l'aide de l'autre constructeur avant utilisation
 		 * Lecture d'un fichier en local pour traitement
 		 * 
 		 */
@@ -77,7 +77,7 @@ public class XlsTraitement {
 			try{ //on lit le fichier
 			    file = downloadedFile;
 			} catch(Exception e){
-				throw new Exception("Fichier non re�u");
+				throw new Exception("Fichier non reçu");
 			}
 			timer.DisplayTimer("InputStream");
 			
@@ -119,18 +119,18 @@ public class XlsTraitement {
 		}
 	}
 	
-	private void SetResponse(){//Cr�er la r�ponse � l'aide des variables cr��
+	private void SetResponse(){//Créer la réponse à l'aide des variables créé
 		//this.response = new Response(this.tabEleves, this.sheetList, this.tabHashtable);
 	}
-	private void SetResponse(String errorLog){//Cr�er la r�ponse � l'aide du rapport d'erreur
+	private void SetResponse(String errorLog){//Créer la réponse à l'aide du rapport d'erreur
 		this.response = new Response(errorLog);
 	}
 		
-	public String GetResponse(){//Return la r�ponse en JSON
+	public String GetResponse(){//Return la réponse en JSON
 		return this.response.ToJson();
 	}
 	
-	public void SaveResponse(String path){//Sauvegarde la r�ponse � l'emplacement path
+	public void SaveResponse(String path){//Sauvegarde la réponse à l'emplacement path
 		this.response.Save(path);
 	}
 	
@@ -153,7 +153,7 @@ public class XlsTraitement {
 		}
 	}
 	
-	private ArrayList<Integer> GetSheetIndexUtil(){//Return l'ensemble des pages contenants des donn�es.
+	private ArrayList<Integer> GetSheetIndexUtil(){//Return l'ensemble des pages contenants des données.
 		ArrayList<Integer> sheetIndexUtil = new ArrayList<Integer>();
 		Sheet actualSheet;
 		for(int i = 0; i<this.workbook.getNumberOfSheets(); i++){
@@ -182,7 +182,7 @@ public class XlsTraitement {
 		return tabHashtable;
 	}
 	
-	private ArrayList<Integer> SetTabEleveIndex(){//Return la liste de l'ensemble des id �l�ves
+	private ArrayList<Integer> SetTabEleveIndex(){//Return la liste de l'ensemble des id élèves
 		ArrayList<Integer> finalTabEleveIndex = new ArrayList<Integer>();
 		
 		
@@ -196,7 +196,7 @@ public class XlsTraitement {
 		return finalTabEleveIndex;
 	}
 	
-	private ArrayList<Eleve> SetTabEleve(){//return le tableau contenant l'ensemble des �l�ves
+	private ArrayList<Eleve> SetTabEleve(){//return le tableau contenant l'ensemble des élèves
 		ArrayList<Eleve> finalTabEleve = new ArrayList<Eleve>();
 			for(int i = 0; i < tabEleveIndex.size(); i++){
 				finalTabEleve.add(SetEleve(tabEleveIndex.get(i)));
@@ -238,7 +238,7 @@ public class XlsTraitement {
 		return finalListColumnNoteName;
 	}
 	
-	private int getFirstColumnContain(String text){//return la premi�re colonne contenant text
+	private int getFirstColumnContain(String text){//return la première colonne contenant text
 		for(int i = 0; i < this.listColumnName.size(); i++){
 			if(listColumnName.get(i).indexOf(text) != -1){
 				return i;
@@ -247,7 +247,7 @@ public class XlsTraitement {
 		return -1;
 	}
 	
-	private int getLastColumnContain(String text){//return la derni�re colonne contenant text
+	private int getLastColumnContain(String text){//return la dernière colonne contenant text
 		for(int i = this.listColumnName.size()-1; i>=0; i--){
 			if(listColumnName.get(i).indexOf(text) != -1){
 				return i-1;
@@ -286,7 +286,7 @@ public class XlsTraitement {
 	
 	private Eleve SetEleve(int newId){
 		/*
-		 * Retourne � partir d'un idEleve un objet �l�ves
+		 * Retourne à partir d'un idEleve un objet élèves
 		 * Cet Eleve contient des notes qui sont obtenu en cherchant dans le workbook
 		 */
 	    int id = newId;

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class Upload
  */
 @WebServlet("/Upload")
-@MultipartConfig //!!!!!!!!!!!!NE PAS OUBLIER permet � la servlet de comprendre l'objet multipart re�u
+@MultipartConfig //!!!!!!!!!!!!NE PAS OUBLIER permet à la servlet de comprendre l'objet multipart reçu
 public class Upload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,8 +29,8 @@ public class Upload extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*request est un fichier XLS
-		 *On traite � l'aide de XlsTraitement
-		 *On utilise Response afin de pr�parer la r�ponse et de la r�cup�rer en JSON
+		 *On traite à l'aide de XlsTraitement
+		 *On utilise Response afin de préparer la réponse et de la récupérer en JSON
 		 *On retourne le JSON obtenu
 		 */
 	    response.setContentType("application/javascript");

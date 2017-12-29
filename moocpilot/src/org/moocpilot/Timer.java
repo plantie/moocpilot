@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Timer {
 	/*
-	 * Class permettant d'obtenir les timer des diff�rentes �tapes du proc�d� dans la console.
+	 * Class permettant d'obtenir les timer des différentes étapes du procédé dans la console.
 	 */
 	String name;//Le nom du timer
-	Date startDate;//Le d�part du timer
-	Date lastDate;//La derni�re date entr�
+	Date startDate;//Le départ du timer
+	Date lastDate;//La dernière date entré
 	
 	public Timer(String name){
 		this.name = name;

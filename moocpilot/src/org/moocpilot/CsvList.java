@@ -88,7 +88,7 @@ public class CsvList {
 		return paths;
 	}
 	
-	public void save(){//Sauvegarde le JSON � l'emplacement Path
+	public void save(){//Sauvegarde le JSON à l'emplacement Path
 		Gson gsonWorker = new Gson();
 		String listCourseStringified = gsonWorker.toJson(this.listCourse);
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.path+"/csvList.json"), "utf-8"))) {
@@ -151,7 +151,7 @@ class Course
 	}
 	
 	public void removeWeek(int week, String path){
-		if(week == this.weekList.size()-1){//si c'est le dernier �lement
+		if(week == this.weekList.size()-1){//si c'est le dernier élement
 			int deletedPos = this.weekList.get(week).pos;
 			this.weekList.remove(week);
 			this.removeFile(path+"/0-"+ week + ".csv");

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 
 public class Eleve {
-	//Class repr�sentante un Eleve
+	//Class représentante un Eleve
 	int id;
 	String login;
 	String email;

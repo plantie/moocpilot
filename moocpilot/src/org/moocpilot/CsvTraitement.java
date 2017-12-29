@@ -13,13 +13,13 @@ public class CsvTraitement {
 	/*Class permettant le traitement du fichier csv
 	 *1-Lis le fichier
 	 *2-Utilise commons csv pour le transformer en objet java
-	 *3-Lis l'objet java afin de rep�rer des �l�ments significatif du fichier(d�tection des bords, des pages utils, du noms des exercices...)
-	 *4-On creer le tableau contenant l'ensemble des donnees (les �l�ves avec leurs notes)
-	 *5-maintenant que le fichier est traiter on peut utilis� Response afin d'en ressortir un fichier JSON et de le return
+	 *3-Lis l'objet java afin de repérer des élèments significatif du fichier(détection des bords, des pages utils, du noms des exercices...)
+	 *4-On creer le tableau contenant l'ensemble des donnees (les élèves avec leurs notes)
+	 *5-maintenant que le fichier est traiter on peut utilisé Response afin d'en ressortir un fichier JSON et de le return
 	 */
 	
-	//-------------Donn�es en dure :
-	//Repr�sente le marquage pr�d�fini du fichier XLS a modifi� en cas de changement de format
+	//-------------Données en dure :
+	//Représente le marquage prédéfini du fichier XLS a modifié en cas de changement de format
 	int columnUsername;
 	int columnEmail = -1;
 	int columnCohorte = -1;
@@ -27,14 +27,14 @@ public class CsvTraitement {
 	
 	//--------------
 	ArrayList<List<CSVRecord>> recordsList;
-	ArrayList<Eleve> tabEleves;//Liste de l'ensemble des �l�ves
-	ArrayList<Integer> sheetList;//Liste des diff�rentes pages contenant les donn�es
-	Hashtable<Integer, Hashtable<Integer, Integer>> tabHashtable;//List qui pour une semaine donn�es return une Liste avec en cl� l'id de l'�l�ve et en attribut �a position dans workbook
-	ArrayList<Integer> tabEleveIndex;//Liste contenant tout les id des �l�ves existants
+	ArrayList<Eleve> tabEleves;//Liste de l'ensemble des élèves
+	ArrayList<Integer> sheetList;//Liste des différentes pages contenant les données
+	Hashtable<Integer, Hashtable<Integer, Integer>> tabHashtable;//List qui pour une semaine données return une Liste avec en clé l'id de l'élève et en attribut ça position dans workbook
+	ArrayList<Integer> tabEleveIndex;//Liste contenant tout les id des élèves existants
 	ArrayList<String> listColumnName;//Noms des colonnes (Ex : login, td, ...)
 	ArrayList<String> listColumnNoteName;//Noms des types de notes du fichier
-	ArrayList<Integer> listColumnUtilsName;//Num�ro des columns
-	Response response;//L'objet response repr�sentant le r�sultat utile de l'objet
+	ArrayList<Integer> listColumnUtilsName;//Numéro des columns
+	Response response;//L'objet response représentant le résultat utile de l'objet
 	ArrayList<String> csvListName;
 	
 	public CsvTraitement(ArrayList<String> paths, ArrayList<String> csvListName){
@@ -83,25 +83,25 @@ public class CsvTraitement {
 	
 	
 	
-	private void SetResponse(){//Cr�er la r�ponse � l'aide des variables cr��
+	private void SetResponse(){//Créer la réponse à l'aide des variables créé
 		this.response = new Response(this.tabEleves, this.sheetList, this.tabHashtable, this.csvListName);
 	}
-	private void SetResponse(String errorLog){//Cr�er la r�ponse � l'aide du rapport d'erreur
+	private void SetResponse(String errorLog){//Créer la réponse à l'aide du rapport d'erreur
 		this.response = new Response(errorLog);
 	}
 		
-	public String GetResponse(){//Return la r�ponse en JSON
+	public String GetResponse(){//Return la réponse en JSON
 		return this.response.ToJson();
 	}
 	
-	public void SaveResponse(String path){//Sauvegarde la r�ponse � l'emplacement path
+	public void SaveResponse(String path){//Sauvegarde la réponse à l'emplacement path
 		this.response.Save(path);
 	}
 	
 	
 	private ArrayList<List<CSVRecord>> SetRecordsList(ArrayList<String> pathList) throws Exception{
 		/*
-		 * Entr�e : Liste de path
+		 * Entrée : Liste de path
 		 * Sortie : Liste de records
 		 */
 		ArrayList<List<CSVRecord>> recordsList = new ArrayList<List<CSVRecord>>();
@@ -112,13 +112,13 @@ public class CsvTraitement {
 				recordsList.add(copyIterator(CSVFormat.EXCEL.parse(in).iterator()));
 				in.close();
 			} catch(Exception e){
-				throw new Exception("Fichier non trouv�");
+				throw new Exception("Fichier non trouvé");
 			}
 		}
 		return recordsList;
 	}
 	
-	private ArrayList<Integer> GetSheetIndexUtil(){//Return l'ensemble des pages contenants des donn�es.		
+	private ArrayList<Integer> GetSheetIndexUtil(){//Return l'ensemble des pages contenants des données.		
 		ArrayList<Integer> sheetIndexUtil = new ArrayList<Integer>();
 		for(int i = 0; i < this.recordsList.size(); i++){
 			sheetIndexUtil.add(i+1);
@@ -140,7 +140,7 @@ public class CsvTraitement {
 		return tabHashtable;
 	}
 	
-	private ArrayList<Integer> SetTabEleveIndex(){//Return la liste de l'ensemble des id �l�ves
+	private ArrayList<Integer> SetTabEleveIndex(){//Return la liste de l'ensemble des id élèves
 		ArrayList<Integer> finalTabEleveIndex = new ArrayList<Integer>();
 		
 		
@@ -154,7 +154,7 @@ public class CsvTraitement {
 		return finalTabEleveIndex;
 	}
 	
-	private ArrayList<Eleve> SetTabEleve(){//return le tableau contenant l'ensemble des �l�ves
+	private ArrayList<Eleve> SetTabEleve(){//return le tableau contenant l'ensemble des élèves
 		ArrayList<Eleve> finalTabEleve = new ArrayList<Eleve>();
 			for(int i = 0; i < tabEleveIndex.size(); i++){
 				finalTabEleve.add(SetEleve(tabEleveIndex.get(i)));
@@ -240,7 +240,7 @@ public class CsvTraitement {
 		return listUtilsName;
 	}
 	
-	private int getFirstColumnContain(String text){//return la premi�re colonne contenant text
+	private int getFirstColumnContain(String text){//return la première colonne contenant text
 		for(int i = 0; i < this.listColumnName.size(); i++){
 			if(this.listColumnName.get(i).indexOf(text) != -1){
 				return i;
@@ -249,7 +249,7 @@ public class CsvTraitement {
 		return -1;
 	}
 	
-	private int getLastColumnContain(String text){//return la derni�re colonne contenant text
+	private int getLastColumnContain(String text){//return la dernière colonne contenant text
 		for(int i = this.listColumnName.size()-1; i>=0; i--){
 			if(listColumnName.get(i).indexOf(text) != -1){
 				return i-1;
@@ -260,7 +260,7 @@ public class CsvTraitement {
 	
 	private Eleve SetEleve(int newId){
 		/*
-		 * Retourne � partir d'un idEleve un objet �l�ves
+		 * Retourne à partir d'un idEleve un objet élèves
 		 * Cet Eleve contient des notes qui sont obtenu en cherchant dans le workbook
 		 */
 	    int id = newId;

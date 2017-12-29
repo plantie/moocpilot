@@ -316,7 +316,7 @@ public class FunCsvGetter extends HttpServlet {
 		while(actualPage <= maxPage){
 			String path;
 			ProcessBuilder pb;
-			if(!isEdx){//a adapt�
+			if(!isEdx){//a adapté
 			    unlockPermission("/get-posts.sh", contextPath);
 				path = contextPath + "/get-posts.sh";
 				
@@ -377,7 +377,7 @@ public class FunCsvGetter extends HttpServlet {
 				searchIndex = result.indexOf("\"num_pages\"", searchIndex);
 				searchIndex = result.indexOf(":", searchIndex);
 				
-				//maxPage = 1; //Coupure a enlever apr�s test
+				//maxPage = 1; //Coupure a enlever après test
 				maxPage = Integer.parseInt(result.substring(searchIndex+2, result.indexOf(",", searchIndex+1)));
 			}
 			System.out.println("_________________________________");
@@ -395,7 +395,7 @@ public class FunCsvGetter extends HttpServlet {
 		for(int i = 0; i < idList.size();i++){
 			String path;
 			ProcessBuilder pb;
-			if(!isEdx){//a adapt�
+			if(!isEdx){//a adapté
 			    unlockPermission("/get-thread.sh", contextPath);
 				path = contextPath + "/get-thread.sh";
 			    if(!isFunUpdated){

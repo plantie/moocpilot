@@ -1,7 +1,7 @@
 package org.moocpilot;
 
 public class Note {
-	//Class repr�sentante une Note
+	//Class représentante une Note
 	private String nom;
 	private double note;
 	private int semaine;
