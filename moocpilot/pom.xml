@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.moocpilot</groupId>
   <artifactId>moocpilot</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -11,8 +11,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.7.0</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
       <plugin>
@@ -25,11 +25,6 @@
     </plugins>
   </build>
   <dependencies>
-  	<dependency>
-  		<groupId>org.apache.xmlbeans</groupId>
-  		<artifactId>xmlbeans</artifactId>
-  		<version>2.6.0</version>
-  	</dependency>
   	<dependency>
   		<groupId>org.apache.poi</groupId>
   		<artifactId>poi</artifactId>
@@ -86,20 +81,22 @@
   		<groupId>com.google.code.gson</groupId>
   		<artifactId>gson</artifactId>
   		<version>2.5</version>
-  	</dependency>
+  	</dependency> 
         <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>3.0.1</version>
-                <scope>provided</scope>
-        </dependency> 
+        	<groupId>org.apache.tomcat</groupId>
+        	<artifactId>tomcat-coyote</artifactId>
+        	<version>7.0.52</version>
+        	<scope>provided</scope>
+        </dependency>
         <dependency>
-             <groupId>org.apache.tomcat</groupId>
-             <artifactId>tomcat-catalina</artifactId>
-             <version>8.5.0</version>
-             <scope>provided</scope>
+        	<groupId>org.apache.xmlbeans</groupId>
+        	<artifactId>xmlbeans</artifactId>
+        	<version>2.6.0</version>
         </dependency>
   </dependencies>
   <url>http://www.moocpilot.com/</url>
   <name>MOOC-PILOT</name>
+  <organization>
+  	<name>IMT</name>
+  </organization>
 </project>
