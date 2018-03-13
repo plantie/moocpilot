@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.moocpilot</groupId>
   <artifactId>moocpilot</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <packaging>war</packaging>
   <build>
     <sourceDirectory>src</sourceDirectory>
