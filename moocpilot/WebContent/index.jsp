@@ -121,7 +121,7 @@
 	    	</div>
     		<div id = "svgPanel">		
     			<table id="tableau"></table>
-			    <div class = "notRequired" style = "margin-left: 110px;display:inline-block; padding-top: 15px;">
+			    <div class = "notRequired student-name-prompt">
 			    	<a style = "width:50%;">Nom d'un élève</a>
 			    		<input id=studentSelect oninput = "changeStudent()" list="studentSelectData" title = "Double clique pour afficher la liste des élèves">
 					<datalist id=studentSelectData></datalist>
