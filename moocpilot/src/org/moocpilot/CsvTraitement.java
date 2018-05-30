@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Arrays;
+//EG: writer
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -21,9 +27,22 @@ public class CsvTraitement {
 	//-------------Données en dure :
 	//Représente le marquage prédéfini du fichier XLS a modifié en cas de changement de format
 	int columnUsername;
+	int columnGrade; // Added by EG
 	int columnEmail = -1;
 	int columnCohorte = -1;
 	int columnCertificate = -1;
+	// EG: 
+	int columnCertificateEligible = -1; // Certificate Eligible
+	ArrayList<Integer> columnWeek1 = new ArrayList<Integer>(); // Index of exo Week 1
+	ArrayList<Integer> columnWeek2 = new ArrayList<Integer>(); // Index of exo Week 2
+
+	int N = 0; // Nombre d'inscrits
+	int Nok = 0; // Nombre d'inscrits dont Certificate Eligible = 'Y'
+	int N1 = 0; // Nombre d'inscrits ayant une note semaine 1 > 0
+	int N1ok = 0; // Nombre d'inscrits ayant une note semaine 1 > 0 ET Certificate Eligible = 'Y'
+	int N2 = 0; // Nombre d'inscrits ayant une note semaine 2 > 0
+	int N2ok = 0; // Nombre d'inscrits ayant une note semaine 2 > 0 ET Certificate Eligible = 'Y'
+	int[] resTab;
 	
 	//--------------
 	ArrayList<List<CSVRecord>> recordsList;
@@ -38,6 +57,7 @@ public class CsvTraitement {
 	ArrayList<String> csvListName;
 	
 	public CsvTraitement(ArrayList<String> paths, ArrayList<String> csvListName){
+System.out.println("CsvTraitement.CsvTraitement, csvListName="+csvListName);
 		Timer timer = new Timer("Csv Traitement");
 		this.csvListName = csvListName;
 		try{
@@ -67,6 +87,46 @@ public class CsvTraitement {
 			this.tabEleves = SetTabEleve();
 			timer.DisplayTimer("SetTabEleve:");
 			timer.End();
+			
+			
+			
+			List<CSVRecord> sheet = this.recordsList.get(this.recordsList.size()-1); // last sheet.
+			resTab = new int[this.listColumnUtilsName.size()];
+			
+			N = sheet.size();
+			for(int line=1; line<sheet.size(); line++) {
+				CSVRecord rec = sheet.get(line);
+				
+				for(int i=0; i<this.listColumnUtilsName.size(); i++) {
+					double v = Double.parseDouble(rec.get(this.listColumnUtilsName.get(i)));
+					if (v>0) resTab[i]++;
+				}
+				
+				
+				
+				double noteW1 = 0.0;
+				double noteW2 = 0.0;
+				boolean certifOK = rec.get(columnCertificateEligible).equals("Y");
+				for(int i=0; i<columnWeek1.size(); i++) {
+					double note = Double.parseDouble(rec.get(columnWeek1.get(i)));
+					if (noteW1 < note) noteW1 = note;
+  //~ System.out.println("   note1 "+columnWeek1.get(i)+": ("+rec.get(columnWeek1.get(i))+")"+note+", max "+noteW1);
+				}
+				for(int i=0; i<columnWeek2.size(); i++) {
+					double note = Double.parseDouble(rec.get(columnWeek2.get(i)));
+					if (noteW2 < note) noteW2 = note;
+  //~ System.out.println("   note2 "+columnWeek2.get(i)+"("+rec.get(columnWeek2.get(i))+"): "+note+", max "+noteW2);
+				}
+				if (certifOK) Nok++;
+				if (noteW1>0.0) N1++;
+				if (noteW1>0.0 && noteW2>0.0) N2++;
+				if (certifOK && noteW1>0.0) N1ok++;
+				if (certifOK && noteW2>0.0) N2ok++;
+				
+//System.out.println("   "+rec.get(columnUsername)+", note ("+noteW1+", "+noteW2+"), grade:"+rec.get(columnGrade)+", Ns "+Nok+","+N1+","+N2+","+N1ok+","+N2ok);
+			}
+System.out.println("CertificateEligible: "+Nok+" / inscrit: "+N);
+System.out.println("   listColumnUtilsName="+this.listColumnUtilsName+" -> resTab="+Arrays.toString(resTab)+", listColumnNoteName="+this.listColumnNoteName);
 
 		    if(this.response == null){
 		    	SetResponse();
@@ -95,7 +155,24 @@ public class CsvTraitement {
 	}
 	
 	public void SaveResponse(String path){//Sauvegarde la réponse à l'emplacement path
+System.out.println("CsvTraitement.SaveResponse path="+path+" & STATS");
 		this.response.Save(path);
+		
+		// EG: save stats...
+
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path+".stats"), "utf-8"))) {
+			writer.write("{");
+				for(int i=0; i<this.listColumnUtilsName.size(); i++) {
+					int idx = this.listColumnUtilsName.get(i);
+					writer.write("\""+listColumnName.get(idx)+"\":"+resTab[i]+", ");
+				}
+			writer.write("\n\"N\":"+N+",\"Nok\":"+Nok+",\"N1\":"+N1+",\"N2\":"+N2+",\"N1ok\":"+N1ok+",\"N2ok\":"+N2ok+"}");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
+		
 	}
 	
 	
@@ -148,6 +225,7 @@ public class CsvTraitement {
 			for(Integer key : this.tabHashtable.get(i).keySet()){
 					if(!finalTabEleveIndex.contains(key)){
 						finalTabEleveIndex.add(key);
+//System.out.println("CsvTraitement.SetTabEleveIndex, i:"+i+", key:"+key);
 					}
 			}
 		}		
@@ -163,6 +241,7 @@ public class CsvTraitement {
 	}
 	
 	private void stopWrongFiles(){
+System.out.println("CsvTraitement.stopWrongFiles, size="+this.recordsList.size());
 		CSVRecord lastColumn = this.recordsList.get(this.recordsList.size()-1).get(0);
 		System.out.println(lastColumn.toString());
 		for(int i = this.recordsList.size()-2 ; i>=0 ; i--){
@@ -200,9 +279,14 @@ public class CsvTraitement {
 			if(finalListColumnName.get(i).equals("Verification Status")){
 				this.columnCertificate = i;
 			}
+			// EG: add 'Certificate Eligible'
+			if(finalListColumnName.get(i).equals("Certificate Eligible")){
+				this.columnCertificateEligible = i;
+			}
 			
 			
 		}
+System.out.println("CsvTraitement.SetListColumnName, columnUsername:"+this.columnUsername+", columnCohorte:"+this.columnCohorte);
 		return finalListColumnName;
 	}
 	
@@ -212,6 +296,7 @@ public class CsvTraitement {
 		for(int i = 0; i < this.listColumnName.size(); i++){
 			if(listColumnName.get(i).indexOf("Avg") != -1){
 				finalListColumnNoteName.add(listColumnName.get(i).substring(0, listColumnName.get(i).length()-4));
+System.out.println("CsvTraitement.SetListColumnNoteName, add "+listColumnName.get(i).substring(0, listColumnName.get(i).length()-4)); // QCM, TP
 			}
 		}
 		
@@ -223,20 +308,33 @@ public class CsvTraitement {
 		
 		boolean hasStarted = false;
 		for(int i = 0; i < this.listColumnName.size(); i++){
+			String colName = listColumnName.get(i);
 			if(hasStarted){
-				if(listColumnName.get(i).indexOf("Enrollment Track") != -1){
+				if(colName.indexOf("Enrollment Track") != -1){
 					break;
 				}
-				if(listColumnName.get(i).indexOf("Avg") == -1 && listColumnName.get(i).indexOf("Cohort Name") == -1){
+				if(colName.indexOf("Avg") == -1 && colName.indexOf("Cohort Name") == -1){
 					listUtilsName.add(i);
+System.out.println("CsvTraitement.SetListColumnUtilsName, add "+i+": "+colName); // 2(grade),3,4,5,6(QCM), 8,9,10(TP)
+					// Check if this is exo/TP/QZ "1"
+					if (colName.indexOf("1") > 0) {
+						columnWeek1.add(i);
+					}
+					if (colName.indexOf("2") > 0) {
+						columnWeek2.add(i);
+					}
 				}
 			}	else	{
-				if(listColumnName.get(i).equals("grade") || listColumnName.get(i).equals("Grade")){
+				if(colName.equalsIgnoreCase("grade")){
+				//if(listColumnName.get(i).equals("grade") || listColumnName.get(i).equals("Grade")){
 					hasStarted = true;
 					listUtilsName.add(i);
+					columnGrade = i;
+System.out.println("CsvTraitement.SetListColumnUtilsName,, add "+i+": "+colName); // QCM, TP
 				}
 			}
 		}
+System.out.println("CsvTraitement.SetListColumnUtilsName, columnWeek1 "+columnWeek1+", columnWeek2 "+columnWeek2+", listUtilsName "+listUtilsName);
 		return listUtilsName;
 	}
 	
@@ -324,6 +422,7 @@ public class CsvTraitement {
 	    	        
 	        	}
 	        }
+//System.out.println("CsvTraitement.SetEleve id="+id+", login="+login+", email="+email+", semaineInscription="+semaineInscription+", tabNotes=..."+", cohorte="+cohorte);
 	    return new Eleve(id, login, email, semaineInscription, tabNotes, cohorte);
 	}
 	

@@ -22,14 +22,13 @@ public class IsConnect extends HttpServlet {
      */
     public IsConnect() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+System.out.println("IsConnect doPost");
 	    response.setContentType("application/javascript");
 	    
 	    PrintWriter pw = response.getWriter() ;
@@ -39,7 +38,8 @@ public class IsConnect extends HttpServlet {
 	     * 
 	     */
 	    //if(Connect.isCookieTrue(request.getCookies(), "C:\\Users\\sulex\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\storage\\direct-mooc")){//getServletContext().getRealPath("/ShellScripts/password.txt"))){
-	    if(Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
+	    if(Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))){
+	    //if(Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 		    pw.write("You are connected");
 	    }	else	{
 		    pw.write("You are not connected");

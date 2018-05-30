@@ -21,7 +21,6 @@ public class forumRequest extends HttpServlet {
      */
     public forumRequest() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -29,7 +28,6 @@ public class forumRequest extends HttpServlet {
 	 */
     /*
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		FunCsvGetter.getPostsList(getServletContext().getRealPath("/Csv"), getServletContext().getRealPath("/ShellScripts"));
 	}*/
 	
@@ -38,7 +36,10 @@ public class forumRequest extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FunCsvGetter.getPostsList(getServletContext().getRealPath("/Csv"), getServletContext().getRealPath("/ShellScripts"));
+		String moocId = request.getParameter("moocId"); 
+System.out.println("forumRequest doPost, moocId="+moocId);
+		FunCsvGetter.getPostsList(getServletContext().getRealPath("/data/"+moocId), getServletContext().getRealPath("/data/"+moocId));
+		//FunCsvGetter.getPostsList(getServletContext().getRealPath("/Csv"), getServletContext().getRealPath("/ShellScripts"));
 	}
 
 }

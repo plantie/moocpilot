@@ -25,14 +25,17 @@ public class userParametersExist extends HttpServlet {
      */
     public userParametersExist() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
+		String moocId = request.getParameter("moocId"); 
+System.out.println("userParametersExist doPost, moocId="+moocId);		
+		
+	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))){
+	    //if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 	    	return;
 	    }
 	    response.setContentType("application/javascript");
@@ -46,7 +49,9 @@ public class userParametersExist extends HttpServlet {
 		}*/
 		FunUserParameters funUserParameters;
 		try {
-	    	FileInputStream fin = new FileInputStream(getServletContext().getRealPath("/ShellScripts") + "/funUserParameters.ser");
+//System.out.println("fn: "+getServletContext().getRealPath("/data") + "/" + moocId + "/funUserParameters.ser");
+	    	FileInputStream fin = new FileInputStream(getServletContext().getRealPath("/data/"+moocId) + "/funUserParameters.ser");
+	    	//FileInputStream fin = new FileInputStream(getServletContext().getRealPath("/ShellScripts") + "/funUserParameters.ser");
 	    	ObjectInputStream ois = new ObjectInputStream(fin);
 	    	funUserParameters = (FunUserParameters) ois.readObject();
 			String statut;
@@ -56,8 +61,10 @@ public class userParametersExist extends HttpServlet {
 				statut = "isFun";
 			}
 		    pw.write("worked | " + statut);
+//System.out.println("OK");
 		} catch (ClassNotFoundException | IOException e) {
 		    pw.write("not worked");
+System.out.println("not OK, "+e);
 		}
 	}
 

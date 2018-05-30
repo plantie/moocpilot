@@ -43,13 +43,17 @@ public class RemoveTask extends HttpServlet {
     
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
+		String moocId = request.getParameter("moocId"); 
+System.out.println("RemoveTask.doPost, moocId="+moocId);
+		String contextPath = getServletContext().getRealPath("/data/"+moocId);
+	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))){
+	    //if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 	    	return;
 	    }
 	    response.setContentType("application/javascript");
 	    
 		ShellScriptTaskListener shellScriptTaskListener = new ShellScriptTaskListener();
-		shellScriptTaskListener.removeTimer(0);
+		shellScriptTaskListener.removeTimer(moocId);
 	    
 	    PrintWriter pw = response.getWriter() ;
 	    pw.write("Done");

@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -27,17 +29,20 @@ public class setFunUserParameters extends HttpServlet {
      */
     public setFunUserParameters() {
         super();
-        // TODO Auto-generated constructor stub
     }
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
+		String moocId = request.getParameter("moocId"); 
+System.out.println("setFunUserParameters.doPost "+moocId);
+	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))){
+	    //if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 	    	return;
 	    }
 	    response.setContentType("application/javascript");
+System.out.println("setFunUserParameters.doPost 2");
 
 		java.util.Scanner s = new java.util.Scanner(request.getPart("userName").getInputStream()).useDelimiter("\\A");
 	    String userName = s.hasNext() ? s.next() : "";
@@ -59,7 +64,9 @@ public class setFunUserParameters extends HttpServlet {
 	    boolean isEdx = (s6.hasNext() ? s6.next() : "").equals("true");
 	    
 	    boolean isFunUpdated = false;
-	    
+	    	    
+System.out.println("setFunUserParameters.doPost->"+userName+", "+courseId);
+
 	    if(!isEdx){
 	    	if(FunCsvGetter.loginWorking(getServletContext().getRealPath("/ShellScripts"), userName, userPassword)){
 	    		if(!FunCsvGetter.courseInformationsWorking(getServletContext().getRealPath("/ShellScripts"), userName, userPassword, instituteName, courseId, sessionName, false)){
@@ -82,15 +89,32 @@ public class setFunUserParameters extends HttpServlet {
 	    
 	    FunUserParameters funUserParameters = new FunUserParameters(userName, userPassword, instituteName, courseId, sessionName, isEdx, isFunUpdated);
     	FileOutputStream fout;
+		String newPath = getServletContext().getRealPath("/")+"/data/"+funUserParameters.instituteName+funUserParameters.courseId+funUserParameters.sessionName;
 		try {
-			fout = new FileOutputStream(getServletContext().getRealPath("/ShellScripts") + "/funUserParameters.ser");
+			System.out.println("DIR "+newPath);
+			new File(newPath).mkdirs();
+			fout = new FileOutputStream(newPath + "/funUserParameters.ser");
+			//fout = new FileOutputStream(getServletContext().getRealPath("/ShellScripts") + "/funUserParameters.ser");
 	    	ObjectOutputStream oos = new ObjectOutputStream(fout);
 	    	oos.writeObject(funUserParameters);
+			
+			// EG: append current course ID
+			File f = new File(getServletContext().getRealPath("/")+"/data/courses.txt");
+			FileWriter fw = new FileWriter(f, true);
+			String line=instituteName+"	"+courseId+"	"+sessionName+"	"+isEdx+"	"+isFunUpdated+"\n";
+			fw.write(line.toCharArray(), 0, line.length());
+			fw.close();
+			
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		FunCsvGetter.getCollectList(getServletContext().getRealPath("/ShellScripts"));		
+		System.out.println("before getCollectList");
+		FunCsvGetter.getCollectList(newPath);
+		//System.out.println(" was using '"+getServletContext().getRealPath("/ShellScripts")+"' -> "+newPath);
+		//FunCsvGetter.getCollectList(getServletContext().getRealPath("/ShellScripts"));		
 
 		PrintWriter pw = response.getWriter() ;
 	    pw.write("Worked");

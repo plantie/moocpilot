@@ -1,112 +1,10 @@
-const imgName = new Array();
-imgName.push("Nombre d'élèves par collecte");
-imgName.push("Progressions Cumulées");
-imgName.push("Progressions Réparties");
-imgName.push("Évaluation et Suivi Individuel");
-imgName.push("Nombre d'élèves par exercice selon leur période d'inscription");
-imgName.push("Résultats des élèves par exercices");
-imgName.push("Qualité des résultats");
-imgName.push("Progression Générale");
-imgName.push("Analyse du forum");
-imgName.push("Formulaire en ligne");
+// 'const imgName' Moved to common.js for translation
 
-const imgTip = new Array();
+// 'const imgTip' Moved to common.js
 
-
-imgTip.push("Ce diagramme représente les inscrits de chaque période</br>" +
-        "Les colonnes représentent les périodes d'inscriptions.</br>" +
-        "Une colonne contient le nombre d'inscrits sur une période. </br> " +
-        "Une colonne est composée de deux parties : </br>" +
-        "-Le nombre de participants </br>" +
-        "-Le nombre de non-participants");
-
-imgTip.push("Ce diagramme représente le nombre d'élèves ayant fait les exercices selon la période où ils les ont effectués.</br>" +
-        "Les colonnes représentent les périodes de collectes.</br>" +
-        "Les lignes représentent les exercices." +
-        "Une bulle contient l'ensemble des élèves ayant fait cet exercice dans la période.</br>" );
-       
-imgTip.push("Ce diagramme représente dans chaque bulle le dernier exercice effectué par chaque élève selon la période où il l'a effectué.</br>" +
-        "Les colonnes représentent les périodes de collectes,</br>" +
-        "les lignes les exercices. " +
-        "Une bulle contient l'ensemble des élèves qui se sont arrêtés à cet exercice dans la période.</br>" +
-        "Chaque élève est présent dans une seule bulle par type d'exercice.</br>" );
-
-
-imgTip.push("Cette visualisation permet de voir le parcours d'un élève dans le cours.</br>" +
-        "Des émoticônes représentent les notes de l'élève pour l'exercice durant la semaine associée.</br>" +
-        "Ces émoticônes représentent les quartiles entre 0 et 1.");
-
-imgTip.push("Ce diagramme statistique représente le nombre d'élèves ayant fait les exercices selon leur période d'inscription.</br>" +
-        "Les colonnes représentent les exercices.</br>" +
-        "Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>" +
-        "Elle est composée de plusieurs parties représentant la répartition des élèves selon leur période d'inscription.");
-
-imgTip.push("Ce diagramme statistique représente la qualité des résultats d'un exercice.</br>" +
-        "Les colonnes représentent les quartiles entre 0 et 1.</br>" +
-        "Une colonne contient le nombre d'élèves ayant fait l'exercice indiqué avec une note comprise dans le quartile.");
-
-imgTip.push("Ce diagramme représente la qualité des résultats des exercices.</br>" +
-        "Les colonnes représentent les exercices.</br>" +
-        "Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>" +
-        "Elle est composée de plusieurs parties représentant la répartition des élèves selon leur résultat.");
-
-imgTip.push("Ce diagramme représente le nombre d'élèves ayant fait les exercices selon la période où ils les ont effectués.</br>" +
-        "Les colonnes représentent les exercices.</br>" +
-        "Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>" +
-        "Elle est composée de plusieurs parties représentant la répartition des élèves selon la période où ils les ont effectués.");
-
-imgTip.push("Ce diagramme représente l'ensemble des échanges effectués sur le forum.</br>" +
-        "Le rouge représente l'émetteur du post.</br>" +
-        "Le vert représente une personne ayant répondu au message.</br>");
-imgTip.push("Évolution future possible :</br> Génération d'un bilan du cours contenant les diagrammes et les données numériques de ce cours.");
-/*
-imgTip.push("Ce diagramme représente les inscrits de chaque période</br>" +
-		"Les colonnes réprésentent les périodes d'inscriptions.</br>" + 
-		"Une colonne contient le nombre d'inscrits sur une période. </br> " +
-		"Une colonne est composée de deux parties : </br>" +
-		"-Le nombre de participants </br>" +
-		"-Le nombre de non-participants");
-
-imgTip.push("Ce diagramme réprésente le nombre d'élèves ayant fait les exercices selon la période où ils les ont effectués.</br>" +
-		"Les colonnes réprésentent les exercices.</br>" +
-		"Les lignes réprésentent les périodes de collectes" +
-		"Une bulle contient l'ensemble des élèves ayant fait cet exercice dans la période.</br>" );
-		
-imgTip.push("Ce diagramme réprésente dans chaque bulle le dernier exercice effectué par chaque élève selon la période où il l'a effectué.</br>" +
-		"Les colonnes réprésentent les exercices.</br>" +
-		"Les lignes les périodes de collectes" +
-		"Une bulle contient l'ensemble des élèves qui se sont arrétés à cet exercice dans la période.</br>" +
-		"Chaque élève est présent dans une seule bulle par type d'exercice.</br>" );
-
-
-imgTip.push("Cette visualisation permet de voir le parcours d'un élève dans le cours.</br>" +
-		"Des émoticônes représente le note de l'élèves pour l'exercice durant la semaine associé</br>" +
-		"Ces émoticônes représente les quartiles entre 0 et 1.");
-
-imgTip.push("Ce diagramme statistique réprésente le nombre d'élèves ayant fait les exercices selon leur période d'inscription.</br>" +
-		"Les colonnes réprésentent les exercices.</br>" +
-		"Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>" +
-		"Elle est composée de plusieurs parties qui sont la répartition des élèves selon leur période d'inscription.");
-
-imgTip.push("Ce diagramme statistique réprésente la qualité des résultats d'un exercice.</br>" +
-		"Les colonnes représentent les quartiles entre 0 et 1.</br>" +
-		"Une colonne contient le nombre d'élèves ayant fait l'exercice indiqué avec une note comprise dans le quartile.");
-
-imgTip.push("Ce diagramme réprésente la qualité des résultats des exercices.</br>" +
-		"Les colonnes réprésentent les exercices.</br>" +
-		"Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>" +
-		"Elle est composée de plusieurs parties qui sont la répartition des élèves selon leur résultat.");
-
-imgTip.push("Ce diagramme réprésente le nombre d'élèves ayant fait les exercices selon la période où ils les ont effectués.</br>" +
-		"Les colonnes réprésentent les exercices.</br>" +
-		"Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>" +
-		"Elle est composée de plusieurs parties qui sont la répartition des élèves selon la période où ils les ont effectués.");
-
-imgTip.push("À venir:</br> -Traitement du forum.");
-imgTip.push("Evolution future possible :</br> Génération d'un bilan du cours contenant les diagrammes et les données numériques de ce cours.");*/
-
-const selectColumn = 3;
+const selectColumn = 2; // EG: was 3
 const selectLine = 4;
+const selectHeader = 3;
 
 const padding = 10;
 const margeBetweenScreen = 5;
@@ -121,18 +19,46 @@ var screens = document.querySelectorAll("#screenSelectorArea img");
 var isDiag = document.location.href.indexOf("diagramme") != -1;
 var isForum = document.location.href.indexOf("forum") != -1;
 
-var actualScreenNumber = 0;
+//~ var actualScreenNumber = 0;
 
 document.getElementById("moreOf").value = localStorage.moreOf;
 document.getElementById("cohorteSelect").value = localStorage.cohorteSelect;
 
 
-function selectScreen(screenNumber){
+// EG: click graph.
+// parameter is now <div> instead of no
+function selectScreen(div){
+//~ console.log("selectScreen div="+div);
+	if (div!==undefined) {
+		var no = $(div).data("no");
+		var nos = no.split(",");
+		localStorage.screenNumber = parseInt(nos[0]);
+		localStorage.screenNumberNext = parseInt(nos[1]);
+		localStorage.screenNumberBack = parseInt(nos[2]);
+		//~ var screenNumber = parseInt(nos[0]);
+	} else {
+	}
+	var screenNumber = localStorage.screenNumber;
+console.log("selectScreen "+screenNumber);
+//~ console.log(div);
 	localStorage.moreOf = document.getElementById("moreOf").value;
 	localStorage.cohorteSelect = document.getElementById("cohorteSelect").value;
-	localStorage.screenNumber = screenNumber;
-	actualScreenNumber = parseInt(screenNumber);
-	switch(parseInt(screenNumber)) {
+	//~ localStorage.screenNumber = screenNumber;
+	//~ actualScreenNumber = parseInt(screenNumber);
+	//~ switch(parseInt(screenNumber)) {
+	var screenInfo = imgName[screenNumber];
+	
+	console.log("selectScreen div="+div+", "+typeof(div)+", screenNumber="+screenNumber+", target:"+screenInfo['url']+", page: "+document.location.href);
+	if (document.location.href.indexOf(screenInfo['url'])<0) {
+		setTimeout(function(){document.location.href = screenInfo['url'];}, 1000);
+    		swapScreenMode(true);
+		return;
+	}
+	switch(parseInt(screenNumber)) { // actualScreenNumber
+    case 10:
+    		document.querySelectorAll('input[name="visualisationMode"]')[0].checked = true;
+    		setButtonsActive(1);
+	break;
     case 1:
     	if(isDiag || isForum){
     		setTimeout(function(){document.location.href = ".";}, 1000);
@@ -224,7 +150,7 @@ function selectScreen(screenNumber){
 			}
     	break;
     case 9:
-    	window.open('Ressources/Modele_Bilan_MOOC-Plateforme_FUN.pdf');
+    	window.open(helpURL);
     	localStorage.screenNumber = "-1";
     	return;
     	break;
@@ -237,8 +163,86 @@ function selectScreen(screenNumber){
 	cibledPict.style.height = parseInt(cibledPict.style.height) + 6 + "px";
 	cibledPict.style.border = "";*/
 	
-	document.querySelector("#infoDiag span").innerHTML = imgTip[screenNumber];
+	document.querySelector("#infoDiag span").innerHTML = "<a target='FUN' href='"+localStorage.baseUrl+"/fun/dashboard/problem_stats/index/"+"'>"+translations['dashboard'][localStorage.lang]+"</a><br/>"+
+					"<a target='FUN' href='"+helpURL+"'>"+translations['help'][localStorage.lang]+"</a><br/>"+
+					imgTip[screenNumber][localStorage.lang]; // updated for multiple language
+	// EG R2
+	// Added click event -> dashboard
+	$('#infoDiag img').click(function (){
+		window.open(localStorage.baseUrl+"/fun/dashboard/problem_stats/index/","dashboard");
+	});
 	
+	if (screenNumber==10) {
+		$.getJSON( 'data/'+localStorage.moocId+'/csvList.json' + getRandom(), function( list ) {
+			console.log(list);
+			var no = list[0].weekList[0].pos;
+			no = 999;
+			var fn;
+			list[0].weekList.forEach(function(f,n){
+				if (f.isActive && n<no) {
+					no = n;
+					fn = f.name;
+				  console.log("File id: "+f.id+", "+f.name+": "+no);
+				}
+				});
+			var no = 0;
+			console.log(no);
+			// get CSV...
+			$.get( 'data/'+localStorage.moocId+'/0-'+no+'.csv' + getRandom(), function( txt ) {
+				csv = txt.split(/\r\n|\n/);
+				var head = csv.shift().split(',');
+				var idGrade, idQZ1, idTP1, idQZ2, idTP2, idCertif;
+				var lqz1, lqz2, ltp1, lTP2;
+				head.forEach(function(n,i){
+					console.log(i+': '+n);
+					if (n=="grade") idGrade=i;
+					if (n.match(/Q.*1/)) {idQZ1=i;lqz1=n;}
+					if (n.match(/Q.*2/)) {idQZ2=i;lqz2=n;}
+					if (n.match(/T.*1/)) {idTP1=i;ltp1=n;}
+					if (n.match(/T.*2/)) {idTP2=i;ltp2=n;}
+					if (n.match(/Certificate Eligible/)) idCertif=i;
+					
+					});
+				//~ console.log(head);
+				console.log([idGrade, idQZ1, idTP1, idQZ2, idTP2, idCertif]);
+				var N=0, Nok=0, N1qz=0, N1tp=0, N2qz=0, N2tp=0, N1oktp=0, N1okqz=0, N2oktp=0, N2okqz=0,     N1, N2, N1ok, N2ok;
+				csv.forEach(function(line){
+					var val = line.split(',');
+					N++;
+					if (val[idCertif] == 'Y') {
+						Nok++;
+						if (val[idQZ1] > 0.0) N1okqz++;
+						if (val[idTP1] > 0.0) N1oktp++;
+						if (val[idQZ1] > 0.0 || val[idTP1] > 0.0) {
+							if (val[idQZ2] > 0.0) N2okqz++;
+							if (val[idTP2] > 0.0) N2oktp++;
+						}
+					}
+					if (val[idQZ1] > 0.0) N1qz++;
+					if (val[idTP1] > 0.0) N1tp++;
+					if (val[idQZ1] > 0.0 || val[idTP1] > 0.0) {
+						if (val[idQZ2] > 0.0) N2qz++;
+						if (val[idTP2] > 0.0) N2tp++;
+					}
+				});
+			var txt = "<div><h3>"+translations['stats'][localStorage.lang]+" ("+fn+")</h3><table border='1'>"
+				+"<tr><td>"+translations['N'][localStorage.lang]+"</td><td style='width: 100px;'>"+N+"</td><td></td></tr>"
+				+"<tr><td>"+translations['Nok'][localStorage.lang]+"</td><td>"+Nok+"</td><td>"+(100.0*Nok/N).toFixed(2)+"%</td></tr>"
+				+"<tr><td>"+translations['N1'][localStorage.lang]+"</td><td>"+lqz1+": "+N1qz+"<br>"+ltp1+": "+N1tp+"</td><td>"+(100.0*N1qz/N).toFixed(2)+"%<br>"+(100.0*N1tp/N).toFixed(2)+"%</td></tr>"
+				+"<tr><td>"+translations['N2'][localStorage.lang]+"</td><td>"+lqz2+": "+N2qz+"<br>"+ltp2+": "+N2tp+"</td><td>"+(100.0*N2qz/N).toFixed(2)+"%<br>"+(100.0*N2tp/N).toFixed(2)+"%</td></tr>"
+				+"<tr><td>"+translations['N1ok'][localStorage.lang]+"</td><td>"+lqz1+": "+N1okqz+"<br>"+ltp1+": "+N1oktp+"</td><td>"+(100.0*N1okqz/N).toFixed(2)+"%<br>"+(100.0*N1oktp/N).toFixed(2)+"%</td></tr>"
+				+"<tr><td>"+translations['N2ok'][localStorage.lang]+"</td><td>"+lqz2+": "+N2okqz+"<br>"+ltp2+": "+N2oktp+"</td><td>"+(100.0*N2okqz/N).toFixed(2)+"%<br>"+(100.0*N2oktp/N).toFixed(2)+"%</td></tr>"
+				+"</table></div>";
+			$('#svgPanel').html(txt).css({width: "800px"});
+			// reload ...
+			$('#screenSelectorCover').click(function(){document.location.href = "index.jsp"+getRandom()});
+			$('#waitingPanel').css({display: "none"});
+			$('#minimap').css({display: "none"});
+			$('#noParameters').css({display: "none"});
+			$('#otherOption').css({display: "none"});
+			});
+		});
+	}
 	localStorage.screenNumber = "-1";
 	swapScreenMode(false);
 	changeScreen = false;
@@ -263,21 +267,31 @@ var changeScreen = false;
 function nextScreen(){
 	changeScreen = true;
 	animChangeScreen();
+	// EG: known next 
+console.log("nextScreen, no="+localStorage.screenNumberNext);
+	selectScreen($('#screen'+localStorage.screenNumberNext));
+/*
 	if(actualScreenNumber >= 8){
 		selectScreen(0);
 	}	else	{
 		selectScreen(actualScreenNumber+1);
 	}
+*/
 }
 
 function previousScreen(){
 	changeScreen = true;
 	animChangeScreen();
+	// EG: known back 
+console.log("nextScreen, no="+localStorage.screenNumberBack);
+	selectScreen($('#screen'+localStorage.screenNumberBack));
+/*
 	if(actualScreenNumber == 0){
 		selectScreen(8);
 	}	else	{
 		selectScreen(actualScreenNumber-1);
 	}
+*/
 }
 
 function animChangeScreen(){
@@ -318,7 +332,8 @@ var isChangingPage = true;
 
 if(localStorage.screenNumber != undefined && localStorage.screenNumber != "-1"){
 	setTransition(true);
-	selectScreen(localStorage.screenNumber);
+	//~ selectScreen(localStorage.screenNumber);
+	selectScreen(undefined);
 }	else	{
 	setTransition(false);
 	screenSelectorSizer();
@@ -406,29 +421,54 @@ function screenSelectorResizer(){
 	setTimeout(function(){document.getElementById("screenSelectorArea").style.transition = "all 2s, border 0s";}, 500)
 }
 
+// EG: Fill test labels, but use data-no to identify what to use
 function setNames(){
+//~ console.log("setNames !!!");
+	
+	$( "#screenSelectorArea div.tooltips" ).each(function( index ) {
+		var no = $( this ).data("no");
+		if (no !== undefined) {
+		  //~ console.log( "setNames index "+index + ", no "+no);
+		  var nos = no.split(","); // current, next, back
+		  no = nos[0];
+		  console.log( "setNames index "+index + ", nos "+nos+": "+imgName[no][localStorage.lang]);
+		  imgName[no]['next'] = parseInt(nos[1]);
+		  imgName[no]['back'] = parseInt(nos[2]);
+		  $('a', this).text(imgName[no][localStorage.lang]);
+		  $('span', this).html("["+no+"] "+imgTip[no][localStorage.lang]);
+		  $('img', this).attr('src', "Ressources/"+imgName[no]['img']);
+		}
+	});
+	
+/*
 	var pictsA = document.querySelectorAll("#screenSelectorArea a");
 	var pictsSpan = document.querySelectorAll("#screenSelectorArea span");
+	var pictsImg = document.querySelectorAll("#screenSelectorArea img");
 	for(var i = 0; i < pictsA.length;i++){
-		pictsA[i].innerText = imgName[i];
-		pictsSpan[i].innerHTML = imgTip[i];
+		pictsA[i].innerText = imgName[i][localStorage.lang];
+		pictsSpan[i].innerHTML = imgTip[i][localStorage.lang];
+		pictsImg[i].src = "Ressources/"+imgName[i]['img'];
 	}
+*/
 }
 
 function setSmall(){
 	var pictWidth = 14;
 	var pictHeight = 7;
+console.log("*** setSmall");
+	$('#screenSelectorArea').css({'top': '80px', 'left': '75px', 'width': '68.4px', 'height': '40px', 'padding': '5px 0px 5px 15px', 'zIndex': 14});
+	$('#screenSelectorCover').css({'pointerEvents': '', 'margin': '-5px 0px 0px -10px'});
 
-	var box = document.getElementById("screenSelectorArea");
+	//~ var box = document.getElementById("screenSelectorArea");
 
-		document.getElementById("screenSelectorCover").style.pointerEvents = "";
-	box.style.top = "80px";
-	box.style.left = "75px";
-	box.style.width = "68.4px";
-	box.style.height = "40px";
-	box.style.padding = "5px 0px 5px 15px";
-	box.style.zIndex = 14;
-	document.getElementById("screenSelectorCover").style.margin = "-5px 0px 0px -10px";
+		//~ document.getElementById("screenSelectorCover").style.pointerEvents = "";
+	//~ box.style.top = "80px";
+	//~ box.style.left = "75px";
+	//~ box.style.width = "68.4px";
+	//~ box.style.height = "40px";
+	//~ box.style.padding = "5px 0px 5px 15px";
+	//~ box.style.zIndex = 14;
+	//~ document.getElementById("screenSelectorCover").style.margin = "-5px 0px 0px -10px";
 	
 	var picts = document.querySelectorAll("#screenSelectorArea img");
 	
@@ -441,9 +481,11 @@ function setSmall(){
 		
 		if(i < selectColumn * (selectLine-1)){
 			picts[i].parentElement.style.marginBottom = "5px";
+			//~ console.log("	marginBottom 5px, i="+i);
 		}
 		if(0 !=  (i+1) % selectColumn){
 			picts[i].parentElement.style.marginRight = "5px";
+			//~ console.log("	marginRight 5px, i="+i);
 		}
 		
 		
@@ -451,6 +493,7 @@ function setSmall(){
 		picts[i].parentElement.firstElementChild.style.height = "0px";
 		picts[i].parentElement.firstElementChild.firstElementChild.style.fontSize = "0vh";
 	}
+	//$('#screenSelectorArea img').css({'marginBottom': '50px', 'marginRight': '50px'});
 }
 
 function screenSelectorSizer(){
@@ -464,15 +507,17 @@ function screenSelectorSizer(){
 	if(x<1200){
 		x = 1200;
 	}
+	var headerSize = 20*selectHeader;
 	
 	if(screenSelectorMode){
-		var pictWidth = 14;
+		var pictWidth = 14+10;
 		var pictHeight = 7;
 		
 	}	else	{	
 		setButtonsActive(0);
-		var pictMaxWidth = (x - 270 - 2 * padding - (selectColumn-1) * margeBetweenScreen ) / selectColumn;
-		var pictMaxHeight = (y - 100 - 2 * padding - (selectLine-1) * margeBetweenScreen ) / selectLine;
+		var pictMaxWidth = (x - 270 - 2 * padding - (selectColumn-1) * margeBetweenScreen                         -200) / selectColumn;
+		var pictMaxHeight = (y - 100 - 2 * padding - (selectLine-1) * margeBetweenScreen -headerSize - 50) / selectLine;
+		var pictMaxHeight = (y - 140) / 3; // on veux 3 ...OK
 
 		if(pictMaxWidth/screenRatio < pictMaxHeight){
 			var pictWidth = pictMaxWidth;
@@ -484,6 +529,7 @@ function screenSelectorSizer(){
 		
 	}
 	var box = document.getElementById("screenSelectorArea");
+console.log("screenSelectorSizer, screenSelectorMode="+screenSelectorMode+", firstRun="+firstRun+", xy=("+x+", "+y+") pict ("+pictWidth+","+pictHeight+") max ("+pictMaxWidth+","+pictMaxHeight+"), screenRatio="+screenRatio);
 
 	if(screenSelectorMode){
 		document.getElementById("screenSelectorCover").style.pointerEvents = "";
@@ -503,7 +549,8 @@ function screenSelectorSizer(){
 		box.style.top = "80px";
 		box.style.left = "250px";
 		box.style.width = (pictWidth * selectColumn + (selectColumn-1) * margeBetweenScreen + 10)+"px";
-		box.style.height = (pictHeight * selectLine + (selectLine-1) * margeBetweenScreen)+"px";
+		box.style.height = (y-100)+"px";
+		//box.style.height = (pictHeight * selectLine + (selectLine-1) * margeBetweenScreen + headerSize + 30)+"px";
 		box.style.padding = "10px";
 		box.style.zIndex = 0;
 		document.getElementById("screenSelectorCover").style.margin = "-10px 0px 0px -10px";
@@ -511,6 +558,30 @@ function screenSelectorSizer(){
 	
 	var picts = document.querySelectorAll("#screenSelectorArea img");
 	
+	// picts[i].parentElement -> '#screenSelectorArea div.block'
+	
+	//EG TODO pictWidth-10 ???
+	$('#screenSelectorArea div.block').css({height: pictHeight + "px", width: (pictWidth-10) + "px", marginBottom: "5px", marginRight:"5px"});
+	//$('#screenSelectorArea div.block').css({height: pictHeight + "px", width: 200 + "px", marginBottom: "5px", marginRight:"5px"}); // EG test
+	if(!firstRun){
+		$('#screenSelectorArea div.block').css({transition: "all 2s, border 0s"});
+	}
+	setTimeout(resetTransition, 2000);
+	if(screenSelectorMode){
+		$('#screenSelectorArea div.block div a').css({transition: "all 0.5s", fontSize:"0vh"});
+		$('#screenSelectorArea div.headline').css({transition: "all 0.5s", fontSize:"0vh"});
+		$('#screenSelectorArea img').css({height: "100%"});
+		$('#screenSelectorArea div.block div').css({height: "0px"});
+	} else {
+		$('#screenSelectorArea div.block div a').css({transition: "all 0.5s 1.5s", fontSize:"2vh"});
+		$('#screenSelectorArea div.headline').css({transition: "all 0.5s 1.5s", fontSize:"2vh"});
+		$('#screenSelectorArea img').css({height: "calc(100% - 50px)"});
+		$('#screenSelectorArea div.block div').css({height: "50px"});
+	}
+		// EG: scrollbar activation !
+		$('#screenSelectorArea').css({'overflow-y': screenSelectorMode ? 'hidden' : 'scroll'});
+		$('#screenSelectorArea').css({'overflow-x': screenSelectorMode ? 'hidden' : 'scroll'});
+/*	
 	for(var i = 0; i < picts.length;i++){
 		if(!firstRun){
 			picts[i].parentElement.style.transition ="all 2s, border 0s";
@@ -549,17 +620,26 @@ function screenSelectorSizer(){
 			picts[i].parentElement.firstElementChild.firstElementChild.style.fontSize = "2vh";
 		}
 	}
+*/
 	if(firstRun){
 		firstRun = false;
 	}
 }
 
 function resetTransition(){
+	$('#screenSelectorArea div.block').css({transition: ""});
+/*
 	var picts = document.querySelectorAll("#screenSelectorArea img");
 	for(var i = 0; i < picts.length;i++){
 		picts[i].parentElement.style.transition ="";
 	}
+*/
 }
+//~ $('#screenSelectorArea').css({'overflow-y': 'scroll'});
+//~ $('#screenSelectorArea').css({'overflow-x': 'scroll'});
+//~ console.log('**************************************** ICI   **************************************************');
+//~ $('#screenSelectorArea').css({'overflow-y': 'hidden'});
+//~ $('#screenSelectorArea').css({'overflow-x': 'hidden'});
 
 
 function getTextWidth(text, font) {
@@ -572,6 +652,27 @@ function getTextWidth(text, font) {
 }
 
 function setButtonsActive(index){
+	// EG recup old comment
+	console.log(">setButtonsActive, "+index);
+	// EG: title added
+	//~ $('#screenSelectorArea div.headline').css({'height': '5px', 'background-color': 'red'});
+	$('#screenSelectorArea div.headline').css({'display': index ? 'none' : 'inline'});
+	// *** index.jsp ***
+	// nom d'un eleve
+	// #studentLegend
+	// #otherOption
+	// #realOptions
+	// zoom
+	// Cohorte
+	
+	// *** diagramme.jsp ***
+	// #parameters
+	// #pourcentDiv
+	// sizeBarText (zoom)
+	// classement
+	// 	(commented) weekMode
+	// #exerciseSelector
+	// #legendContainer (vide: participants / non participants)
 	var allButtons = document.querySelectorAll(".notRequired");
 	for(var i = 0; i < allButtons.length; i++){
 		allButtons[i].style.display = "none";
@@ -615,8 +716,22 @@ function setButtonsActive(index){
 	}	
 }
 
+// Function to display or not toolTips
 displayToolTip();
-function displayToolTip(){
+function displayToolTip(inp){
+	$('.tooltips span').css('display', $('#tooltipDisplay').prop('checked') ? 'inherit' : 'none')
+	$('#infoDiag span').css('display', 'inherit');
+	
+	$('#infoDiag span').css({'visibility': 'hidden'});
+	// EG: display info dialog top
+	$('#infoDiag').mouseover(function(evt){
+		console.log("infoDiag mouseover "+evt);
+		$('#infoDiag span').css({'visibility': 'visible'});
+	});
+	$('#infoDiag span').mouseout(function(evt){
+		$('#infoDiag span').css({'visibility': 'hidden'});
+	});
+/*
 	var tooltipsSpan = document.querySelectorAll(".tooltips span");
 	var newState;
 	if(document.getElementById("tooltipDisplay").checked){
@@ -627,6 +742,7 @@ function displayToolTip(){
 	for(var i = 1; i < tooltipsSpan.length; i++){
 		tooltipsSpan[i].style.display = newState;
 	}
+*/
 }
 
 

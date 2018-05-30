@@ -45,7 +45,8 @@ function dataSelected(evt){
 }
 
 var courseName;
-courseName();
+//courseName();
+/*
 function courseName(){
 	var rightPart =	document.location.href.lastIndexOf("/");
 	var leftPart =	document.location.href.lastIndexOf("/", rightPart-1);
@@ -54,11 +55,9 @@ function courseName(){
 		courseName = "Unknown Name";
 	}
 	document.querySelector("#appNameDiv p").innerText = "MOOC-PILOT : " + courseName;
-	/*
-	document.querySelectorAll("#headerMenu div>a:first-child")[0].innerText = "Progression de " + courseName;
-	document.querySelectorAll("#headerMenu div>a:first-child")[1].innerText = "Statistique de " + courseName;*/
 }
 
+*/
 window.addEventListener("resize", changeSize);
 
 
@@ -88,7 +87,8 @@ if (localStorage.selectedMenu != 3) {
 }
 //listDataSelection.item(localStorage.selectedMenu-1).dispatchEvent(new CustomEvent('click'));
 var dataReceived = false;
-callSavedJSON(function(){dataReceived = true});
+//callSavedJSON(function(){dataReceived = true});
+courseName(function(){callSavedJSON(function(){dataReceived = true});}, "");
 
 
 var exerciseNames;

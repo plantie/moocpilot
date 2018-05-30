@@ -23,11 +23,11 @@ public class Upload extends HttpServlet {
      */
     public Upload() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// EG: TODO PATH ?????????????????
 		/*request est un fichier XLS
 		 *On traite à l'aide de XlsTraitement
 		 *On utilise Response afin de préparer la réponse et de la récupérer en JSON

@@ -24,6 +24,14 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
 
 /**
  * Servlet implementation class Connect
+ *
+ * Either cookies or password are usesd.
+ * If password is provided, it is compared to content of '/data/password.txt' file
+ *
+ */
+
+/**
+ * Servlet implementation class Connect
  */
 @MultipartConfig
 @WebServlet("/Connect")
@@ -35,7 +43,6 @@ public class Connect extends HttpServlet {
      */
     public Connect() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -48,7 +55,8 @@ public class Connect extends HttpServlet {
 		java.util.Scanner s = new java.util.Scanner(request.getPart("pwd").getInputStream()).useDelimiter("\\A");
 	    String password = s.hasNext() ? s.next() : "";
 	    
-	    String path = getServletContext().getRealPath("/ShellScripts/password.txt");
+	    String path = getServletContext().getRealPath("/data/password.txt");
+	    //String path = getServletContext().getRealPath("/ShellScripts/password.txt");
 	    
 	    if(isRealPassword(path, password)){
 	    	Cookie cookie = new Cookie("password", password);
@@ -73,13 +81,19 @@ public class Connect extends HttpServlet {
 		return result;
 	}
 	
+/**
+ * Check if provided string is equals to stored pass
+ *
+ * @param  path  path of file storing correct pass
+ * @param  testedString provided string to be tested
+ * @return      True if OK, False otherwise
+ */
 	public static boolean isRealPassword(String path, String testedString) throws IOException{
 		
 	    MessageDigest digest = null;
 		try {
 			digest = MessageDigest.getInstance("SHA-256");
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -89,8 +103,12 @@ public class Connect extends HttpServlet {
 	    
 	    byte[] encoded = Files.readAllBytes(Paths.get(path));
 	    String saved = new String(encoded, StandardCharsets.UTF_8);
-	    
-	    return saved.equals(tested);
+
+	    // EGo: Check string against data in file (no AES...)
+	    //System.out.println("Connect isRealPassword, testedString="+testedString+", saved="+saved);
+	    return saved.equals(testedString);
+		
+	    //return saved.equals(tested);
 	}
 
 }

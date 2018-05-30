@@ -23,18 +23,22 @@ public class UpdateCsvDataBase extends HttpServlet {
      */
     public UpdateCsvDataBase() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
+		String moocId = request.getParameter("moocId"); 
+System.out.println("UpdateCsvDataBase doPost, moocId="+moocId);		
+	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))){
+	    //if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 	    	return;
 	    }
+	    String contextPath = getServletContext().getRealPath("/data/"+moocId);
 	    response.setContentType("application/javascript");
-		FunCsvGetter.getCollectList(getServletContext().getRealPath("/ShellScripts"));
+		FunCsvGetter.getCollectList(contextPath);
+		//FunCsvGetter.getCollectList(getServletContext().getRealPath("/ShellScripts"));
 	}
 
 }

@@ -43,7 +43,11 @@ public class GetTask extends HttpServlet {
     
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
+		String moocId = request.getParameter("moocId"); 
+System.out.println("GetTask.doPost, moocId="+moocId);
+		String contextPath = getServletContext().getRealPath("/data/"+moocId);
+	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))){
+	    //if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 	    	return;
 	    }
 	    response.setContentType("application/javascript");
@@ -52,6 +56,6 @@ public class GetTask extends HttpServlet {
 		
 	    
 	    PrintWriter pw = response.getWriter() ;
-	    pw.write(shellScriptTaskListener.getTimerList());
+	    pw.write(shellScriptTaskListener.getTimerList(moocId));
 	}
 }

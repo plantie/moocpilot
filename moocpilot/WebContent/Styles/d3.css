@@ -1,11 +1,12 @@
 /*---------------------------------------------------------------Style D3--------------------------------------------------------*/ 
 
+/* EG: non actif -> d3boite */
  .d3-tip {
   line-height: 1;
   font-weight: bold;
   padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  background: white /*gray; //rgba(0, 0, 0, 0.8);*/
+  /*color: gray; #fff;*/
   border-radius: 2px;
   z-index: 1;
 }
@@ -57,13 +58,14 @@
 	opacity:0.20;
 }
 
+/* EG: IMT colors */
 .circlePair{
-    fill : forestgreen;
+    fill : #00b8de; /* forestgreen; -> bleu clair*/
     cursor:pointer;
 }
 
 .circleImpair{
-    fill : green;
+    fill : #0c2340; /* green; -> bleu foncé */
     cursor:pointer;
 }
 

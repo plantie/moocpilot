@@ -13,6 +13,25 @@ document.getElementById("sendMoocPilotPassword").addEventListener("click", conne
 document.getElementById("moocPilotPassword").addEventListener("keypress", validForm);
 document.getElementById("startCollect").addEventListener("click", startManualCollect);
 
+// EG: add save & restore data/
+$('#dataSaveButton').click(dataSaveRestore);
+$('#dataRestoreButton').click(dataSaveRestore);
+
+translations['confirmation'] = {en:"Do you confirm action: ", fr:"Confirmez vous l'action; "};
+
+function dataSaveRestore (evt){
+	var action = $(evt.target).data("action");
+	console.log("data"+action+" !");
+	if (confirm(translations['confirmation'][localStorage.lang]+action)) {
+	  $.post("../DataMngt?action="+action, function(msg){
+		alert(msg);
+		document.location.href = "."
+		});
+	}
+}
+	
+// EG: get list of courses
+courseName(isConnected, '../');
 setHeader();
 function setHeader(){
 	var rightPart =	document.location.href.lastIndexOf("/", document.location.href.length-6);
@@ -22,10 +41,36 @@ function setHeader(){
 }
 document.getElementById("saveAndQuit").addEventListener("click", saveAndQuit);
 
+$('#saveAndQuit2').css({'display': 'none'});
 function saveAndQuit(){
 	loadCourse();
+	$('#menu').css({'display': 'none'});
+	$('#AdminContent').html("<div>GET Stats</div>");
+/*
+	$.getJSON( '../data/'+localStorage.moocId+'/versionLoaded.txt.stats' + getRandom(), function( stat ) {
+		console.log(stat);
+		var txt = "<div><h3>"+translations['stats'][localStorage.lang]+"</h3><table border='1'>"
+			+"<tr><td>"+translations['N'][localStorage.lang]+"</td><td>"+stat.N+"</td></td></tr>"
+			+"<tr><td>"+translations['Nok'][localStorage.lang]+"</td><td>"+stat.Nok+"</td><td>"+(100.0*stat.Nok/stat.N).toFixed(2)+"%</td></tr>"
+			+"<tr><td>"+translations['N1'][localStorage.lang]+"</td><td>"+stat.N1+"</td><td>"+(100.0*stat.N1/stat.N).toFixed(2)+"%</td></tr>"
+			+"<tr><td>"+translations['N2'][localStorage.lang]+"</td><td>"+stat.N2+"</td><td>"+(100.0*stat.N2/stat.N).toFixed(2)+"%</td></tr>"
+			+"<tr><td>"+translations['N1ok'][localStorage.lang]+"</td><td>"+stat.N1ok+"</td><td>"+(100.0*stat.N1ok/stat.N).toFixed(2)+"%</td></tr>"
+			+"<tr><td>"+translations['N2ok'][localStorage.lang]+"</td><td>"+stat.N2ok+"</td><td>"+(100.0*stat.N2ok/stat.N).toFixed(2)+"%</td></tr>"
+			+"</table></div>";
+		$('#AdminContent').html(txt);
+		$('#saveAndQuit').css({'display': 'none'});
+		$('#saveAndQuit2').css({'display': 'inline-block'}).click(saveAndQuit2);
+	});
+*/
+	
+	//~ $('#AdminContent').css({'display': 'none'});
+	saveAndQuit2(); // direct call...
+	
+}
+
+function saveAndQuit2(){
     localStorage.setItem("selectedMenu",3);
-	document.location.href = "../";
+	document.location.href = "../index.jsp";
 }
 
 document.getElementById("automaticCollectButton").addEventListener("click", displayUserParametersInterface);
@@ -49,19 +94,24 @@ function getDateCollect(task){
 }
 
 function switchCollectButton(){
+	$('#automaticCollectButton span').text(translations[automaticActivated ? 'automaticCollect-true' : 'automaticCollect-false'][localStorage.lang]);
+	$('#automaticCollectLabels p:first-of-type').text(translations[automaticActivated ? 'automaticCollectLabel-true' : 'automaticCollectLabel-false'][localStorage.lang]);
 	if(automaticActivated){
-		document.getElementById("automaticCollectButton").firstElementChild.innerText = "Activer la collecte automatique";
-		document.getElementById("automaticCollectLabels").firstElementChild.innerText = "Collecte automatique : Non active";
+		//~ document.getElementById("automaticCollectButton").firstElementChild.innerText = translations['#automaticCollectButton span'][localStorage.lang]; //"Activer la collecte automatique";
+		//~ document.getElementById("automaticCollectLabels").firstElementChild.innerText = "Collecte automatique : Non active";
 		automaticLabels[1].innerText = "";
 		automaticLabels[2].innerText = "";
 		
 		automaticActivated = false;
 	}	else	{
-		document.getElementById("automaticCollectButton").firstElementChild.innerText = "Désactiver la collecte automatique";
-		document.getElementById("automaticCollectLabels").firstElementChild.innerText = "Collecte automatique : Active";
+		//~ document.getElementById("automaticCollectButton").firstElementChild.innerText = "Désactiver la collecte automatique";
+		//~ document.getElementById("automaticCollectLabels").firstElementChild.innerText = "Collecte automatique : Active";
 
-		automaticLabels[1].innerText = "Collecte " + getPeriod() + " les " + weekdays[dateCollect.getDay()] + ".";
-		automaticLabels[2].innerText = "Prochaine collecte " + dateCollect.toLocaleDateString("fr-FR", options) + ".";
+		i18n[localStorage.lang]['weekdays']
+		automaticLabels[1].innerText = translations['collect'][localStorage.lang]+": " + getPeriod() + " " + i18n[localStorage.lang]['weekdays'][dateCollect.getDay()] + ".";
+		//automaticLabels[1].innerText = "Collecte " + getPeriod() + " les " + weekdays[dateCollect.getDay()] + ".";
+		automaticLabels[2].innerText = translations['nextCollect'][localStorage.lang]+": " + dateCollect.toLocaleDateString(localStorage.lang, options) + ".";
+		//automaticLabels[2].innerText = "Prochaine collecte " + dateCollect.toLocaleDateString("fr-FR", options) + ".";
 		
 		automaticActivated = true;
 	}
@@ -108,10 +158,10 @@ function firstArrayLine() {
     cellIsActive.innerHTML = "Actif";
 
     var cellPos = row.insertCell(1);
-    cellPos.innerHTML = "Identifiant de collecte";
+    cellPos.innerHTML = translations['collectIdent'][localStorage.lang]; //"Identifiant de collecte";
 
     var cellName = row.insertCell(2);
-    cellName.innerHTML = "Nom de la collecte";
+    cellName.innerHTML = translations['collectName'][localStorage.lang]; //"Nom de la collecte";
     /*
     var cellUp = row.insertCell(3);
     cellUp.innerHTML = "Monter";
@@ -126,7 +176,7 @@ function firstArrayLine() {
     cellRemove.innerHTML = "Supprimer la collecte";*/
 
     var cellDownload = row.insertCell(3);
-    cellDownload.innerHTML = "Enregistrer la collecte en local";
+    cellDownload.innerHTML = translations['collectSave'][localStorage.lang]; //"Enregistrer la collecte en local";
 }
 
 function newArrayLine(index, pos, focusedElement) {
@@ -254,7 +304,8 @@ function getCsvList(needUpdate){
         }
     }
 
-    xhr.open('GET', '../Csv/csvList.json' + getRandom(), true);
+    xhr.open('GET', '../data/'+localStorage.moocId+'/csvList.json' + getRandom(), true);
+    //xhr.open('GET', '../Csv/csvList.json' + getRandom(), true);
     xhr.send();
 }
 
@@ -286,7 +337,7 @@ function callTraitementXls(evt){
 	
 		formData.append('typeRequest', "xls");
 		formData.append('file', file);
-		xhr.open('POST', '../Save');
+		xhr.open('POST', '../Save?moocId='+localStorage.moocId);
 		xhr.send(formData);
 	}
 }
@@ -359,11 +410,12 @@ function callTraitementCsv(){
 		formData.append('file', file);
 		formData.append('fileName', getFileName());
 		formData.append('realFileName', document.getElementById('addCsv').files[0].name);
-		xhr.open('POST', '../Save');
+		xhr.open('POST', '../Save?moocId='+localStorage.moocId);
 		xhr.send(formData);
 	}
 }
 
+// EG: N/A
 function callRemoveCsv(index) {
 	if(waitingUpdate){
 		return;
@@ -383,10 +435,11 @@ function callRemoveCsv(index) {
     }
     formData.append('idRequest', 0);
     formData.append('idCsv', index);
-    xhr.open('POST', '../csvApi');
+    xhr.open('POST', '../csvApi?moocId='+localStorage.moocId);
     xhr.send(formData);
 }
 
+// EG: N/A
 function callMoveDownCsv(index) {
 	if(waitingUpdate){
 		return;
@@ -409,10 +462,11 @@ function callMoveDownCsv(index) {
     }
     formData.append('idRequest', 2);
     formData.append('idCsv', index);
-    xhr.open('POST', '../csvApi');
+    xhr.open('POST', '../csvApi?moocId='+localStorage.moocId);
     xhr.send(formData);
 }
 
+// EG: N/A
 function callMoveUpCsv(index) {
 	if(waitingUpdate){
 		return;
@@ -435,11 +489,12 @@ function callMoveUpCsv(index) {
     }
     formData.append('idRequest', 1);
     formData.append('idCsv', index);
-    xhr.open('POST', '../csvApi');
+    xhr.open('POST', '../csvApi?moocId='+localStorage.moocId);
     xhr.send(formData);
 }
 
 
+// EG: N/A
 function callChangeNameCsv(index, newName) {
 	if(waitingUpdate){
 		return;
@@ -460,7 +515,7 @@ function callChangeNameCsv(index, newName) {
     formData.append('idRequest', 3);
     formData.append('idCsv', index);
     formData.append('newName', newName);
-    xhr.open('POST', '../csvApi');
+    xhr.open('POST', '../csvApi?moocId='+localStorage.moocId);
     xhr.send(formData);
 }
 
@@ -485,7 +540,7 @@ function callIsActiveCsv(index, newState) {
     formData.append('idRequest', 4);
     formData.append('idCsv', index);
     formData.append('newState', newState);
-    xhr.open('POST', '../csvApi');
+    xhr.open('POST', '../csvApi?moocId='+localStorage.moocId); 
     xhr.send(formData);
 }
 
@@ -499,7 +554,8 @@ function callDownloadCsv(index) {
                 document.getElementById("loaderGif").style.display = "none";
             }
         }
-        xhr.open('GET', '../Csv/0-'+index+'.csv' + getRandom(), true);
+        xhr.open('GET', '../data/'+localStorage.moocId+'/0-'+index+'.csv' + getRandom(), true);
+        //xhr.open('GET', '../Csv/0-'+index+'.csv' + getRandom(), true);
         xhr.send();
 }
 
@@ -517,8 +573,8 @@ function loadCourse(){
 			}
 		}
 
-		formData.append('courseId', "0");
-		xhr.open('POST', '../UseCsv', false);
+		formData.append('courseId', "0"); // TODO WHY "0" ???
+		xhr.open('POST', '../UseCsv?moocId='+localStorage.moocId, false);
 		xhr.send(formData);
 }
 //document.getElementById('addCsv').addEventListener('change', callTraitementCsv, false);
@@ -553,6 +609,8 @@ function setFunUserParameters() {
             if(xhr.responseText == "Worked"){            	
             	//document.getElementById("automaticCollectInterface").style.display = "inherit";
             	userParamertersExistVar = true;
+		moocId = localStorage.moocId = document.getElementById("instituteName").value+document.getElementById("courseId").value+document.getElementById("sessionName").value
+		console.log("updated moocId: "+localStorage.moocId);
 
                 getCsvList(true);
         		document.getElementById("userParametersInterface").style.display = "none";
@@ -578,7 +636,7 @@ function setFunUserParameters() {
     formData.append('sessionName', document.getElementById("sessionName").value);
     formData.append('isEdx', document.getElementById("isEdx").checked.toString());
     
-    xhr.open('POST', '../setFunUserParameters');
+    xhr.open('POST', '../setFunUserParameters?moocId='+localStorage.moocId); // Not usefulle here...
     xhr.send(formData);
 }
 
@@ -596,7 +654,7 @@ function updateCsvDatabase(){
             getCsvList(true);
         }
     }
-    xhr.open('POST', '../UpdateCsvDataBase');
+    xhr.open('POST', '../UpdateCsvDataBase?moocId='+localStorage.moocId);
     xhr.send();
 }
 
@@ -614,13 +672,16 @@ function updateForumDatabase(){
             alert("Récupération en cours, attente estimée 2 heures");
         }
     }
-    xhr.open('POST', '../forumRequest');
+    xhr.open('POST', '../forumRequest?moocId='+localStorage.moocId);
     xhr.send();
 }
 
 var options = {weekday: "long", year: "numeric", month: "long", day: "numeric"};
 
 function getPeriod(){
+	
+	return translations["collect-"+document.getElementById("selectDelay").value][localStorage.lang];
+/*	
 	switch(document.getElementById("selectDelay").value) {
     case "0":
         return "hebdomadaire";
@@ -634,7 +695,7 @@ function getPeriod(){
     default:
         return "hebdomadaire";
 	} 
-	
+*/
 }
 
 
@@ -651,7 +712,7 @@ function setFunTask() {
 	dateCollect.setUTCMinutes(0);
 	dateCollect.setUTCSeconds(0);
 	dateCollect.setUTCMilliseconds(0);
-	if (!confirm("Vous allez mettre en place la collecte automatique qui débutera le " + dateCollect.toLocaleDateString("fr-FR", options) + " et qui sera répétée de manière " + getPeriod() + " les " + weekdays[dateCollect.getDay()] + "s. Êtes vous sûr?")) {
+	if (!confirm("Vous allez mettre en place la collecte automatique qui débutera le " + dateCollect.toLocaleDateString("fr-FR", options) + " et qui sera répétée de manière " + getPeriod() + " les " + i18n[localStorage.lang]['weekdays'][dateCollect.getDay()] + "s. Êtes vous sûr?")) {
 	    dateCollect == undefined;
 		return;
 	} else {
@@ -677,7 +738,7 @@ function setFunTask() {
     formData.append('startDay',dateCollect.getTime());
     formData.append('delay', document.getElementById("selectDelay").value);
     
-    xhr.open('POST', '../FunCsvGetter');
+    xhr.open('POST', '../FunCsvGetter?moocId='+localStorage.moocId);
     xhr.send(formData);
 }
 
@@ -691,7 +752,7 @@ function removeFunTask(){
 
         }
     }
-    xhr.open('POST', '../RemoveTask');
+    xhr.open('POST', '../RemoveTask?moocId='+localStorage.moocId);
     xhr.send();
 }
 
@@ -705,7 +766,7 @@ function getFunTask(){
             getDateCollect(xhr.responseText);
         }
     }
-    xhr.open('POST', '../GetTask');
+    xhr.open('POST', '../GetTask?moocId='+localStorage.moocId);
     xhr.send();
 }
 
@@ -720,7 +781,7 @@ function startManualCollectFun(){
             alert("Collecte lancée.");
         }
     }
-    xhr.open('POST', '../StartCollect');
+    xhr.open('POST', '../StartCollect?moocId='+localStorage.moocId);
     xhr.send();
 }
 
@@ -748,7 +809,7 @@ function userParametersExist() {
             }
         }
     }
-    xhr.open('POST', '../userParametersExist');
+    xhr.open('POST', '../userParametersExist?moocId='+localStorage.moocId);
     xhr.send();
 }
 
@@ -773,12 +834,14 @@ function connect() {
 
     formData.append('pwd',document.getElementById("moocPilotPassword").value);
     
-    xhr.open('POST', '../Connect');
+    xhr.open('POST', '../Connect?moocId='+localStorage.moocId);
     xhr.send(formData);
 }
 
+// Connected ???
 isConnected();
 function isConnected(){
+    console.log("isConnected localStorage.moocId="+localStorage.moocId);
     document.getElementById("loaderGif").style.display = "inherit";
     var formData = new FormData();
 
@@ -793,7 +856,7 @@ function isConnected(){
             }
         }
     }    
-    xhr.open('POST', '../IsConnect');
+    xhr.open('POST', '../IsConnect?moocId='+localStorage.moocId); // TODO moocId
     xhr.send();
 }
 
@@ -821,7 +884,7 @@ function unconnectedDisplay(){
 
 function displayUserParametersInterface(){
 	if(automaticActivated){
-		if (!confirm("Vous allez désactiver la collecte automatique, des collectes régulières sont indispensables pour suivre votre cours. Êtes vous sûr?")) {
+		if (!confirm(translations['confirm-remove'][localStorage.lang])) {
 		    return;
 		} else {
 			removeFunTask();
@@ -840,16 +903,30 @@ function displayUserParametersInterface(){
 }
 
 var tomorrow = new Date();
-//tomorrow.setDate(tomorrow.getDate() + 1);
-var weekdays = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
-var picker = new Pikaday({ field: document.getElementById('datepicker'),bound :false, firstDay: 1, minDate : tomorrow, showDaysInNextAndPreviousMonths : true,
-	i18n: {
+
+var i18n = {
+	'fr':{
 	    previousMonth : 'Mois Précédent',
 	    nextMonth     : 'Mois Suivant',
 	    months        : ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'],
 	    weekdays      : ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
 	    weekdaysShort : ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam']
-	}});
+	},
+	'en':{
+	    previousMonth : 'Next month',
+	    nextMonth     : 'Previous month',
+	    months        : ['January','February','Mars','April','May','June','July','August','September','October','November','December'],
+	    weekdays      : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+	    weekdaysShort : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+	}
+};
+
+
+//tomorrow.setDate(tomorrow.getDate() + 1);
+//var weekdays = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+// weekdays -> i18n[localStorage.lang]['weekdays']
+var picker = new Pikaday({ field: document.getElementById('datepicker'),bound :false, firstDay: 1, minDate : tomorrow, showDaysInNextAndPreviousMonths : true,
+	i18n: i18n[localStorage.lang]});
 picker.setDate(tomorrow);
 
 document.querySelector("#automaticCollectInterface svg").addEventListener("click", closeParent);
@@ -880,7 +957,7 @@ function removeCookie(){
 
 
 function startManualCollect(){
-	if (confirm("Attention, les collectes effectuées en pleines journées peuvent recontrer des problèmes, voulez-vous quand même la lancer? ")) {
+	if (confirm(translations['confirm-collect'][localStorage.lang])) {
 		startManualCollectFun();
 	} else {
 	    return;

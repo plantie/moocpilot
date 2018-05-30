@@ -28,17 +28,19 @@ public class Save extends HttpServlet {
      */
     public Save() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
 
 	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String moocId = request.getParameter("moocId"); 
+System.out.println("Save doPost, moocId="+moocId); 
+		
 		/*Cette fonction prend en request un fichier XLS
 		 * Elle le traite est l'écrit à l'emplacement voulu
 		 * Elle return "done" si elle a bien marché
 		 */
-	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
+	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))){
+	    //if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 	    	return;
 	    }
 	    response.setContentType("application/javascript");
@@ -48,7 +50,8 @@ public class Save extends HttpServlet {
 	    
 		if(typeRequest.equals("xls")){
 			XlsTraitement xlsTraitement = new XlsTraitement(request.getPart("file").getInputStream());
-		    String contextPath = getServletContext().getRealPath("/UploadedFiles")+ "/versionLoaded.txt";
+		    String contextPath = getServletContext().getRealPath("/data/"+moocId)+ "/versionLoaded.txt";
+		    //String contextPath = getServletContext().getRealPath("/UploadedFiles")+ "/versionLoaded.txt";
 		    xlsTraitement.SaveResponse(contextPath);
 		}	else	{
 			

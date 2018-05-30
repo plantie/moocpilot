@@ -43,14 +43,19 @@ public class StartCollect extends HttpServlet {
     
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
+		String moocId = request.getParameter("moocId"); 
+System.out.println("StartCollect.doPost, moocId="+moocId);
+		String contextPath = getServletContext().getRealPath("/data/"+moocId);
+	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))){
+	    //if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 	    	return;
 	    }
 	    response.setContentType("application/javascript");
 	    
 		ShellScriptTaskListener shellScriptTaskListener = new ShellScriptTaskListener();
 		
-	    FunCsvGetter.startCollect(getServletContext().getRealPath("/ShellScripts"));
+	    FunCsvGetter.startCollect(getServletContext().getRealPath("/data/"+moocId));
+	    //FunCsvGetter.startCollect(getServletContext().getRealPath("/ShellScripts"));
 		
 	    PrintWriter pw = response.getWriter() ;
 	    pw.write("done");

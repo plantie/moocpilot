@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -21,18 +22,37 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class CsvList {
-	ArrayList<Course> listCourse;
+	ArrayList<Course> listCourse; // What will be in csvList.json
 	String path;
 	public CsvList(String path) throws JsonSyntaxException, JsonIOException, FileNotFoundException{
+System.out.println("CsvList.CsvList, path="+path);
+		
+		// EG: create file if not exist
+		File f = new File(path+"/csvList.json");
+		if(!f.exists()) { // create
+			try{
+			FileWriter fw = new FileWriter(f);
+			fw.write("[]".toCharArray(), 0, 2);
+			fw.close();
+			//Files.write(f, "[]");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+
 	    Gson gson = new Gson();
 	    this.listCourse = new ArrayList<Course>(Arrays.asList(gson.fromJson(new FileReader(path+"/csvList.json"), Course[].class)));
 	    this.path = path;
+//System.out.println("CsvList done " +path);
 	}
 	
 	public void addCourse(String courseId){
+System.out.println("CsvList.addCourse: "+courseId);
 		this.listCourse.add(new Course(courseId));
 	}
 	public void addWeek(String courseId, int week, String weekName){
+System.out.println("CsvList.addWeek: "+courseId);
 		Course actualCourse = getCourse(courseId);
 		if(actualCourse == null){
 			addCourse(courseId);

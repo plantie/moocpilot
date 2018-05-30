@@ -23,7 +23,6 @@ public class csvApi extends HttpServlet {
      */
     public csvApi() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -31,8 +30,11 @@ public class csvApi extends HttpServlet {
 	 */
 	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String moocId = request.getParameter("moocId"); 
+System.out.println("csvApi doPost, moocId="+moocId);		
 
-	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
+	    if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))){
+	    //if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
 	    	return;
 	    }
 	    
@@ -44,9 +46,11 @@ public class csvApi extends HttpServlet {
 		s = new java.util.Scanner(request.getPart("idCsv").getInputStream()).useDelimiter("\\A");
 	    int idCsv = Integer.parseInt(s.hasNext() ? s.next() : "");
 	    
-		String contextPath = getServletContext().getRealPath("/Csv");
+		String contextPath = getServletContext().getRealPath("/data/"+moocId);
+		//String contextPath = getServletContext().getRealPath("/Csv");
 	    String csvListPath = contextPath;
 	    CsvList csvList = new CsvList(csvListPath);
+System.out.println("csvApi doPost, idRequest="+idRequest+", idCsv="+idCsv+", csvListPath="+csvListPath);		
 	    
 	    
 	    /*

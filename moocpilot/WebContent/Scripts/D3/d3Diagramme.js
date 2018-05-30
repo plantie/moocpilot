@@ -18,11 +18,20 @@
     var domainEcart  = ["0➞0.25", "0.25➞0.50", "0.50➞0.75", "0.75➞1"];
 
 	
-    var title0 = "Nombre d'élèves par exercice selon leur période d'inscription";
-    var title1 = "Nombre d'élèves par collecte";
+/*
+    var title0 = imgName[4][localStorage.lang]; //"Nombre d'élèves par exercice selon leur période d'inscription";
+    var title1 = imgName[0][localStorage.lang]; //"Nombre d'élèves par collecte";
     var title2 = "Nombre d'élèves ayant fait un exercice par résultat";
     var title3 = "Nombre d'élèves par exercice selon leurs résultats";    
-    var title4 = "Progression Générale";
+    var title4 = imgName[7][localStorage.lang]; //"Progression Générale";
+*/	
+    var infoDiag = [
+	{no: 4, legendColumn:2}, // 0
+	{no: 0, legendColumn:1}, // 1
+	{no: 5, legendColumn:2}, // 2
+	{no: 6, legendColumn:2}, // 3
+	{no: 7, legendColumn:2}, // 4
+	];
 
 	var needLegendOver = false;
     var legendColumn = 2;
@@ -47,13 +56,20 @@
 	    	document.getElementById("tableau").style.display = "none";
 	    	forcedColor = false;
 	    	typeDiag = parseInt(document.getElementById("visualisationMode").value);
-	        switch (parseInt(document.getElementById("visualisationMode").value)) {
+console.log("callDisplayDiagramme, typeDiag:"+typeDiag);
+		
+		// EG: 
+		title = imgName[infoDiag[typeDiag].no][localStorage.lang];
+		legendColumn = infoDiag[typeDiag].legendColumn;
+		
+	        switch (typeDiag) {
+	        //switch (parseInt(document.getElementById("visualisationMode").value)) {
 	            case 0:
 	            	layers = numberOfStudentByExerciseSeparateByWeek(document.getElementById("cohorteSelect").value);
 	            	domain = getCourseNames();
-	            	legendColumn = 2;
+	            	//legendColumn = 2;
 	            	legendData = legendFormate(getSheetNames());
-	            	title = title0;
+	            	//title = title0;
 	            	hideExerciseSelector();
 	            	document.getElementById("moreOf").disabled = false;
 	            	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "";
@@ -66,9 +82,9 @@
 	            	newActualiseTableau(layers);
 	            	document.getElementById("tableau").style.display = "inherit";
 	            	domain = getSheetNames();
-	            	legendColumn = 1;
+	            	//legendColumn = 1;
 	            	legendData = legendFormate(["Participants", "Non participants"]);
-	            	title = title1;
+	            	//title = title1;
 	            	hideExerciseSelector();
 	            	document.getElementById("moreOf").disabled = true;
 	            	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "dimgray";
@@ -78,7 +94,7 @@
 	            	layers = numberOfStudentByResult(exerciceNumber,document.getElementById("cohorteSelect").value);
 	            	domain = domainEcart;
 	            	legendData = legendFormate([]);
-	            	title = "Résultats de l'exercices : "+exerciseNames[exerciceNumber];
+	            	//title = "Résultats de l'exercices : "+exerciseNames[exerciceNumber];
 	            	displayExerciseSelector();
 	            	document.getElementById("moreOf").disabled = true;
 	            	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "dimgray";
@@ -88,9 +104,9 @@
 	            case 3:
 	            	layers = pourcentOfSuccessByExerciseSeparateByResult(document.getElementById("cohorteSelect").value);
 	            	domain = getCourseNames();
-	            	legendColumn = 2;
+	            	//legendColumn = 2;
 	            	legendData = legendFormate(domainEcart);
-	            	title = title3;
+	            	//title = title3;
 	            	hideExerciseSelector();
 	            	document.getElementById("moreOf").disabled = true;
 	            	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "dimgray";
@@ -101,9 +117,9 @@
 	            case 4:
 	            	layers = numberOfStudentByExerciseSeparateByWeekNoInscription(document.getElementById("cohorteSelect").value);
 	            	domain = getCourseNames();
-	            	legendColumn = 2;
+	            	//legendColumn = 2;
 	            	legendData = legendFormate(getSheetNames());
-	            	title = title4;
+	            	//title = title4;
 	            	hideExerciseSelector();
 	            	document.getElementById("moreOf").disabled = false;
 	            	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "";
@@ -179,16 +195,19 @@
         var color = d3.scale.category20();/*d3.scale.linear()
             .domain([0, n - 1])
             .range(["#000000", "#ffffff"]);//["#aad", "#556"]);*/
+	// EG: color changed for IMT
+	// Bleu foncé IMT: 0c2340
+	// Bleu clair IMT: 00b8de; 0 184 222
         if(forcedColor){
-        	color.range()[0] = "rgb(255, 187, 120)";
-        	color.range()[1] = "rgb(255, 127, 14)";
-        	color.range()[2] = "rgb(174, 199, 232)";
-        	color.range()[3] = "rgb(31, 119, 180)";
+        	color.range()[0] = "rgb(255, 187, 120)"; // orange clair
+        	color.range()[1] = "rgb(255, 127, 14)"; // orange
+        	color.range()[2] = "#00b8de"; //"rgb(174, 199, 232)"; // bleu clair
+        	color.range()[3] = "#0c2340"; //"rgb(31, 119, 180)"; // bleu foncé
         }	else	{
-        	color.range()[0] = "#1f77b4";
-        	color.range()[1] = "#aec7e8";
-        	color.range()[2] = "#ff7f0e";
-        	color.range()[3] = "#ffbb78";
+        	color.range()[0] = "#0c2340"; //"#1f77b4"; // bleu foncé
+        	color.range()[1] = "#00b8de"; //"#aec7e8"; // bleu clair
+        	color.range()[2] = "#ff7f0e"; // orange
+        	color.range()[3] = "#ffbb78"; // orange clair
         }
 
         var xAxis = d3.svg.axis()
@@ -243,6 +262,7 @@
         d3.select("#tipLegend")
         .remove();
         var tip = d3.tip()
+		// EG: boite gris foncé non visible -> autre
 		  .attr('class', 'd3-tip')
 		  .attr("id", "tipDiag1")
 		  //.rootElement(document.getElementById('svgContainer'))

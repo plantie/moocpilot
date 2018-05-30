@@ -34,6 +34,19 @@ var studentInfoMargin;
 var previousUniqueId;
 //document.getElementById("simulCalque").addEventListener("click", simuleCalque);
 
+// EG: table of labels
+// Label changed according to R6
+d3Label = [
+  // 0
+  {"fr" : "Progressions cumulées",
+   "en": "Cumulative progressions"},
+  // 1
+  {"fr" : "Dernier exercice réalisé par chaque élève", //"Progressions Réparties",
+   "en": "Spread progressions"},
+  // 2
+  {"fr" : "Résultats d’un élève, datés dans le temps", //"Suivi individuel",
+   "en": "Student results, with datestamp"},
+];
 
 
 function bulleClique(d, i, j, allDataset, cohorteDataset, selectedDataset, d3Event) {
@@ -128,11 +141,14 @@ function newGenereSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
     title = svg.append("text")
 	.text(function(){
 		if(document.querySelector('input[name="visualisationMode"]:checked').value == "0" && document.getElementById("studentSelect").parentElement.style.display == "none"){
-			return "Progressions cumulées";
+			return d3Label[0][localStorage.lang];
+			//return "Progressions cumulées";
 		}	else	if(document.querySelector('input[name="visualisationMode"]:checked').value == "1"){
-			return "Progressions Réparties";
+			return d3Label[1][localStorage.lang];
+			//return "Progressions Réparties";
 		}	else	{
-			return "Suivi individuel";
+			return d3Label[2][localStorage.lang];
+			//return "Suivi individuelXXX";
 		}
 		
 	})
@@ -144,18 +160,18 @@ function newGenereSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
 	if(document.querySelector('input[name="visualisationMode"]:checked').value == "0" && document.getElementById("studentSelect").parentElement.style.display == "none"){
     	document.getElementById("moreOf").disabled = false;
     	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "black";
-		document.querySelector("#titleView a").innerText = "Progressions cumulées";
-        document.querySelector("#titleView").style.width = getTextWidth("Progressions cumulées", "20px arial") + "px";
+		document.querySelector("#titleView a").innerText = d3Label[0][localStorage.lang]; //"Progressions cumulées";
+        document.querySelector("#titleView").style.width = getTextWidth(d3Label[0][localStorage.lang]/*"Progressions cumulées"*/, "20px arial") + "px";
 	}	else	if(document.querySelector('input[name="visualisationMode"]:checked').value == "1"){
     	document.getElementById("moreOf").disabled = false;
     	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "black";
-	    document.querySelector("#titleView a").innerText = "Progressions Réparties";
-        document.querySelector("#titleView").style.width = getTextWidth("Progressions Réparties", "20px arial") + "px";
+	    document.querySelector("#titleView a").innerText = d3Label[1][localStorage.lang]; //"Progressions Réparties";
+        document.querySelector("#titleView").style.width = getTextWidth(d3Label[1][localStorage.lang]/*"Progressions Réparties"*/, "20px arial") + "px";
 	}	else	{
     	document.getElementById("moreOf").disabled = true;
     	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "dimgray";
-	    document.querySelector("#titleView a").innerText = "Suivi individuel";
-        document.querySelector("#titleView").style.width = getTextWidth("Suivi individuel", "20px arial") + "px";
+	    document.querySelector("#titleView a").innerText = d3Label[2][localStorage.lang]; //"Suivi individuel";
+        document.querySelector("#titleView").style.width = getTextWidth(d3Label[2][localStorage.lang]/*"Suivi individuel"*/, "20px arial") + "px";
 	}
     
     textSemaineInscription = svg.append("text")

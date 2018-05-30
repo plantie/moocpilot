@@ -15,6 +15,7 @@ html{
 	height:100%;
 }
 body{
+	background:none repeat scroll 0% 0% white;
 }
 
 #svgCore{
@@ -248,7 +249,7 @@ body{
   left: 221px;
   border: 1px solid;
   padding: 10px;
-  pointer-events: none;
+  //pointer-events: none; /* EG: removed to keep link */
   position: absolute;
   width: 250px;
   color: black;
@@ -381,7 +382,7 @@ body{
   right: 225px;
   border: 1px solid;
   padding: 10px;
-  pointer-events: none;
+  //pointer-events: none; /* EG: removed to keep link */
   position: absolute;
   width: 250px;
   color: black;
