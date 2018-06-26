@@ -36,7 +36,8 @@ function studentPie(data, names){
 	  .attr('id', 'tipChart')
 	  .offset([-10, 0])
 	  .html(function (d, i, j) {	
-		  return "<span style='color:#ffffff'>"+names[2]+ "/" + names[3] +"exercices sans note</span></br><span style = 'color:#FF8005'>"+names[1]+ "/" + names[3] +" exercices avec une note <= 0.5</span></br><span style = 'color:#6e6eff'>"+names[0]+ "/" + names[3] +" exercices avec une note > 0.5</span>";
+		  //return "<span style='color:#ffffff'>"+names[2]+ "/" + names[3] +"exercices sans note</span></br><span style = 'color:#FF8005'>"+names[1]+ "/" + names[3] +" exercices avec une note <= 0.5</span></br><span style = 'color:#6e6eff'>"+names[0]+ "/" + names[3] +" exercices avec une note > 0.5</span>";
+		  return "<span style='color:#ffffff'>"+names[2]+ "/" + names[3] +translations['#noteNA'][localStorage.lang]+"</span></br><span style = 'color:#FF8005'>"+names[1]+ "/" + names[3] +" exercices avec une note <= 0.5</span></br><span style = 'color:#6e6eff'>"+names[0]+ "/" + names[3] +" exercices avec une note > 0.5</span>";
 	  });
 	  
 	svg.call(tipPieChart);
@@ -61,7 +62,8 @@ function gradePie(cible, data, names, moy){
 	    height = 32,
 	    radius = Math.min(width, height)/1.25;
 	var color = d3.scale.ordinal()
-	    .range(["#0000FF", "#FF8005"]);
+	    //.range(["#0000FF", "#FF8005"]);
+	    .range(["#0c2340", "#FF8005"]); // EG IMT bleu foncé -  Learner's results, timestamped
 
 	var arc = d3.svg.arc()
 	    .outerRadius(radius - 10)
@@ -98,9 +100,9 @@ function gradePie(cible, data, names, moy){
 
 	svg.on('mouseover', tipPieChart.show)
 		.on('mouseout', tipPieChart.hide)*/
-    listTextPie.push("<span style = 'color:#FF8005'>"+names[1]+ "/" + names[2] +" apprenants avec une note <= 0.5</span>"
-	+"</br><span style = 'color:#6e6eff'>"+names[0]+ "/" + names[2] +" apprenants avec une note > 0.5</span>"
-	+"</br><span> Note moyenne : "+moy+"</span>");
+    listTextPie.push("<span style = 'color:#FF8005'>"+names[1]+ "/" + names[2] +" "+translations['#noteInf'][localStorage.lang]+"</span>" // apprenants avec une note <= 0.5
+	+"</br><span style = 'color:#6e6eff'>"+names[0]+ "/" + names[2] +" "+translations['#noteInf'][localStorage.lang]+" </span>" // apprenants avec une note > 0.5
+	+"</br><span> "+translations['#noteAvg'][localStorage.lang]+" : "+moy+"</span>"); // Note moyenne
 	
 	var g = svg.selectAll(".arc")
 	      .data(pie(data))

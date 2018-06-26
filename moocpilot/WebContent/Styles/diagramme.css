@@ -36,11 +36,10 @@ form {
   line-height: 1;
   font-weight: bold;
   padding: 12px;
-  background: white;
-  /*
-  background: rgba(0, 0, 0, 0.8);
+  /* EG */
+  background: white /*Tomato*/;
+  /* background: rgba(0, 0, 0, 0.8); */
   color: #fff;
-  */
   border-radius: 2px;
 }
 
@@ -51,7 +50,8 @@ form {
   font-size: 10px;
   width: 100%;
   line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
+  color: white /*Tomato*/; /* rgba(0, 0, 0, 0.8); */
+    border: 1px solid #000000;
   content: "\25BC";
   position: absolute;
   text-align: center;

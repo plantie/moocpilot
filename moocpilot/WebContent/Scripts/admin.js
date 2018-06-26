@@ -271,7 +271,7 @@ function newArrayLine(index, pos, focusedElement) {
     var cellDownload = row.insertCell(3);
     var buttonDownload = document.createElement('input');
     buttonDownload.type = "button";
-    buttonDownload.value = "Enregistrer en local";
+    buttonDownload.value = translations['buttonDownload'][localStorage.lang]; //"Enregistrer en local";
     buttonDownload.addEventListener("mousedown", function () { callDownloadCsv(index) });
     cellDownload.appendChild(buttonDownload);
 }

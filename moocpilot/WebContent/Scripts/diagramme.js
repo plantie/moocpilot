@@ -128,7 +128,7 @@ function updateCohorteNames() {
     document.getElementById("cohorteSelect").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les élèves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("cohorteSelect").appendChild(option);
 
     for (var i = 0; i < cohorteList.length; i++) {
@@ -143,7 +143,7 @@ function updateListStudent(){
     document.getElementById("studentSelectData").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les élèves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("studentSelectData").appendChild(option);
     
     var cohorteState = document.getElementById("cohorteSelect").value;
@@ -333,7 +333,7 @@ function openBullePopup(d) {
     document.querySelector("#bullePopup").style.transform = "rotateY(" + bullePopupRotation + "deg)";
 	bullePopupRotation+=360;
 	
-	document.querySelector("#bullePopup a").innerText = d.length+" élèves";
+	document.querySelector("#bullePopup a").innerText = d.length+" "+translations['eleves'][localStorage.lang]; //" élèves";
 	updateBulleStudentList();
 	//setTimeout(function(){document.querySelector("#bullePopup a").innerText = d.length+" élèves \ncollecte "+j+"  \n"+tabCohorte[0][i];updateBulleStudentList();},250);
 		
@@ -345,7 +345,7 @@ function updateBulleStudentList(){
     document.getElementById("bulleStudentList").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les élèves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("bulleStudentList").appendChild(option);    
 
     for (var i = 0; i < openBulleContent.length; i++) {

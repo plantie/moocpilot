@@ -140,7 +140,7 @@ function updateBulleStudentList(){
     document.getElementById("bulleStudentList").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les élèves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("bulleStudentList").appendChild(option);    
 
     for (var i = 0; i < ciblesEleves.length; i++) {
@@ -694,9 +694,9 @@ function generateTable() {//Genere le tableau en fonction du nombre de semaine
     for (var i = 0; i < sheetNames.length; i++) {
         var r0ctemp = document.createElement("td");
         if(menu >= 2){
-            r0ctemp.appendChild(document.createTextNode("Collecte " + (i + 1)));
+            r0ctemp.appendChild(document.createTextNode(translations['collecte'][localStorage.lang]+" " + (i + 1)));
         }	else	{
-            r0ctemp.appendChild(document.createTextNode("Collecte " + i + "\u2192" + (i + 1)));
+            r0ctemp.appendChild(document.createTextNode(translations['collecte'][localStorage.lang]+" " + i + "\u2192" + (i + 1)));
         }
         r0.appendChild(r0ctemp);
         r1.appendChild(document.createElement("td"));
@@ -872,7 +872,7 @@ function updateCohorteNames() {
     document.getElementById("cohorteSelect").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les élèves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("cohorteSelect").appendChild(option);
 
     for (var i = 0; i < cohorteList.length; i++) {
@@ -887,7 +887,7 @@ function updateListStudent(){
     document.getElementById("studentSelectData").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les élèves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("studentSelectData").appendChild(option);
     
     var cohorteState = document.getElementById("cohorteSelect").value;

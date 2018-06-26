@@ -44,8 +44,9 @@ d3Label = [
   {"fr" : "Dernier exercice réalisé par chaque élève", //"Progressions Réparties",
    "en": "Spread progressions"},
   // 2
-  {"fr" : "Résultats d’un élève, datés dans le temps", //"Suivi individuel",
-   "en": "Student results, with datestamp"},
+  {"fr" : translations['imgName3']['fr'], //"Résultats d’un élève, datés dans le temps", //"Suivi individuel",
+   "en": translations['imgName3']['en'] //"Student results, with datestamp"
+	  },
 ];
 
 
@@ -81,6 +82,7 @@ function newGenereSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
         return;
     }
 	
+//alert("ici");	
 	if(document.querySelector('input[name="weekModeOption"]:checked').value == "1"){
 		referenceDataset = orderByWeek(referenceDataset);
 		uniqueDataset = orderByWeek(uniqueDataset);
@@ -175,7 +177,7 @@ function newGenereSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
 	}
     
     textSemaineInscription = svg.append("text")
-		.text("Collecte")
+		.text(translations['collecte'][localStorage.lang]) // "Collecte"
 		.attr("font-size", "12px")
 		.attr("x",espacement - 20)
 		.attr("y",espacement/5 + topMarge);
@@ -285,7 +287,10 @@ function newGenereSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
     tip = d3.tip()
 	  .attr('class', 'd3-tip')
 	  .offset([-10, 0])
-	  .style("background", function(d,i,j){if(uniqueId.length != 0){return "blue";}else{return "black";}})
+	  // EG correction background ??? => white
+	  .style("background", "white")
+	  .style("visibility", "inherit")
+	  //.style("background", function(d,i,j){if(uniqueId.length != 0){return "blue";}else{return "black";}})
 	  //.style("visibility", function(d,i,j){console.log(i); console.log(j);if(uniqueId.length != 0 && uniqueDataset[j][i].length == 0){return "hidden";}else{return "inherit";}})
 	  .html(function (d, i, j) {
 		  tip.style("visibility", "");
@@ -318,24 +323,24 @@ function newGenereSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
 	      var str = partInscrit;
 	      var en;
 	      if(j == referenceDataset.length-1){
-	    	  en = "au total";
+	    	  en = translations['auTotal'][localStorage.lang]; //"au total";
 	      }	else	{
-	    	  en = "en C"+j;
+	    	  en = translations['enC'][localStorage.lang]+j; //"en C"+j;
 	      }
 	      if(menu >= 2 || j == referenceDataset.length-1){
-	    	  str += "% du total des inscrits " + en;
-	    	  str += "<br/>" + partParticipants + "% du total des participants " + en;
+	    	  str += "% "+translations['totInscrit'][localStorage.lang]+" " + en;
+	    	  str += "<br/>" + partParticipants + "% "+translations['totParticipant'][localStorage.lang]+" " + en;
 	      }	else	{
 		      if(j == 1){
-		    	  str += "% du total des inscrits avant C" + j;
-			      str += "<br/>" + partParticipants + "% du total des participants avant C";
+		    	  str += "% "+translations['totInscrit'][localStorage.lang]+" avant C" + j;
+			      str += "<br/>" + partParticipants + "% "+translations['totParticipant'][localStorage.lang]+" avant C";
 		      }	else	{
-		    	  str += "% du total des inscrits entre C" + (j-1) +" et C" + j;
-			      str += "<br/>" + partParticipants + "% du total des participants entre C" + (j-1) +" et C";
+		    	  str += "% "+translations['totInscrit'][localStorage.lang]+" entre C" + (j-1) +" et C" + j;
+			      str += "<br/>" + partParticipants + "% "+translations['totParticipant'][localStorage.lang]+" entre C" + (j-1) +" et C";
 		      }
 	      }
 	   
-	      str += "<br/> Cliquez sur la bulle pour afficher le détail";
+	      str += "<br/> "+translations['clicBulle'][localStorage.lang];
 	      return str;
 	  });
 	  
@@ -530,7 +535,7 @@ function newGenereSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
 						    		return "none";
 						    	}
 						    })
-						    .attr("fill", "#EBE8DE")
+						    .attr("fill", "white") // EG FOND de text !!  #EBE8DE => white
 						    .style("opacity", function(d, i, j){
 						    	if((document.getElementById("isDisplayNumber").checked || uniqueId.length != 0) && i>0 && j>0){
 						    		return 1;
@@ -673,23 +678,31 @@ function newUpdateSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
         return;
     }
 
+    // EG: change title
     title.text(function(){
+	var title;
 	if(document.querySelector('input[name="visualisationMode"]:checked').value == "0" && document.getElementById("studentSelect").parentElement.style.display == "none"){
     	document.getElementById("moreOf").disabled = false;
     	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "black";
-		document.querySelector("#titleView a").innerText = "Progressions cumulées";
-        document.querySelector("#titleView").style.width = getTextWidth("Progressions cumulées", "20px arial") + "px";
+	  title = translations['imgName1'][localStorage.lang];
+	  //~ document.querySelector("#titleView a").innerText = "Progressions cumulées";
+          //~ document.querySelector("#titleView").style.width = getTextWidth("Progressions cumulées", "20px arial") + "px";
 	}	else	if(document.querySelector('input[name="visualisationMode"]:checked').value == "1"){
     	document.getElementById("moreOf").disabled = false;
     	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "black";
-		document.querySelector("#titleView a").innerText = "Progressions Réparties";
-        document.querySelector("#titleView").style.width = getTextWidth("Progressions Réparties", "20px arial") + "px";
+	  title = translations['imgName2'][localStorage.lang];
+	  //~ document.querySelector("#titleView a").innerText = "Progressions Réparties";
+          //~ document.querySelector("#titleView").style.width = getTextWidth("Progressions Réparties", "20px arial") + "px";
 	}	else	{
     	document.getElementById("moreOf").disabled = true;
     	document.getElementById("moreOf").parentElement.firstElementChild.style.color = "dimgray";
-	    document.querySelector("#titleView a").innerText = "Suivi individuel";
-        document.querySelector("#titleView").style.width = getTextWidth("Suivi individuel", "20px arial") + "px";
-	}});
+	  title = translations['imgName3'][localStorage.lang];
+	  //~ document.querySelector("#titleView a").innerText = "Suivi individuel";
+          //~ document.querySelector("#titleView").style.width = getTextWidth("Suivi individuel", "20px arial") + "px";
+	}
+	document.querySelector("#titleView a").innerText = title;
+	document.querySelector("#titleView").style.width = getTextWidth(title, "22px arial") + "px"; // EG 22px instead 20px...
+	});
     
 	if(document.querySelector('input[name="weekModeOption"]:checked').value == "1"){
 		referenceDataset = orderByWeek(referenceDataset);
@@ -754,7 +767,9 @@ function newUpdateSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
     	    newActualiseTableau(referenceDataset, allDataset, cohorteDataset, selectedDataset);
     	
     	    //niveau 1
-    	    tip.style("background", function(){if(uniqueId.length != 0){return "blue";}else{return "black";}})
+	    // EG CORRECTION TIP => white
+    	    tip.style("background", "white")
+    	    //tip.style("background", function(){if(uniqueId.length != 0){return "blue";}else{return "black";}})
     	    	.html(function (d, i, j) {
         			tip.style("visibility", "");
     			  if(uniqueId.length != 0 && j < uniqueDataset.length){
@@ -795,19 +810,19 @@ function newUpdateSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
     		    	  en = "en C"+j;
     		      }
     		      if(menu >= 2 || j == referenceDataset.length-1){
-    		    	  str += "% du total des inscrits " + en;
-    		    	  str += "<br/>" + partParticipants + "% du total des participants " + en;
+    		    	  str += "% "+translations['totInscrit'][localStorage.lang]+" " + en;
+    		    	  str += "<br/>" + partParticipants + "% "+translations['totParticipant'][localStorage.lang]+" " + en;
     		      }	else	{
     			      if(j == 1){
-    			    	  str += "% du total des inscrits avant C" + j;
-    				      str += "<br/>" + partParticipants + "% du total des participants avant C";
+    			    	  str += "% "+translations['totInscrit'][localStorage.lang]+" avant C" + j;
+    				      str += "<br/>" + partParticipants + "% "+translations['totParticipant'][localStorage.lang]+" avant C";
     			      }	else	{
-    			    	  str += "% du total des inscrits entre C" + (j-1) +" et C" + j;
-    				      str += "<br/>" + partParticipants + "% du total des participants entre C" + (j-1) +" et C";
+    			    	  str += "% "+translations['totInscrit'][localStorage.lang]+" entre C" + (j-1) +" et C" + j;
+    				      str += "<br/>" + partParticipants + "% "+translations['totParticipant'][localStorage.lang]+" entre C" + (j-1) +" et C";
     			      }
     		      }
     		   
-    		      str += "<br/> Cliquez sur la bulle pour afficher le détail";
+    		      str += "<br/> "+translations['clicBulle'][localStorage.lang];
     		      return str;
     			  /*
     	        var partInscrit;
@@ -822,15 +837,15 @@ function newUpdateSVG(referenceDataset, allDataset, allDatasetData, cohorteDatas
     	        
     		      var str = partInscrit;
     		      if(menu >= 2){
-    		    	  str += "% du total des inscrits en C" + j;
-    		    	  str += "<br/>" + partParticipants + "% du total des participants en C" + j;
+    		    	  str += "% "+translations['totInscrit'][localStorage.lang]+" en C" + j;
+    		    	  str += "<br/>" + partParticipants + "% "+translations['totParticipant'][localStorage.lang]+" en C" + j;
     		      }	else	{
     			      if(j == 1){
-    			    	  str += "% du total des inscrits avant C" + j;
-    				      str += "<br/>" + partParticipants + "% du total des participants avant C" + j;
+    			    	  str += "% "+translations['totInscrit'][localStorage.lang]+" avant C" + j;
+    				      str += "<br/>" + partParticipants + "% "+translations['totParticipant'][localStorage.lang]+" avant C" + j;
     			      }	else	{
-    			    	  str += "% du total des inscrits entre C" + (j-1) +" et C" + j;
-    				      str += "<br/>" + partParticipants + "% du total des participants entre C" + (j-1) +" et C" + j;
+    			    	  str += "% "+translations['totInscrit'][localStorage.lang]+" entre C" + (j-1) +" et C" + j;
+    				      str += "<br/>" + partParticipants + "% "+translations['totParticipant'][localStorage.lang]+" entre C" + (j-1) +" et C" + j;
     			      }
     		      }
     	        return str;*/

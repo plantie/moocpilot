@@ -13,7 +13,7 @@
 	}
 	
 	var radioButtons = document.querySelectorAll("#parameters input[type='radio']");
-	var groupeName = " élèves";
+	var groupeName = " "+translations['eleves'][localStorage.lang]; //" élèves";
 
     var domainEcart  = ["0➞0.25", "0.25➞0.50", "0.50➞0.75", "0.75➞1"];
 
@@ -83,7 +83,8 @@ console.log("callDisplayDiagramme, typeDiag:"+typeDiag);
 	            	document.getElementById("tableau").style.display = "inherit";
 	            	domain = getSheetNames();
 	            	//legendColumn = 1;
-	            	legendData = legendFormate(["Participants", "Non participants"]);
+	            	//~ legendData = legendFormate(["Participants", "Non participants"]);
+	            	legendData = legendFormate([translations['participant'][localStorage.lang], translations['notparticipant'][localStorage.lang]]);
 	            	//title = title1;
 	            	hideExerciseSelector();
 	            	document.getElementById("moreOf").disabled = true;
@@ -132,7 +133,7 @@ console.log("callDisplayDiagramme, typeDiag:"+typeDiag);
 	        	layers = layerPourcent(layers);
 	        	groupeName = " %";
 	        }	else	{
-	        	groupeName = " élèves";
+	        	groupeName = " "+translations['eleves'][localStorage.lang]; //" élèves";
 	        }
 	        
 	        
@@ -683,12 +684,12 @@ console.log("callDisplayDiagramme, typeDiag:"+typeDiag);
         
         var r0ctemp = document.createElement("td");
         r0ctemp.style.width = "120px";
-        r0ctemp.appendChild(document.createTextNode("Collectes"));
+        r0ctemp.appendChild(document.createTextNode(translations['collectes'][localStorage.lang])); // EG "Collectes"
         r0.appendChild(r0ctemp);
         
         var r1c0 = document.createElement("td");
         r1c0.style.width = "120px";
-        r1c0.appendChild(document.createTextNode("Inscrits"));
+        r1c0.appendChild(document.createTextNode(translations['inscrits'][localStorage.lang])); // EG "Inscrits"
         r1.appendChild(r1c0);
 
 
@@ -710,10 +711,10 @@ console.log("callDisplayDiagramme, typeDiag:"+typeDiag);
         r1.appendChild(document.createElement("td"));
 
         var r2 = r1.cloneNode(true);
-        r2.firstChild.firstChild.textContent = "Non participants";
+        r2.firstChild.firstChild.textContent = translations['notparticipant'][localStorage.lang]; //"Non participants";
         r2.style.width = "120px";
         var r3 = r1.cloneNode(true);
-        r3.firstChild.firstChild.textContent = "Participants";
+        r3.firstChild.firstChild.textContent = translations['participant'][localStorage.lang]; // "Participants";
         r3.style.width = "120px";
 
         tableau.appendChild(r0);

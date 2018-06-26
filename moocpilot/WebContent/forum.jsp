@@ -77,7 +77,7 @@
             <div>
                <a id = "AcohorteSelect" style = "width:50%;">Visualisation d'une cohorte</a>
                <select onchange = "changeCohorte()" id = "cohorteSelect">
-                  <option value = "0">Tous les éléves</option>
+                  <option class="allLearners" value = "0">Tous les éléves</option>
                </select>
             </div>
          </div>

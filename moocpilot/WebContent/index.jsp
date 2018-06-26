@@ -112,9 +112,9 @@
                <input id = "visualiseCohorteToggle" type = "checkbox" checked="">
             </div>
             <div>
-               <a style = "width:50%;font-size:13px;">Visualisation d'un élève</a>
+               <a class="visuLearner" style = "width:50%;font-size:13px;">Visualisation d'un élève</a>
                <select style = "background-color: red;width:120px;" onchange = "updateBulleStudentListCall()" id = "bulleStudentList">
-                  <option value = "">Tous les élèves</option>
+                  <option class="allLearners" value = "">Tous les élèves</option>
                </select>
             </div>
             <button>Liste des élèves de ce groupe</button>
@@ -123,7 +123,7 @@
          <div id = "svgPanel">
             <table id="tableau"></table>
             <div class = "notRequired student-name-prompt">
-               <a style = "width:50%;">Nom d'un élève</a>
+               <a id="LO9" style = "width:50%;">Nom d'un élève</a>
                <input id=studentSelect oninput = "changeStudent()" list="studentSelectData" title = "Double clique pour afficher la liste des élèves">
                <datalist id=studentSelectData></datalist>
                <svg style = "cursor: pointer;" onclick="resetStudent();" fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -183,7 +183,7 @@
                <div>
                   <a id = "AcohorteSelect" style = "width:50%;">Visualisation d'une cohorte</a>
                   <select onchange = "changeCohorte()" id = "cohorteSelect">
-                     <option value = "0">Tous les élèves</option>
+                     <option class="allLearners" value = "0">Tous les élèves</option>
                   </select>
                </div>
             </div>
@@ -237,17 +237,17 @@
                </g>
             </svg>
             <div style = "line-height:5px;width: 100px;display: inline-block;font-size: 14px;font-weight:bold">
-               <p style = "color:#00b8de">note >= 0.5</p>
-               <p style = "color:rgb(255, 128, 5)">note < 0.5</p>
-               <p style = "color:white">sans note</p>
+               <p id="noteSup" style = "color:#00b8de">note >= 0.5</p>
+               <p id="noteInf" style = "color:rgb(255, 128, 5)">note < 0.5</p>
+               <p id="noteNA" style = "color:white">sans note</p>
             </div>
          </div>
          <div id = "otherOption" class = "optionsList notRequired">
             <button onclick="displayOptions();" id = "optionViewer">Autres options</button>
             <div id = "realOptions" class="notRequired">
                <div id = "viewModeOption" style = "">
-                  <label class = "radioParameterLabel">Progression Courante<input onchange = "changeModeVisualisation()" class="shape" name="visualisationModeOption" value="2" type="radio" checked="true"></label>
-                  <label class = "radioParameterLabel doubleLineLabel">Progression selon la semaine d'inscription<input onchange = "changeModeVisualisation()" class="shape" name="visualisationModeOption" value="0" type="radio"></label>
+                  <label id="LO1" class = "radioParameterLabel">Progression Courante</label><input onchange = "changeModeVisualisation()" class="shape" name="visualisationModeOption" value="2" type="radio" checked="true">
+                  <label id="LO2" class = "radioParameterLabel doubleLineLabel">Progression selon la semaine d'inscription</label><input onchange = "changeModeVisualisation()" class="shape" name="visualisationModeOption" value="0" type="radio">
                </div>
                <hr style="width: 60%; margin-bottom: 15px;">
                <div id = "navigation" style = "display:none">
@@ -267,8 +267,8 @@
                   <span id = "slideBarDisplay">S12</span>    	
                </div>
                <div id="classementFS">
-                  <label class = "radioParameterLabel doubleLineLabel">Classement par semaine FUN</label><input onchange = "prepareAll()" class="shape" name="weekModeOption" value="1" type="radio" checked="true"/>
-                  <label class = "radioParameterLabel doubleLineLabel">Classement par type d'exercice</label><input onchange = "prepareAll()" class="shape" name="weekModeOption" value="0" type="radio"/>
+                  <label id="LO3" class = "radioParameterLabel doubleLineLabel">Classement par semaine FUN</label><input onchange = "prepareAll()" class="shape" name="weekModeOption" value="1" type="radio" checked="true"/>
+                  <label id="LO4" class = "radioParameterLabel doubleLineLabel">Classement par type d'exercice</label><input onchange = "prepareAll()" class="shape" name="weekModeOption" value="0" type="radio"/>
                </div>
                <hr style="width: 60%; margin-bottom: 15px;">
                <!-- 
@@ -276,19 +276,19 @@
                    			<a>Classement par semaine FUN</a>
                    			<input id = "weekMode" type = "checkbox" checked = "true">
                    		</div>	 -->
-               <div style = "display:none">
+               <div style = "display:none" id="LO5">
                   <a>Taille/Type Travaux</a>
                   <input id = "maxCategorieToggle" type = "checkbox">
                </div>
-               <div>
+               <div id="LO6">
                   <a>Afficher les nombres</a>
                   <input onclick = "circleTextBackgroundUpdate()" id = "isDisplayNumber" type = "checkbox" checked="true">
                </div>
-               <div class="notRequired">
+               <div class="notRequired" id="LO7">
                   <a>Agrandissement lors du survol</a>
                   <input id = "isZooming" type = "checkbox">
                </div>
-               <div class="notRequired">
+               <div class="notRequired" id="LO8">
                   <a>Cohorte seulement</a>
                   <input onclick = "actualisation(3, 0)" id = "onlyDisplaySelectedCohorte" type = "checkbox" checked="true">
                </div>

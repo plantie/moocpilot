@@ -1,14 +1,16 @@
 /*---------------------------------------------------------------Style D3--------------------------------------------------------*/ 
 
+/* recherche box color: PINK
 /* EG: non actif -> d3boite */
  .d3-tip {
   line-height: 1;
   font-weight: bold;
   padding: 12px;
-  background: white /*gray; //rgba(0, 0, 0, 0.8);*/
+  background: white /*Tomato*/; /*gray; //rgba(0, 0, 0, 0.8);*/
+    border: 1px solid #000000;
   /*color: gray; #fff;*/
   border-radius: 2px;
-  z-index: 1;
+  /* EG ??? z-index: 1; */
 }
 
 /* Creates a small triangle extender for the tooltip */
@@ -18,7 +20,7 @@
   font-size: 10px;
   width: 100%;
   line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
+  color: white /*Tomato*/; /* EG: rgba(0, 0, 0, 0.8); */
   content: "\25BC";
   position: absolute;
   text-align: center;

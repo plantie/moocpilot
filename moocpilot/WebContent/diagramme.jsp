@@ -96,9 +96,9 @@
          <a></a>
          <i class="fa fa-arrows"></i>				
          <div>
-            <a style = "width:50%;font-size:13px;">Visualisation d'un élève</a>
+            <a class="visuLearner" style = "width:50%;font-size:13px;">Visualisation d'un élève</a>
             <select style = "background-color: red;width:120px;" onchange = "updateBulleStudentListCall()" id = "bulleStudentList">
-               <option value = "">Tous les élèves</option>
+               <option class="allLearners" value = "">Tous les élèves</option>
             </select>
          </div>
          <button id = "resetSelectedCohorte">Réinitialiser la sélection</button>
@@ -130,7 +130,7 @@
             <div>
                <a id = "AcohorteSelect" style = "width:50%;">Visualisation d'une cohorte</a>
                <select onchange = "changeCohorte()" id = "cohorteSelect">
-                  <option value = "0">Tous les élèves</option>
+                  <option class="allLearners" value = "0">Tous les élèves</option>
                </select>
             </div>
          </div>
@@ -161,10 +161,10 @@
                <input title="Modifie la taille des diagrammes" id="sizeBar" min="10" max="20" value="10" step="1" oninput="changeSize()" type="range">
             </div>
             <div class = "notRequired" id="classementFS">
-               <!--<label class = "radioParameterLabel doubleLineLabel">Classement par semaine FUN</label>-->
-	       <input onchange = "callDisplayDiagramme()" class="shape" name="weekModeOption" value="1" type="radio" checked="true">Classement par semaine FUN</input>
-               <!--<label class = "radioParameterLabel doubleLineLabel">Classement par type d'exercice</label>-->
-	       <input onchange = "callDisplayDiagramme()" class="shape" name="weekModeOption" value="0" type="radio">Classement par type d'exercice</input>
+	       <input id="iLO3" onchange = "callDisplayDiagramme()" class="shape" name="weekModeOption" value="1" type="radio" checked="true"></input>
+               <label id="LO3" for="iLO3" class = "radioParameterLabel doubleLineLabel">Classement par semaine FUN</label>
+	       <input id="iLO3" onchange = "callDisplayDiagramme()" class="shape" name="weekModeOption" value="0" type="radio"></input>
+               <label id="LO4" for="iLO4" class = "radioParameterLabel doubleLineLabel">Classement par type d'exercice</label>
             </div>
             <!-- 
                <div id="weekModeDiv" class = "notRequired">
@@ -172,7 +172,7 @@
                  		<input onclick = "callDisplayDiagramme()" id = "weekMode" type = "checkbox" checked = "true">
                  	</div>	 -->
             <div style = "display:none;" >
-               <a style = "width:50%;">Visualisation d'un élève</a>
+               <a class="visuLearner" style = "width:50%;">Visualisation d'un élève</a>
                <input id=studentSelect oninput = "changeStudent()" list="studentSelectData" title = "Double clique pour afficher la liste des élèves">
                <datalist id=studentSelectData></datalist>
             </div>

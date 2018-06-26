@@ -574,7 +574,7 @@ console.log("screenSelectorSizer, screenSelectorMode="+screenSelectorMode+", fir
 		$('#screenSelectorArea div.block div').css({height: "0px"});
 	} else {
 		$('#screenSelectorArea div.block div a').css({transition: "all 0.5s 1.5s", fontSize:"2vh"});
-		$('#screenSelectorArea div.headline').css({transition: "all 0.5s 1.5s", fontSize:"2vh"});
+		$('#screenSelectorArea div.headline').css({transition: "all 0.5s 1.5s", fontSize:"2.3vh"}); // EG plus gros !
 		$('#screenSelectorArea img').css({height: "calc(100% - 50px)"});
 		$('#screenSelectorArea div.block div').css({height: "50px"});
 	}
