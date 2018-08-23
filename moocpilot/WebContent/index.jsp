@@ -2,7 +2,7 @@
 <html lang = "fr">
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-      <title id='Title'>MOOC Pilote: tableau de progression des élèves</title>
+      <title id='Title'>MOOC Pilote: tableau de progression des Ã©lÃ¨ves</title>
       <link href="Styles/style.css" rel="stylesheet" media="all" type="text/css">
       <link href="Styles/d3.css" rel="stylesheet" media="all" type="text/css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -21,13 +21,13 @@
          </svg>
          <div id="PresentationPanelMenu">
             <div onclick="previousPresentationPage()">
-               <span>Précédent</span>
+               <span>PrÃ©cÃ©dent</span>
             </div>
             <div onclick="nextPresentationPage()">
                <span>Suivant</span>
             </div>
             <div onclick="stopPresentation()">
-               <span>Quitter la démonstration</span>
+               <span>Quitter la dÃ©monstration</span>
             </div>
          </div>
       </div>
@@ -45,16 +45,16 @@
          <div id="presentation">
             <div id="presentationText">
                <p>Bienvenue sur l'application Mooc-Pilot.</p>
-               <p>Mooc-Pilot est une application dédié à la visualisation de la progression d'élèves au cours d'un MOOC.</p>
-               <p>L'application permet une visualisation en bulles de données représentant la progression d'étudiants au sein d'un MOOC avec pour but de représenter un grand nombre de données de manière à faire ressortir les problèmes dans l'évolution des apprenants.</p>
-               <p>Vous pouvez assister à une démonstration, ou commencer à visualiser des données.</p>
+               <p>Mooc-Pilot est une application dÃ©diÃ© Ã  la visualisation de la progression d'Ã©lÃ¨ves au cours d'un MOOC.</p>
+               <p>L'application permet une visualisation en bulles de donnÃ©es reprÃ©sentant la progression d'Ã©tudiants au sein d'un MOOC avec pour but de reprÃ©senter un grand nombre de donnÃ©es de maniÃ¨re Ã  faire ressortir les problÃ¨mes dans l'Ã©volution des apprenants.</p>
+               <p>Vous pouvez assister Ã  une dÃ©monstration, ou commencer Ã  visualiser des donnÃ©es.</p>
             </div>
             <div id="presentationMenu">
                <div onclick="checkCookieCheckBox();launchPresentation()" class="link">
-                  <span>Assister à la démonstration</span>
+                  <span>Assister Ã  la dÃ©monstration</span>
                </div>
                <div onclick="checkCookieCheckBox();dataSelectionLink(2)" class="link">
-                  <span id = "presentationMenuCourseLink" >Ignorer la démonstration</span>
+                  <span id = "presentationMenuCourseLink" >Ignorer la dÃ©monstration</span>
                </div>
                <div style = "margin:20px 0px;">
                   <span>Ne plus afficher ce panneau</span>
@@ -82,23 +82,23 @@
                   <a href = "diagramme.jsp" class="headerMenuUnselected"></a>
                   <a></a>
                </div>
-               <a style =  "display:none" onclick="launchPresentation()" id="DemoButton">Démonstration</a>
+               <a style =  "display:none" onclick="launchPresentation()" id="DemoButton">DÃ©monstration</a>
                <div id="contact">
                   <a>
                      contact
 								<span id='ContactList'>
-									<p>Notre équipe de recherche au laboratoire LGi2P de l'École des Mines d'Alès :</p>
+									<p>Notre Ã©quipe de recherche au laboratoire LGi2P de l'Ã‰cole des Mines d'AlÃ¨s :</p>
 									<p>Michel Crampes, professeur et chercheur,</p>
-									<p>Michel Plantié, chercheur,</p>
-									<p>Axel Garcia, développeur,</p>
-									<p>Pierre Jean, ingénieur de recherche</p>	
+									<p>Michel PlantiÃ©, chercheur,</p>
+									<p>Axel Garcia, dÃ©veloppeur,</p>
+									<p>Pierre Jean, ingÃ©nieur de recherche</p>	
 							        <p>Email : social.networks@mines-ales.fr</p>
-							        <p>Numero de téléphone : 04 66 38 70 35</p>
+							        <p>Numero de tÃ©lÃ©phone : 04 66 38 70 35</p>
                      </span>
                   </a>
                </div>
                <div>					
-                    <a id='aHeaderMenu' href="admin" class="headerMenu">administrateur (réservé)</a>
+                    <a id='aHeaderMenu' href="admin" class="headerMenu">administrateur (rÃ©servÃ©)</a>
                   <a></a>
                </div>
             </div>
@@ -106,25 +106,25 @@
          <div id="bullePopup">
             <a></a>
             <i class="fa fa-arrows"></i>
-            <button id = "visualiseCohorteButton">Progression de ce groupe d'élèves. (Passage en données cumulées)</button>
+            <button id = "visualiseCohorteButton">Progression de ce groupe d'Ã©lÃ¨ves. (Passage en donnÃ©es cumulÃ©es)</button>
             <div id = "visualiseCohorteToggleDiv">
-               <span>Progression de ce groupe d'élèves</span>
+               <span>Progression de ce groupe d'Ã©lÃ¨ves</span>
                <input id = "visualiseCohorteToggle" type = "checkbox" checked="">
             </div>
             <div>
-               <a class="visuLearner" style = "width:50%;font-size:13px;">Visualisation d'un élève</a>
+               <a class="visuLearner" style = "width:50%;font-size:13px;">Visualisation d'un Ã©lÃ¨ve</a>
                <select style = "background-color: red;width:120px;" onchange = "updateBulleStudentListCall()" id = "bulleStudentList">
-                  <option class="allLearners" value = "">Tous les élèves</option>
+                  <option class="allLearners" value = "">Tous les Ã©lÃ¨ves</option>
                </select>
             </div>
-            <button>Liste des élèves de ce groupe</button>
-            <button id = "resetSelectedCohorte">Réinitialiser la sélection</button>
+            <button>Liste des Ã©lÃ¨ves de ce groupe</button>
+            <button id = "resetSelectedCohorte">RÃ©initialiser la sÃ©lection</button>
          </div>
          <div id = "svgPanel">
             <table id="tableau"></table>
             <div class = "notRequired student-name-prompt">
-               <a id="LO9" style = "width:50%;">Nom d'un élève</a>
-               <input id=studentSelect oninput = "changeStudent()" list="studentSelectData" title = "Double clique pour afficher la liste des élèves">
+               <a id="LO9" style = "width:50%;">Nom d'un Ã©lÃ¨ve</a>
+               <input id=studentSelect oninput = "changeStudent()" list="studentSelectData" title = "Double clique pour afficher la liste des Ã©lÃ¨ves">
                <datalist id=studentSelectData></datalist>
                <svg style = "cursor: pointer;" onclick="resetStudent();" fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                   <path style = "transform: translate(0px, 5px);" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
@@ -160,22 +160,22 @@
          </div>
          <div style = "display:none"id = "dataSelection">
             <div onclick="launchPresentation()">
-               <span>Voir la démonstration</span>
+               <span>Voir la dÃ©monstration</span>
             </div>
             <div onclick="callDemoJSON(useJSON)">
-               <span>Données de démonstration</span>
+               <span>DonnÃ©es de dÃ©monstration</span>
             </div>
             <div>
-               <span>Essayez avec vos données</span>
+               <span>Essayez avec vos donnÃ©es</span>
                <input type="file" name="xlfile" id="xlf" accept=".xls" />
             </div>
             <div onclick="callSavedJSON(useJSON)">
-               <span>Voir les dernières données</span>
+               <span>Voir les derniÃ¨res donnÃ©es</span>
             </div>
          </div>
          <div id = "parameters">
             <div class = "optionsList">
-               <span id='ptut'>Paramètres du tuteur</span>
+               <span id='ptut'>ParamÃ¨tres du tuteur</span>
                <div>
                   <a>Seuil des notes</a>
                   <input oninput = "stopMoreOf()" id="moreOf" step = "0.1" value = "0.0" type = "number" min = "0" max = "1">
@@ -183,13 +183,13 @@
                <div>
                   <a id = "AcohorteSelect" style = "width:50%;">Visualisation d'une cohorte</a>
                   <select onchange = "changeCohorte()" id = "cohorteSelect">
-                     <option class="allLearners" value = "0">Tous les élèves</option>
+                     <option class="allLearners" value = "0">Tous les Ã©lÃ¨ves</option>
                   </select>
                </div>
             </div>
             <div id = "newViewSelection" style = "display:none">
-               <label title = "En cumulée un élève est dans autant de bulles que d'exercices qu'il a effectué." class = "radioParameterLabel">Progressions Cumulées<input onchange = "changeModeVisualisation()" class="shape" name="visualisationMode" value="0" type="radio"></label>
-               <label title = "En répartie un élève est présent dans la bulle qui représente le dernier exercice qu'il a effectué par type d'exercices." class = "radioParameterLabel">Progressions Réparties<input onchange = "changeModeVisualisation()" class="shape" name="visualisationMode" value="1" type="radio"></label>
+               <label title = "En cumulÃ©e un Ã©lÃ¨ve est dans autant de bulles que d'exercices qu'il a effectuÃ©." class = "radioParameterLabel">Progressions CumulÃ©es<input onchange = "changeModeVisualisation()" class="shape" name="visualisationMode" value="0" type="radio"></label>
+               <label title = "En rÃ©partie un Ã©lÃ¨ve est prÃ©sent dans la bulle qui reprÃ©sente le dernier exercice qu'il a effectuÃ© par type d'exercices." class = "radioParameterLabel">Progressions RÃ©parties<input onchange = "changeModeVisualisation()" class="shape" name="visualisationMode" value="1" type="radio"></label>
                <label title = "Bilan MOOC" class = "radioParameterLabel">Bilan MOOC<input onchange = "changeModeVisualisation()" class="shape" name="visualisationMode" value="10" type="radio"></label>
             </div>
             <div id = "options">
@@ -232,7 +232,7 @@
                      <path d="M13.509996299037246,7.799999999999998A15.600000000000001,15.600000000000001 0 0,1 -13.509996299037242,7.800000000000006L0,0Z" style="stroke: black; fill: rgb(255, 255, 255);"></path>
                   </g>
                   <g class="arc">
-                     <path d="M-13.509996299037242,7.800000000000006A15.600000000000001,15.600000000000001 0 0,1 -2.8656735100048066e-15,-15.600000000000001L0,0Z" style="stroke: black; fill: #00b8de;"></path><!-- bleu foncé IMT -->
+                     <path d="M-13.509996299037242,7.800000000000006A15.600000000000001,15.600000000000001 0 0,1 -2.8656735100048066e-15,-15.600000000000001L0,0Z" style="stroke: black; fill: #00b8de;"></path><!-- bleu foncÃ© IMT -->
                   </g>
                </g>
             </svg>
@@ -263,7 +263,7 @@
                      <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path>
                      <path d="M0 0h24v24H0z" fill="none"></path>
                   </svg>
-                  <input title="Modifie la dernière collecte voulue" id="slideBar" min="0" max="11" value="11" step="1" type="range">	
+                  <input title="Modifie la derniÃ¨re collecte voulue" id="slideBar" min="0" max="11" value="11" step="1" type="range">	
                   <span id = "slideBarDisplay">S12</span>    	
                </div>
                <div id="classementFS">
@@ -342,7 +342,7 @@
       <div id = "screenSelectorArea">
          <div id = "screenSelectorCover" onclick="swapScreenMode(false)"></div>
 	 
-	 <div class="tooltips headline" id="head1">Représentations principales</div>
+	 <div class="tooltips headline" id="head1">ReprÃ©sentations principales</div>
 	 <!-- data-no: current, next, back -->
 	 
 	<!-- Formulaire en ligne -->
@@ -355,7 +355,7 @@
             <img alt="Loading" src="">
          </div>
 -->
-         <div class = "tooltips tooltipsbottom block" id="screen6" data-no="6,5,2" onclick="selectScreen(this)"> <!-- Nombre d'élèves par exercice selon leurs résultats // Qualité des résultats -->
+         <div class = "tooltips tooltipsbottom block" id="screen6" data-no="6,5,2" onclick="selectScreen(this)"> <!-- Nombre d'Ã©lÃ¨ves par exercice selon leurs rÃ©sultats // QualitÃ© des rÃ©sultats -->
             <div>
                <a>title</a>
             </div>
@@ -363,35 +363,35 @@
             <img alt="Loading" src="">
          </div>
 
-         <div class = "tooltips tooltipsbottom block" id="screen5" data-no="5,3,6" onclick="selectScreen(this)"> <!-- Résultats des élèves par exercices -->
+         <div class = "tooltips tooltipsbottom block" id="screen5" data-no="5,3,6" onclick="selectScreen(this)"> <!-- RÃ©sultats des Ã©lÃ¨ves par exercices -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen3" data-no="3,1,5" onclick="selectScreen(this)"> <!-- Résultats d'un élève, datés dans le temps // Évaluation et Suivi Individuel -->
+         <div class = "tooltips tooltipsbottom block" id="screen3" data-no="3,1,5" onclick="selectScreen(this)"> <!-- RÃ©sultats d'un Ã©lÃ¨ve, datÃ©s dans le temps // Ã‰valuation et Suivi Individuel -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen2" data-no="2,6,7" onclick="selectScreen(this)"><!-- Dernier exercice réalisé par chaque élève // Progressions Réparties -->
+         <div class = "tooltips tooltipsbottom block" id="screen2" data-no="2,6,7" onclick="selectScreen(this)"><!-- Dernier exercice rÃ©alisÃ© par chaque Ã©lÃ¨ve // Progressions RÃ©parties -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen1" data-no="1,7,3" onclick="selectScreen(this)"> <!-- Progression Générale - Bubble Chart -->
+         <div class = "tooltips tooltipsbottom block" id="screen1" data-no="1,7,3" onclick="selectScreen(this)"> <!-- Progression GÃ©nÃ©rale - Bubble Chart -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen7" data-no="7,2,1" onclick="selectScreen(this)"><!-- Progression Générale - Bar Chart -->
+         <div class = "tooltips tooltipsbottom block" id="screen7" data-no="7,2,1" onclick="selectScreen(this)"><!-- Progression GÃ©nÃ©rale - Bar Chart -->
             <div>
                <a>title</a>
             </div>
@@ -419,16 +419,16 @@
             <img alt="Loading" src="">
          </div>
 	 
-	 <div class="tooltips headline" id="head4">Avancé</div>
+	 <div class="tooltips headline" id="head4">AvancÃ©</div>
 
-         <div class = "tooltips tooltipstop block" id="screen0" data-no="0,4,4" onclick="selectScreen(this)"> <!-- Nombre d'élèves par collecte -->
+         <div class = "tooltips tooltipstop block" id="screen0" data-no="0,4,4" onclick="selectScreen(this)"> <!-- Nombre d'Ã©lÃ¨ves par collecte -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipstop block" id="screen4" data-no="4,0,0" onclick="selectScreen(this)"> <!-- Nombre d'élèves par exercice selon leur période d'inscription -->
+         <div class = "tooltips tooltipstop block" id="screen4" data-no="4,0,0" onclick="selectScreen(this)"> <!-- Nombre d'Ã©lÃ¨ves par exercice selon leur pÃ©riode d'inscription -->
             <div>
                <a>title</a>
             </div>
@@ -436,44 +436,7 @@
             <img alt="Loading" src="">
          </div>
 
-<<<<<<< c06598a0b9885d63c72baa5cb34d7360b50ad2df
-				<button>Liste des élèves de ce groupe</button>
-				<button id = "resetSelectedCohorte">Réinitialiser la sélection</button>
-	    	</div>
-    		<div id = "svgPanel">		
-    			<table id="tableau"></table>
-			    <div class = "notRequired student-name-prompt">
-			    	<a style = "width:50%;">Nom d'un élève</a>
-			    		<input id=studentSelect oninput = "changeStudent()" list="studentSelectData" title = "Double clique pour afficher la liste des élèves">
-					<datalist id=studentSelectData></datalist>
-					<svg style = "cursor: pointer;" onclick="resetStudent();" fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-						<path style = "transform: translate(0px, 5px);" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-					</svg>
-				</div>
-    			<p id = "studentInfo">
-	    			<a id = "pieContainer" style = "margin-right:10px"></a>
-	    			<svg class = "smileys" style = "margin-bottom:-10px; fill:blue;" fill="#000000" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="32" style="/*! position: relative; *//*! top: 20px; */margin-bottom: -10px;">
-					    <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7z"></path>
-					    <path style="fill:#EBE8DE" d="M18 10h-12c.331 1.465 2.827 4 6.001 4 3.134 0 5.666-2.521 5.999-4zm-9.5-6c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5zm7 0c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5z"></path>
-				    </svg>
-	    			<svg class = "smileys" style = "margin-bottom:-10px; fill:blue;" fill="#000000" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="32" style="/*! position: relative; *//*! top: 20px; */margin-bottom: -10px;">
-					    <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7z"></path>
-					    <path style="fill:#EBE8DE" d="M17.507 9.941c-1.512 1.195-3.174 1.931-5.506 1.931-2.334 0-3.996-.736-5.508-1.931l-.493.493c1.127 1.72 3.2 3.566 6.001 3.566 2.8 0 4.872-1.846 5.999-3.566l-.493-.493zm-9.007-5.941c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5zm7 0c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5z"></path>
-				    </svg>
-	    			<svg class = "smileys" style = "margin-bottom:-10px; fill:#ff8005;" fill="#000000" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="32" style="/*! position: relative; *//*! top: 20px; */margin-bottom: -10px;">
-					    <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7z"></path>
-					    <path style="fill:#EBE8DE" d="M16 14h-8v-2h8v2zm-7.5-9c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5zm7 0c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5z"></path>
-				    </svg>
-	    			<svg class = "smileys" style = "margin-bottom:-10px; fill:#ff8005;" fill="#000000" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="32" style="/*! position: relative; *//*! top: 20px; */margin-bottom: -10px;">
-					    <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7z"></path>
-					    <path style="fill:#EBE8DE" d="M12 10c-2.332 0-4.145 1.636-5.093 2.797l.471.58c1.286-.819 2.732-1.308 4.622-1.308s3.336.489 4.622 1.308l.471-.58c-.948-1.161-2.761-2.797-5.093-2.797zm-3.501-6c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5zm7 0c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5z"></path>
-				    </svg>
-	    			<a id = "studentInfoText"></a>
-    			</p>
-    		</div>
-=======
       </div>
->>>>>>> Enhanced version of MOOC Pilot (see spec document for detail): layout change, management of several entities with a single application..
 
 
 
