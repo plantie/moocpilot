@@ -65,12 +65,15 @@ System.out.println("setFunUserParameters.doPost 2");
 	    
 	    boolean isFunUpdated = false;
 	    	    
-System.out.println("setFunUserParameters.doPost->"+userName+", "+courseId);
+System.out.println("setFunUserParameters.doPost->"+userName+", courseId="+courseId+", sessionName="+sessionName+", isEdx="+isEdx);
 
-	    if(!isEdx){
-	    	if(FunCsvGetter.loginWorking(getServletContext().getRealPath("/ShellScripts"), userName, userPassword)){
-	    		if(!FunCsvGetter.courseInformationsWorking(getServletContext().getRealPath("/ShellScripts"), userName, userPassword, instituteName, courseId, sessionName, false)){
-	    			if(!FunCsvGetter.courseInformationsWorking(getServletContext().getRealPath("/ShellScripts"), userName, userPassword, instituteName, courseId, sessionName, true)){
+	    String realPath = getServletContext().getRealPath("/ShellScripts");
+
+	    // EGo: correction for Edx...
+	    //	if(!isEdx){
+	    	if(FunCsvGetter.loginWorking(realPath, userName, userPassword, isEdx)){
+	    		if(!FunCsvGetter.courseInformationsWorking(realPath, userName, userPassword, instituteName, courseId, sessionName, false, isEdx)){
+	    			if(!FunCsvGetter.courseInformationsWorking(realPath, userName, userPassword, instituteName, courseId, sessionName, true, isEdx)){
 		    			PrintWriter pw = response.getWriter() ;
 		    		    pw.write("Error : Course Informations");
 		    		    return;
@@ -83,9 +86,10 @@ System.out.println("setFunUserParameters.doPost->"+userName+", "+courseId);
 			    pw.write("Error : User Informations");
 			    return;
 	    	}
-	    }	else	{
-	    	
-	    }
+	    //	}	else	{
+	    //	}
+		
+		if (isEdx) isFunUpdated=true; // EG correction...
 	    
 	    FunUserParameters funUserParameters = new FunUserParameters(userName, userPassword, instituteName, courseId, sessionName, isEdx, isFunUpdated);
     	FileOutputStream fout;

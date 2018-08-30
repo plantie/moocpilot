@@ -31,6 +31,7 @@ public class CsvTraitement {
 	int columnEmail = -1;
 	int columnCohorte = -1;
 	int columnCertificate = -1;
+/*
 	// EG: 
 	int columnCertificateEligible = -1; // Certificate Eligible
 	ArrayList<Integer> columnWeek1 = new ArrayList<Integer>(); // Index of exo Week 1
@@ -43,7 +44,7 @@ public class CsvTraitement {
 	int N2 = 0; // Nombre d'inscrits ayant une note semaine 2 > 0
 	int N2ok = 0; // Nombre d'inscrits ayant une note semaine 2 > 0 ET Certificate Eligible = 'Y'
 	int[] resTab;
-	
+*/	
 	//--------------
 	ArrayList<List<CSVRecord>> recordsList;
 	ArrayList<Eleve> tabEleves;//Liste de l'ensemble des élèves
@@ -90,6 +91,8 @@ System.out.println("CsvTraitement.CsvTraitement, csvListName="+csvListName);
 			
 			
 			
+				
+/*				
 			List<CSVRecord> sheet = this.recordsList.get(this.recordsList.size()-1); // last sheet.
 			resTab = new int[this.listColumnUtilsName.size()];
 			
@@ -101,9 +104,8 @@ System.out.println("CsvTraitement.CsvTraitement, csvListName="+csvListName);
 					double v = Double.parseDouble(rec.get(this.listColumnUtilsName.get(i)));
 					if (v>0) resTab[i]++;
 				}
-				
-				
-				
+
+				// EG: Not used...
 				double noteW1 = 0.0;
 				double noteW2 = 0.0;
 				boolean certifOK = rec.get(columnCertificateEligible).equals("Y");
@@ -125,8 +127,9 @@ System.out.println("CsvTraitement.CsvTraitement, csvListName="+csvListName);
 				
 //System.out.println("   "+rec.get(columnUsername)+", note ("+noteW1+", "+noteW2+"), grade:"+rec.get(columnGrade)+", Ns "+Nok+","+N1+","+N2+","+N1ok+","+N2ok);
 			}
-System.out.println("CertificateEligible: "+Nok+" / inscrit: "+N);
+//~ System.out.println("CertificateEligible: "+Nok+" / inscrit: "+N);
 System.out.println("   listColumnUtilsName="+this.listColumnUtilsName+" -> resTab="+Arrays.toString(resTab)+", listColumnNoteName="+this.listColumnNoteName);
+*/				
 
 		    if(this.response == null){
 		    	SetResponse();
@@ -159,7 +162,7 @@ System.out.println("CsvTraitement.SaveResponse path="+path+" & STATS");
 		this.response.Save(path);
 		
 		// EG: save stats...
-
+/*
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path+".stats"), "utf-8"))) {
 			writer.write("{");
 				for(int i=0; i<this.listColumnUtilsName.size(); i++) {
@@ -170,7 +173,7 @@ System.out.println("CsvTraitement.SaveResponse path="+path+" & STATS");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+*/
 		
 		
 	}
@@ -279,11 +282,12 @@ System.out.println("CsvTraitement.stopWrongFiles, size="+this.recordsList.size()
 			if(finalListColumnName.get(i).equals("Verification Status")){
 				this.columnCertificate = i;
 			}
+/*
 			// EG: add 'Certificate Eligible'
 			if(finalListColumnName.get(i).equals("Certificate Eligible")){
 				this.columnCertificateEligible = i;
 			}
-			
+*/			
 			
 		}
 System.out.println("CsvTraitement.SetListColumnName, columnUsername:"+this.columnUsername+", columnCohorte:"+this.columnCohorte);
@@ -316,6 +320,7 @@ System.out.println("CsvTraitement.SetListColumnNoteName, add "+listColumnName.ge
 				if(colName.indexOf("Avg") == -1 && colName.indexOf("Cohort Name") == -1){
 					listUtilsName.add(i);
 System.out.println("CsvTraitement.SetListColumnUtilsName, add "+i+": "+colName); // 2(grade),3,4,5,6(QCM), 8,9,10(TP)
+/*
 					// Check if this is exo/TP/QZ "1"
 					if (colName.indexOf("1") > 0) {
 						columnWeek1.add(i);
@@ -323,6 +328,7 @@ System.out.println("CsvTraitement.SetListColumnUtilsName, add "+i+": "+colName);
 					if (colName.indexOf("2") > 0) {
 						columnWeek2.add(i);
 					}
+*/
 				}
 			}	else	{
 				if(colName.equalsIgnoreCase("grade")){
@@ -334,7 +340,7 @@ System.out.println("CsvTraitement.SetListColumnUtilsName,, add "+i+": "+colName)
 				}
 			}
 		}
-System.out.println("CsvTraitement.SetListColumnUtilsName, columnWeek1 "+columnWeek1+", columnWeek2 "+columnWeek2+", listUtilsName "+listUtilsName);
+//~ System.out.println("CsvTraitement.SetListColumnUtilsName, columnWeek1 "+columnWeek1+", columnWeek2 "+columnWeek2+", listUtilsName "+listUtilsName);
 		return listUtilsName;
 	}
 	

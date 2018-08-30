@@ -177,15 +177,16 @@ console.log("selectScreen "+screenNumber);
 			console.log(list);
 			var no = list[0].weekList[0].pos;
 			no = 999;
-			var fn;
+			var fn = "";
 			list[0].weekList.forEach(function(f,n){
-				if (f.isActive && n<no) {
+				//~ if (f.isActive && n<no) {
+				if (f.isActive && f.name>fn) {
 					no = n;
 					fn = f.name;
 				  console.log("File id: "+f.id+", "+f.name+": "+no);
 				}
 				});
-			var no = 0;
+			//var no = 0;
 			console.log(no);
 			// get CSV...
 			$.get( 'data/'+localStorage.moocId+'/0-'+no+'.csv' + getRandom(), function( txt ) {
@@ -198,31 +199,39 @@ console.log("selectScreen "+screenNumber);
 					if (n=="grade") idGrade=i;
 					if (n.match(/Q.*1/)) {idQZ1=i;lqz1=n;}
 					if (n.match(/Q.*2/)) {idQZ2=i;lqz2=n;}
-					if (n.match(/T.*1/)) {idTP1=i;ltp1=n;}
-					if (n.match(/T.*2/)) {idTP2=i;ltp2=n;}
+					if (n.match(/[LT].*1/)) {idTP1=i;ltp1=n;}
+					if (n.match(/[LT].*2/)) {idTP2=i;ltp2=n;}
 					if (n.match(/Certificate Eligible/)) idCertif=i;
 					
 					});
 				//~ console.log(head);
-				console.log([idGrade, idQZ1, idTP1, idQZ2, idTP2, idCertif]);
+				// Check if "Not Attempted" used
+				var NA = 'Not Attempted';
+				var hasNA=csv.some(function(v){return v.indexOf(NA)>=0});
+
+				console.log("idGrade=",idGrade, ", idQZ1=", idQZ1, ", idTP1=", idTP1, ", idQZ2=", idQZ2, ", idTP2=", idTP2, ", idCertif=", idCertif, ", hasNA=", hasNA);
 				var N=0, Nok=0, N1qz=0, N1tp=0, N2qz=0, N2tp=0, N1oktp=0, N1okqz=0, N2oktp=0, N2okqz=0,     N1, N2, N1ok, N2ok;
 				csv.forEach(function(line){
 					var val = line.split(',');
 					N++;
+					var stQZ1 = ((hasNA && val[idQZ1]!=NA) || (val[idQZ1] > 0.0)); // val[idQZ1] > 0.0
+					var stTP1 = ((hasNA && val[idTP1]!=NA) || (val[idTP1] > 0.0)); // val[idTP1] > 0.0
+					var stQZ2 = ((hasNA && val[idQZ2]!=NA) || (val[idQZ2] > 0.0));
+					var stTP2 = ((hasNA && val[idTP2]!=NA) || (val[idTP2] > 0.0));
 					if (val[idCertif] == 'Y') {
 						Nok++;
-						if (val[idQZ1] > 0.0) N1okqz++;
-						if (val[idTP1] > 0.0) N1oktp++;
-						if (val[idQZ1] > 0.0 || val[idTP1] > 0.0) {
-							if (val[idQZ2] > 0.0) N2okqz++;
-							if (val[idTP2] > 0.0) N2oktp++;
+						if (stQZ1) N1okqz++;
+						if (stTP1) N1oktp++;
+						if (stQZ1 || stTP1) {
+							if (stQZ2) N2okqz++;
+							if (stTP2) N2oktp++;
 						}
 					}
-					if (val[idQZ1] > 0.0) N1qz++;
-					if (val[idTP1] > 0.0) N1tp++;
-					if (val[idQZ1] > 0.0 || val[idTP1] > 0.0) {
-						if (val[idQZ2] > 0.0) N2qz++;
-						if (val[idTP2] > 0.0) N2tp++;
+					if (stQZ1) N1qz++;
+					if (stTP1) N1tp++;
+					if (stQZ1 || stTP1) {
+						if (stQZ2) N2qz++;
+						if (stTP2) N2tp++;
 					}
 				});
 			var txt = "<div><h3>"+translations['stats'][localStorage.lang]+" ("+fn+")</h3><table border='1'>"

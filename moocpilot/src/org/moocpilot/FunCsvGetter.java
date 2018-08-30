@@ -131,10 +131,21 @@ System.out.println("FunCsvGetter startCollect, contextShellScriptsPath="+context
 			return;
 		}
 		
+		String url;
+		if (isEdx) url = "https://courses.edx.org/";
+		else url="https://www.fun-mooc.fr/";
+		String MOOCid;
+		if(!isFunUpdated) MOOCid = instituteName+"/"+courseId+"/"+sessionName;
+		else MOOCid = "course-v1:"+instituteName+"+"+courseId+"+"+sessionName;
 
 	    
 	    String cibledFile;
 		String path;
+
+		unlockPermission("/generate-grade-report.sh", contextShellScriptsPath+MOD);
+		cibledFile = "courses/"+MOOCid;
+		path = contextShellScriptsPath+MOD + "/generate-grade-report.sh";
+/*
 	    if(!isEdx){
 		    unlockPermission("/generate-grade-report.sh", contextShellScriptsPath+MOD);
 		    if(!isFunUpdated){
@@ -148,8 +159,8 @@ System.out.println("FunCsvGetter startCollect, contextShellScriptsPath="+context
 		    cibledFile = "https://courses.edx.org/courses/"+"course-v1:IMTx+NET01x+1T2017";
 			path = contextShellScriptsPath+MOD + "/edx-generate-grade-report.sh";
 	    }
-		
-		ProcessBuilder pb = new ProcessBuilder(path, userName, userPassword, cibledFile);
+*/		
+		ProcessBuilder pb = new ProcessBuilder(path, userName, userPassword, cibledFile, url);
 		pb.redirectError(Redirect.INHERIT);
 		pb.start();
 	}
@@ -214,12 +225,17 @@ System.out.println("FunCsvGetter extractFile "+cibledFile+", "+contextShellScrip
 		return true;
 	}
 
-	public static boolean loginWorking(String contextPath, String testedUserName, String testedUserPassword) throws IOException{
-System.out.println("FunCsvGetter.loginWorking, contextPath(ShellScripts)="+contextPath+", testedUserName="+testedUserName);
+	public static boolean loginWorking(String contextPath, String testedUserName, String testedUserPassword, boolean isEdx) throws IOException{
+System.out.println("FunCsvGetter.loginWorking, contextPath(ShellScripts)="+contextPath+", testedUserName="+testedUserName+", isEdx="+isEdx);
 	    unlockPermission("/verifUser.sh", contextPath);
 
 		String path = contextPath + "/verifUser.sh";
-		ProcessBuilder pb = new ProcessBuilder(path, testedUserName, testedUserPassword);
+		
+		String url;
+		if (isEdx) url = "https://courses.edx.org/";
+		else url="https://www.fun-mooc.fr/";
+		
+		ProcessBuilder pb = new ProcessBuilder(path, testedUserName, testedUserPassword, url);
 		pb.redirectError(Redirect.INHERIT);
 		Process p = pb.start();
 		
@@ -234,18 +250,26 @@ System.out.println("FunCsvGetter.loginWorking, contextPath(ShellScripts)="+conte
 		return result.indexOf("\"success\": true") != -1;
 	}
 
-	public static boolean courseInformationsWorking(String contextPath, String testedUserName, String testedUserPassword, String testedInstituteName, String testedCourseId, String testedSessionName, boolean isFunUpdated) throws IOException{
-System.out.println("FunCsvGetter.courseInformationsWorking, contextPath(ShellScripts)="+contextPath+", testedUserName="+testedUserName);
+	public static boolean courseInformationsWorking(String contextPath, String testedUserName, String testedUserPassword, String testedInstituteName, String testedCourseId, String testedSessionName, boolean isFunUpdated, boolean isEdx) throws IOException{
+System.out.println("FunCsvGetter.courseInformationsWorking, contextPath(ShellScripts)="+contextPath+", testedUserName="+testedUserName+", isEdx="+isEdx);
 	    unlockPermission("/verifCourse.sh", contextPath);
 
 		String path = contextPath + "/verifCourse.sh";
 		
+		String url;
+		if (isEdx) url = "https://courses.edx.org/";
+		else url="https://www.fun-mooc.fr/";
+		String MOOCid;
+		if(!isFunUpdated) MOOCid = instituteName+"/"+courseId+"/"+sessionName;
+		else MOOCid = "course-v1:"+instituteName+"+"+courseId+"+"+sessionName;
+		
 		ProcessBuilder pb;
-	    if(!isFunUpdated){
-	    	pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "https://www.fun-mooc.fr/courses/"+testedInstituteName+"/"+testedCourseId+"/"+testedSessionName+"/instructor/api/list_report_downloads");
-	    }	else	{
-			pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "https://www.fun-mooc.fr/courses/course-v1:"+testedInstituteName+"+"+testedCourseId+"+"+testedSessionName+"/instructor/api/list_report_downloads");
-	    }
+	    	pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/"+MOOCid+"/instructor/api/list_report_downloads", url);
+	    //~ if(!isFunUpdated){
+	    	//~ pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/"+testedInstituteName+"/"+testedCourseId+"/"+testedSessionName+"/instructor/api/list_report_downloads", url);
+	    //~ }	else	{
+		//~ pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/course-v1:"+testedInstituteName+"+"+testedCourseId+"+"+testedSessionName+"/instructor/api/list_report_downloads", url);
+	    //~ }
 		pb.redirectError(Redirect.INHERIT);
 		Process p = pb.start();
 		
@@ -269,21 +293,32 @@ System.out.println("FunCsvGetter.getCollectList, contextPath="+contextPath);
 			return;
 		}
 		String path;
+
+		String url;
+		if (isEdx) url = "https://courses.edx.org/";
+		else url="https://www.fun-mooc.fr/";
+		String MOOCid;
+		if(!isFunUpdated) MOOCid = instituteName+"/"+courseId+"/"+sessionName;
+		else MOOCid = "course-v1:"+instituteName+"+"+courseId+"+"+sessionName;
+
+		// EG: updates
 		ProcessBuilder pb;
-		if(!isEdx){
+		//if(!isEdx){
 		    unlockPermission("/get-reports.sh", contextPath+MOD);
 			path = contextPath+MOD + "/get-reports.sh";
-		    if(!isFunUpdated){
-				pb = new ProcessBuilder(path, userName, userPassword, "https://www.fun-mooc.fr/courses/"+instituteName+"/"+courseId+"/"+sessionName+"/instructor/api/list_report_downloads");
-		    }	else	{
-				pb = new ProcessBuilder(path, userName, userPassword, "https://www.fun-mooc.fr/courses/course-v1:"+instituteName+"+"+courseId+"+"+sessionName+"/instructor/api/list_report_downloads");
-		    }
+			pb = new ProcessBuilder(path, userName, userPassword, "courses/"+MOOCid+"/instructor/api/list_report_downloads", url);
+		    //~ if(!isFunUpdated){
+				//~ pb = new ProcessBuilder(path, userName, userPassword, "courses/"+instituteName+"/"+courseId+"/"+sessionName+"/instructor/api/list_report_downloads", url);
+		    //~ }	else	{
+				//~ pb = new ProcessBuilder(path, userName, userPassword, "courses/course-v1:"+instituteName+"+"+courseId+"+"+sessionName+"/instructor/api/list_report_downloads", url);
+		    //~ }
+/*
 		}	else	{
 		    unlockPermission("/edx-get-reports.sh", contextPath+MOD);
 			path = contextPath+MOD + "/edx-get-reports.sh";
 			pb = new ProcessBuilder(path, userName, userPassword, "https://courses.edx.org/courses/"+sessionName);
 		}
-		
+*/		
 		pb.redirectError(Redirect.INHERIT);
 		Process p = pb.start();
 		
@@ -314,7 +349,12 @@ System.out.println("    FunCsvGetter.getCollectList, result="+result);
 			fileName = result.substring(searchIndex+1, result.indexOf("\"", searchIndex+1));
 System.out.println("    FunCsvGetter.getCollectList, fileName="+fileName);
 			if(fileName.indexOf("grade_report") != -1 && fileName.indexOf("problem_grade_report") == -1 && fileName.indexOf("grade_report_err") == -1/* && dateAfterSeptember(fileName)*/){
+		
 				if(!isEdx){
+				    	if(!extractFile(url+"get-grades/"+MOOCid+"/"+fileName, contextPath)){
+				    		unknownFiles = false;
+						}
+/*
 				    if(!isFunUpdated){
 				    	if(!extractFile("https://www.fun-mooc.fr/get-grades/"+instituteName+"/"+courseId+"/"+sessionName+"/"+fileName, contextPath)){
 				    		unknownFiles = false;
@@ -324,6 +364,7 @@ System.out.println("    FunCsvGetter.getCollectList, fileName="+fileName);
 							unknownFiles = false;
 						}
 				    }
+*/
 				}	else	{
 					if(!extractFile(fileName, contextPath)){
 						unknownFiles = false;
@@ -341,6 +382,13 @@ System.out.println("FunCsvGetter getPostsList, contextPath2="+contextPath2+", "+
 			return;
 		}
 		
+		String url;
+		if (isEdx) url = "https://courses.edx.org/";
+		else url="https://www.fun-mooc.fr/";
+		String MOOCid;
+		if(!isFunUpdated) MOOCid = instituteName+"/"+courseId+"/"+sessionName;
+		else MOOCid = "course-v1:"+instituteName+"+"+courseId+"+"+sessionName;
+		
 		ArrayList<String> idList = new ArrayList<String>();
 		ArrayList<String> commentableIdList = new ArrayList<String>();
 		
@@ -350,6 +398,13 @@ System.out.println("FunCsvGetter getPostsList, contextPath2="+contextPath2+", "+
 System.out.println("	FunCsvGetter getPostsList, actualPage="+actualPage);
 			String path;
 			ProcessBuilder pb;
+			
+			// EG simple version
+			unlockPermission("/get-posts.sh", contextPath+MOD);
+			path = contextPath+MOD + "/get-posts.sh";
+			// ATTENTION: "discussion/forum?ajax" -> "discussion/forum/?ajax"
+			pb = new ProcessBuilder(path, userName, userPassword, "courses/"+MOOCid+"/discussion/forum/?ajax=1&page="+actualPage+"&sort_key=date&sort_order=desc", url);
+/*			
 			if(!isEdx){//a adapté
 			    unlockPermission("/get-posts.sh", contextPath+MOD);
 				path = contextPath+MOD + "/get-posts.sh";
@@ -364,7 +419,7 @@ System.out.println("	FunCsvGetter getPostsList, actualPage="+actualPage);
 			}	else	{
 				return;
 			}
-			
+*/			
 			pb.redirectError(Redirect.INHERIT);
 			Process p = pb.start();
 			
@@ -424,12 +479,25 @@ System.out.println("	FunCsvGetter getPostsList, actualPage="+actualPage);
 	private static void getPosts(String contextPath, String contextPath2, ArrayList<String> idList, ArrayList<String> commentableIdList) throws IOException{
 System.out.println("FunCsvGetter getPosts, contextPath2="+contextPath+", "+contextPath2);
 
+		String url;
+		if (isEdx) url = "https://courses.edx.org/";
+		else url="https://www.fun-mooc.fr/";
+		String MOOCid;
+		if(!isFunUpdated) MOOCid = instituteName+"/"+courseId+"/"+sessionName;
+		else MOOCid = "course-v1:"+instituteName+"+"+courseId+"+"+sessionName;
+
 		Timer timer = new Timer("Forum Download");
         StringBuilder posts = new StringBuilder();
 		posts.append("[");
 		for(int i = 0; i < idList.size();i++){
 			String path;
 			ProcessBuilder pb;
+			
+			// EG simple 
+			unlockPermission("/get-thread.sh", contextPath+MOD);
+			path = contextPath+MOD + "/get-thread.sh";
+			pb = new ProcessBuilder(path, userName, userPassword, "courses/"+MOOCid+"/discussion/forum/"+ commentableIdList.get(i) +"/threads/" + idList.get(i) + "?ajax=1&resp_skip=0&resp_limit=25", url);
+/*			
 			if(!isEdx){//a adapté
 			    unlockPermission("/get-thread.sh", contextPath+MOD);
 				path = contextPath+MOD + "/get-thread.sh";
@@ -444,7 +512,7 @@ System.out.println("FunCsvGetter getPosts, contextPath2="+contextPath+", "+conte
 			}	else	{
 				return;
 			}
-			
+*/			
 			pb.redirectError(Redirect.INHERIT);
 			Process p = pb.start();
 			
@@ -459,6 +527,8 @@ System.out.println("FunCsvGetter getPosts, contextPath2="+contextPath+", "+conte
 			
 			posts.append(result);
 			
+			// EG: avoid empty line
+			if (result.length()>5)
 			if(i+1<idList.size()){
 				posts.append(",");
 			}

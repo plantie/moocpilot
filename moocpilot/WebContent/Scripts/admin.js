@@ -585,7 +585,8 @@ function getRandom(){
 	return '?rand='+Math.floor(Math.random() * 1000000);
 }
 
-document.getElementById('isEdx').addEventListener('change', isEdx);
+// EGo: removed.
+// document.getElementById('isEdx').addEventListener('change', isEdx);
 
 function isEdx(){
 	if(document.getElementById("isEdx").checked){
@@ -626,13 +627,13 @@ function setFunUserParameters() {
     }
     formData.append('userName', document.getElementById("userName").value);
     formData.append('userPassword', document.getElementById("userPassword").value);
-	if(document.getElementById("isEdx").checked){
-	    formData.append('instituteName', " ");
-	    formData.append('courseId', " ");
-	}	else	{
+	//~ if(document.getElementById("isEdx").checked){
+	    //~ formData.append('instituteName', " ");
+	    //~ formData.append('courseId', " ");
+	//~ }	else	{
 	    formData.append('instituteName', document.getElementById("instituteName").value);
 	    formData.append('courseId', document.getElementById("courseId").value);
-	}
+	//~ }
     formData.append('sessionName', document.getElementById("sessionName").value);
     formData.append('isEdx', document.getElementById("isEdx").checked.toString());
     
