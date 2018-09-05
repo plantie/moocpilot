@@ -104,7 +104,7 @@ function switchCollectButton(){
 		
 		automaticActivated = false;
 	}	else	{
-		//~ document.getElementById("automaticCollectButton").firstElementChild.innerText = "Désactiver la collecte automatique";
+		//~ document.getElementById("automaticCollectButton").firstElementChild.innerText = "Dï¿½sactiver la collecte automatique";
 		//~ document.getElementById("automaticCollectLabels").firstElementChild.innerText = "Collecte automatique : Active";
 
 		i18n[localStorage.lang]['weekdays']
@@ -121,7 +121,7 @@ function switchCollectButton(){
 function arraySetUp() {
     document.getElementById("csvTable").innerHTML = "";
     firstArrayLine();
-    if (csvList.length == 0) {
+    if (csvList == undefined || csvList.length == 0) {
         return;
     }
     disabledPosNumber = 0;
@@ -383,7 +383,7 @@ function callTraitementCsv(){
 	}
 
 	if(alreadyExist()){
-		alert("Erreur : Une collecte similaire existe déjà");
+		alert("Erreur : Une collecte similaire existe dï¿½jï¿½");
 		return;
 	}
 	
@@ -621,7 +621,7 @@ function setFunUserParameters() {
             }	else	if(xhr.responseText == "Error : User Informations"){
             	alert("Identifiant ou mot de passe incorrect.");
             }	else	{
-            	alert("Ce cours n'existe pas, vérifiez vos informations.");
+            	alert("Ce cours n'existe pas, vï¿½rifiez vos informations.");
             }
         }
     }
@@ -670,7 +670,7 @@ function updateForumDatabase(){
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 1) {
             document.getElementById("loaderGif").style.display = "none";
-            alert("Récupération en cours, attente estimée 2 heures");
+            alert("Rï¿½cupï¿½ration en cours, attente estimï¿½e 2 heures");
         }
     }
     xhr.open('POST', '../forumRequest?moocId='+localStorage.moocId);
@@ -713,7 +713,7 @@ function setFunTask() {
 	dateCollect.setUTCMinutes(0);
 	dateCollect.setUTCSeconds(0);
 	dateCollect.setUTCMilliseconds(0);
-	if (!confirm("Vous allez mettre en place la collecte automatique qui débutera le " + dateCollect.toLocaleDateString("fr-FR", options) + " et qui sera répétée de manière " + getPeriod() + " les " + i18n[localStorage.lang]['weekdays'][dateCollect.getDay()] + "s. Êtes vous sûr?")) {
+	if (!confirm("Vous allez mettre en place la collecte automatique qui dï¿½butera le " + dateCollect.toLocaleDateString("fr-FR", options) + " et qui sera rï¿½pï¿½tï¿½e de maniï¿½re " + getPeriod() + " les " + i18n[localStorage.lang]['weekdays'][dateCollect.getDay()] + "s. ï¿½tes vous sï¿½r?")) {
 	    dateCollect == undefined;
 		return;
 	} else {
@@ -779,7 +779,7 @@ function startManualCollectFun(){
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             document.getElementById("loaderGif").style.display = "none";
-            alert("Collecte lancée.");
+            alert("Collecte lancï¿½e.");
         }
     }
     xhr.open('POST', '../StartCollect?moocId='+localStorage.moocId);
@@ -907,9 +907,9 @@ var tomorrow = new Date();
 
 var i18n = {
 	'fr':{
-	    previousMonth : 'Mois Précédent',
+	    previousMonth : 'Mois Prï¿½cï¿½dent',
 	    nextMonth     : 'Mois Suivant',
-	    months        : ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'],
+	    months        : ['Janvier','Fï¿½vrier','Mars','Avril','Mai','Juin','Juillet','Aoï¿½t','Septembre','Octobre','Novembre','Decembre'],
 	    weekdays      : ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
 	    weekdaysShort : ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam']
 	},
