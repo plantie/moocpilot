@@ -1,6 +1,11 @@
 package org.moocpilot;
 
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,6 +19,8 @@ import java.io.Writer;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -287,6 +294,49 @@ public class FunCsvGetter extends HttpServlet {
         String result = builder.toString();
 
         return result.indexOf("<!DOCTYPE html>") == -1;
+    }
+
+    public static Map<String,String> getCourseInfo(String contextPath, String testedUserName, String testedUserPassword, String testedInstituteName, String testedCourseId, String testedSessionName, boolean isFunUpdated, boolean isEdx) throws IOException {
+        System.out.println("FunCsvGetter.getCourseInfo, contextPath(ShellScripts)=" + contextPath + ", testedUserName=" + testedUserName + ", isEdx=" + isEdx);
+        unlockPermission("/getCourseInfo.sh", contextPath);
+
+        String path = contextPath + "/getCourseInfo.sh";
+
+        String url;
+        if (isEdx) url = "https://courses.edx.org/";
+        else url = "https://www.fun-mooc.fr/";
+        String MOOCid;
+        if (!isFunUpdated) MOOCid = testedInstituteName + "/" + testedCourseId + "/" + testedSessionName;
+        else MOOCid = "course-v1:" + testedInstituteName + "+" + testedCourseId + "+" + testedSessionName;
+
+        ProcessBuilder pb;
+        pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/" + MOOCid + "/instructor#view-course_info", url);
+        //~ if(!isFunUpdated){
+        //~ pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/"+testedInstituteName+"/"+testedCourseId+"/"+testedSessionName+"/instructor/api/list_report_downloads", url);
+        //~ }	else	{
+        //~ pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/course-v1:"+testedInstituteName+"+"+testedCourseId+"+"+testedSessionName+"/instructor/api/list_report_downloads", url);
+        //~ }
+        pb.redirectError(Redirect.INHERIT);
+        Process p = pb.start();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        StringBuilder builder = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            builder.append(line);
+            builder.append(System.getProperty("line.separator"));
+        }
+        String result = builder.toString();
+        Map<String, String> returnedMap = new HashMap<String,String>();
+        Document jsoupdoc = Jsoup.parse(result);
+        Elements courseinfos = jsoupdoc.select("li[id^=field-course]");
+        for ( Element courseinfo: courseinfos ) {
+            String elementname = courseinfo.attr("id").replaceFirst("field-course-","");
+            String elementvalue = courseinfo.getElementsByTag("b").first().text();
+            returnedMap.put(elementname,elementvalue);
+        }
+        return returnedMap;
+
     }
 
     public static void getCollectList(String contextPath) throws IOException {//work

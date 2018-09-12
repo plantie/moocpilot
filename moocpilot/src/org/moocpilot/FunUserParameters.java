@@ -1,7 +1,7 @@
 package org.moocpilot;
 import java.io.Serializable;
 
-public class FunUserParameters  implements Serializable {
+class FunUserParameters  implements Serializable {
 	/**
 	 * 
 	 */
@@ -12,10 +12,11 @@ public class FunUserParameters  implements Serializable {
 	String instituteName;
 	String courseId;
 	String sessionName;
+	String courseFullName;
 	boolean isEdx;
 	boolean isFunUpdated;
 	
-	public FunUserParameters(String userName, String userPassword, String instituteName, String courseId, String sessionName, boolean isEdx, boolean isFunUpdated){
+	FunUserParameters(String userName, String userPassword, String instituteName, String courseId, String sessionName, boolean isEdx, boolean isFunUpdated, String courseFullName){
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.instituteName = instituteName;
@@ -23,5 +24,6 @@ public class FunUserParameters  implements Serializable {
 		this.sessionName = sessionName;
 		this.isEdx = isEdx;
 		this.isFunUpdated = isFunUpdated;
+		this.courseFullName = courseFullName;
 	}
 }

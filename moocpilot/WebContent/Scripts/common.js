@@ -361,14 +361,23 @@ function courseName(callBack, dir){
 	$.get( dir+'data/courses.txt'+ getRandom(), function( txt ) {
 		//~ console.log(txt);
 		var lines = txt.split(/\r\n|\n/).sort();
+        var opts = new Map();
 		lines.forEach(function (x){
             var id;
 			t = x.split('\t'); // institut, course, session, isEdx, isFunUpdated, courseFullName
 			y = t[0] +'|'+ t[1] +'|'+ t[2]+'|'+t[3]+ t[4];
             id = t[0] + t[1] + t[2];
-			if (t[1]!==undefined) select+="<option value='"+y+"' "+(id == localStorage.moocId ? "selected=selected" : "")+">"+t[5]+"</option>";
+            courseFullName = t[0] + t[1] + t[2];
+            if (t[5] != undefined) {
+                courseFullName = t[5] + " -"+t[2];
+            }
+
+            if (t[1]!==undefined) opts.set(courseFullName,"<option value='"+y+"' "+(id == localStorage.moocId ? "selected=selected" : "")+">"+courseFullName+"</option>");
 			//~ console.log("-"+x.split(" "))
-			})
+		});
+        [...opts.entries()].sort().forEach(function(value) {
+            select+=value[1];
+        });
 		$('#appNameDiv p, #headerName') // index.jsp diagramm.jsp & admin/index.jsp
 			.html("<a href='.'>MOOC</a>: <select id='moocId'>"+select+"</select>")
 			.change(function(evt){
@@ -377,7 +386,7 @@ function courseName(callBack, dir){
 				t = x.split('|');
 				moocId = localStorage.moocId = t[0]+t[1]+t[2];
 				// TODO: check old version & Edx
-				localStorage.baseUrl = "https://"+(t[3]=="true" ? "courses.edx.org" : "www.fun-mooc.fr")+"/courses/"+(t[4]=="true" ? "course-v1:"+t[0]+"+"+t[1]+"+"+t[2] : t[0]+"/"+t[1]+"/"+t[2]);
+				localStorage.baseUrl = "https://"+(t[3]=="true" ? "courses.edx.org" : "www.fun-mooc.fr")+"/courses/"+((t[4]=="true") ? "course-v1:"+t[0]+"+"+t[1]+"+"+t[2] : t[0]+"/"+t[1]+"/"+t[2]);
 				console.log("moocId="+moocId+", baseUrl="+localStorage.baseUrl); 
 				//location.reload("index.jsp"); // reload page.
 				document.location.href = "index.jsp";
