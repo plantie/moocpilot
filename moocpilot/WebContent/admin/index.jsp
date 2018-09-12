@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-   pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
 <html>
    <link href="../Styles/admin.css" rel="stylesheet" media="all" type="text/css">
    <link href="../Styles/pikaday.css" rel="stylesheet" media="all" type="text/css">
    <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    </head>
    <body>
       <div id = "header">
@@ -23,14 +23,14 @@
       <div id = "menu" style = "display:none">
          <!--
             <div class = "buttonStyle" id = "xlfDiv">
-            	<span>Générer les données à partir d'un fichier .xls</span>
+            	<span>GÃ©nÃ©rer les donnÃ©es Ã  partir d'un fichier .xls</span>
             	<input type="file" name="xlfile" id="xlf" accept=".xls" />
             </div>	-->
          <div class="buttonStyle" id = "updateForumButton" style = "height:40px">
-            <span style = "margin-top: 10px">Récupération du forum</span>
+            <span style = "margin-top: 10px">RÃ©cupÃ©ration du forum</span>
          </div>
          <div class="buttonStyle" id = "updateDatabaseButton" style = "margin-left:325px; height:40px">
-            <span style = "margin-top: 10px">Récupération des collectes</span>
+            <span style = "margin-top: 10px">RÃ©cupÃ©ration des collectes</span>
          </div>
          <div > <!-- automaticCollectDiv -->
             <div  class = "buttonStyle" id = "automaticCollectButton">
@@ -49,11 +49,11 @@
       <div id="AdminContent"  style = "display:none">
       <div id = "svgContainer"></div>
       <div id="csvTableDiv">
-         <a>TBD     Liste des collectes chargées à partir de FUN</a>
+         <a>TBD     Liste des collectes chargÃ©es Ã  partir de FUN</a>
          <table id="csvTable"></table>
          <!-- 
             <div onclick="javascript:window.open('https://www.fun-mooc.fr/');">
-            	<span>Récupérer une collecte Fun</span>
+            	<span>RÃ©cupÃ©rer une collecte Fun</span>
             </div>
             <div id = "addCsvDiv">
             	<span id="launchSVG" type = "button">Ajouter une collecte manuellement</span>
@@ -64,22 +64,22 @@
             	<span>Mettre en place une collecte automatique</span>
             </div>
             <div id = "removeAutomaticCollect">
-            	<span>Annuler une collecte automatique (à venir)</span>
+            	<span>Annuler une collecte automatique (Ã  venir)</span>
             </div> -->
          <!-- 
             <div id="chargeCsv">
-            <span>Générer les visualisation à partir du tableau ci-dessus</span>
+            <span>GÃ©nÃ©rer les visualisation Ã  partir du tableau ci-dessus</span>
             </div> -->
       </div>
       </div style = "display:none">
       <div id = "userParametersInterface">
-         <a id = "userParametersInterfaceTitle">Informations de connexion au cours nécessaires à la collecte automatique</a>
+         <a id = "userParametersInterfaceTitle">Informations de connexion au cours nÃ©cessaires Ã  la collecte automatique</a>
          <p>
-            <label for="userName">Identifiant de connexion à FUN :</label>
+            <label for="userName">Identifiant de connexion Ã  FUN :</label>
             <input required type="text" name="userName" id="userName" />
          </p>
          <p>			
-            <label for="userPassword">Mot de passe de connexion à FUN :</label>
+            <label for="userPassword">Mot de passe de connexion Ã  FUN :</label>
             <input required type="password" name="userPassword" id="userPassword" />
          </p>
          <p>
@@ -109,11 +109,11 @@
       <div id = "automaticCollectInterface">
          <a id = "automaticCollectInterfaceTitle">Ajout d'une collecte automatique</a>
          <div id = "datePickerDiv">
-            <a>Sélectionner le début de la collecte automatique :</a>
+            <a>SÃ©lectionner le dÃ©but de la collecte automatique :</a>
             <input type="text" id="datepicker" style = "display:none">
          </div>
          <div id="divSelectDelay">
-            <a>Sélectionner la période de collecte :</a>
+            <a>SÃ©lectionner la pÃ©riode de collecte :</a>
             <select id="selectDelay">
                <option value="0">Hebdomadaire</option>
                <option value="1">Bimensuelle</option>
@@ -129,7 +129,7 @@
       <img id = "loaderGif" alt="Loading" src="../Ressources/loading.gif" style="display:none; position:fixed; top:20%; right:calc(50% - 64px);"></img>
       <a id = "state"></a>
       <div id = "connectDiv" style = "display:none">
-         <label for="moocPilotPassword">Mot de passe de connexion à l'administration :</label>
+         <label for="moocPilotPassword">Mot de passe de connexion Ã  l'administration :</label>
          <input required type="password" name="moocPilotPassword" id="moocPilotPassword"/>
          <input id = "sendMoocPilotPassword" type = "button" value = "Envoyer">
       </div>

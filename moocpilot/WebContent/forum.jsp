@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang = "fr">
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <title id='Title'>MOOC Pilote: tableau de progression des élèves</title>
+      <title id='Title'>MOOC Pilote: tableau de progression des Ã©lÃ¨ves</title>
       <link href="Styles/style.css" rel="stylesheet" media="all" type="text/css">
       <link href="Styles/forum.css" rel="stylesheet" media="all" type="text/css">
       <link href="Styles/d3SimpleGraph.css" rel="stylesheet" media="all" type="text/css">
@@ -40,23 +42,23 @@
                   <a href = "diagramme.jsp" class="headerMenuUnselected"></a>
                   <a></a>
                </div>
-               <a style =  "display:none" onclick="launchPresentation()" id="DemoButton">Démonstration</a>
+               <a style =  "display:none" onclick="launchPresentation()" id="DemoButton">DÃ©monstration</a>
                <div id="contact">
                   <a>
                      contact
                      <span id='ContactList'>
-                        <p>Notre équipe de recherche au laboratoire LGi2P de l'école des Mines d'Alès :</p>
+                        <p>Notre Ã©quipe de recherche au laboratoire LGi2P de l'Ã©cole des Mines d'AlÃ¨s :</p>
                         <p>Michel Crampes, professeur et chercheur,</p>
-                        <p>Michel Plantié, chercheur,</p>
-                        <p>Axel Garcia, développeur,</p>
-                        <p>Pierre Jean, ingénieur de recherche</p>
+                        <p>Michel PlantiÃ©, chercheur,</p>
+                        <p>Axel Garcia, dÃ©veloppeur,</p>
+                        <p>Pierre Jean, ingÃ©nieur de recherche</p>
                         <p>Email : social.networks@mines-ales.fr</p>
-                        <p>Numero de téléphone : 04 66 38 70 35</p>
+                        <p>Numero de tÃ©lÃ©phone : 04 66 38 70 35</p>
                      </span>
                   </a>
                </div>
                <div>					
-                  <a id='aHeaderMenu' href = "admin" class="headerMenu">administrateur (réservé)</a>
+                  <a id='aHeaderMenu' href = "admin" class="headerMenu">administrateur (rÃ©servÃ©)</a>
                   <a></a>
                </div>
             </div>
@@ -69,7 +71,7 @@
          </div>
          <div id = "screenSelectorSpace"></div>
          <div class = "optionsList" id = "tutorParameters">
-            <span id='ptut'>Paramétres du tuteur TBD</span>
+            <span id='ptut'>ParamÃ©tres du tuteur TBD</span>
             <div>
                <a>Seuil des notes</a>
                <input oninput = "stopMoreOf()" id="moreOf" step = "0.1" value = "0.0" type = "number" min = "0" max = "1">
@@ -77,7 +79,7 @@
             <div>
                <a id = "AcohorteSelect" style = "width:50%;">Visualisation d'une cohorte</a>
                <select onchange = "changeCohorte()" id = "cohorteSelect">
-                  <option class="allLearners" value = "0">Tous les éléves</option>
+                  <option class="allLearners" value = "0">Tous les Ã©lÃ©ves</option>
                </select>
             </div>
          </div>
@@ -189,7 +191,7 @@
       <div id = "screenSelectorArea">
          <div id = "screenSelectorCover" onclick="swapScreenMode(false)"></div>
 	 
-	 <div class="tooltips headline" id="head1">Représentations principales</div>
+	 <div class="tooltips headline" id="head1">ReprÃ©sentations principales</div>
 	 <!-- data-no: current, next, back -->
 	 
 	<!-- Formulaire en ligne -->
@@ -202,7 +204,7 @@
             <img alt="Loading" src="">
          </div>
 -->
-         <div class = "tooltips tooltipsbottom block" id="screen6" data-no="6,5,2" onclick="selectScreen(this)"> <!-- Nombre d'élèves par exercice selon leurs résultats // Qualité des résultats -->
+         <div class = "tooltips tooltipsbottom block" id="screen6" data-no="6,5,2" onclick="selectScreen(this)"> <!-- Nombre d'Ã©lÃ¨ves par exercice selon leurs rÃ©sultats // QualitÃ© des rÃ©sultats -->
             <div>
                <a>title</a>
             </div>
@@ -210,35 +212,35 @@
             <img alt="Loading" src="">
          </div>
 
-         <div class = "tooltips tooltipsbottom block" id="screen5" data-no="5,3,6" onclick="selectScreen(this)"> <!-- Résultats des élèves par exercices -->
+         <div class = "tooltips tooltipsbottom block" id="screen5" data-no="5,3,6" onclick="selectScreen(this)"> <!-- RÃ©sultats des Ã©lÃ¨ves par exercices -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen3" data-no="3,1,5" onclick="selectScreen(this)"> <!-- Résultats d'un élève, datés dans le temps // Évaluation et Suivi Individuel -->
+         <div class = "tooltips tooltipsbottom block" id="screen3" data-no="3,1,5" onclick="selectScreen(this)"> <!-- RÃ©sultats d'un Ã©lÃ¨ve, datÃ©s dans le temps // Ã‰valuation et Suivi Individuel -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen2" data-no="2,6,7" onclick="selectScreen(this)"><!-- Dernier exercice réalisé par chaque élève // Progressions Réparties -->
+         <div class = "tooltips tooltipsbottom block" id="screen2" data-no="2,6,7" onclick="selectScreen(this)"><!-- Dernier exercice rÃ©alisÃ© par chaque Ã©lÃ¨ve // Progressions RÃ©parties -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen1" data-no="1,7,3" onclick="selectScreen(this)"> <!-- Progression Générale - Bubble Chart -->
+         <div class = "tooltips tooltipsbottom block" id="screen1" data-no="1,7,3" onclick="selectScreen(this)"> <!-- Progression GÃ©nÃ©rale - Bubble Chart -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen7" data-no="7,2,1" onclick="selectScreen(this)"><!-- Progression Générale - Bar Chart -->
+         <div class = "tooltips tooltipsbottom block" id="screen7" data-no="7,2,1" onclick="selectScreen(this)"><!-- Progression GÃ©nÃ©rale - Bar Chart -->
             <div>
                <a>title</a>
             </div>
@@ -266,16 +268,16 @@
             <img alt="Loading" src="">
          </div>
 	 
-	 <div class="tooltips headline" id="head4">Avancé</div>
+	 <div class="tooltips headline" id="head4">AvancÃ©</div>
 
-         <div class = "tooltips tooltipstop block" id="screen0" data-no="0,4,4" onclick="selectScreen(this)"> <!-- Nombre d'élèves par collecte -->
+         <div class = "tooltips tooltipstop block" id="screen0" data-no="0,4,4" onclick="selectScreen(this)"> <!-- Nombre d'Ã©lÃ¨ves par collecte -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipstop block" id="screen4" data-no="4,0,0" onclick="selectScreen(this)"> <!-- Nombre d'élèves par exercice selon leur période d'inscription -->
+         <div class = "tooltips tooltipstop block" id="screen4" data-no="4,0,0" onclick="selectScreen(this)"> <!-- Nombre d'Ã©lÃ¨ves par exercice selon leur pÃ©riode d'inscription -->
             <div>
                <a>title</a>
             </div>

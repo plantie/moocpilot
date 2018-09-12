@@ -331,7 +331,7 @@ function screenSelectorReturnButton(){
 }
 
 
-var screenSelectorMode = false; //false pleine page | true réduit
+var screenSelectorMode = false; //false pleine page | true rÃ©duit
 var isTraveling = false;
 var firstLoad = true;
 setNames();
@@ -687,7 +687,7 @@ function setButtonsActive(index){
 		allButtons[i].style.display = "none";
 	}
 	switch(index) {
-    case 1://cumulé et réparti
+    case 1://cumulÃ© et rÃ©parti
     	allButtons[2].style.display = "inherit";
     	allButtons[4].style.display = "inherit";
     	allButtons[5].style.display = "inherit";
@@ -695,7 +695,7 @@ function setButtonsActive(index){
     		document.getElementById("realOptions").style.display = "inherit";
     	}
         break;
-    case 2://suivi étudiant
+    case 2://suivi Ã©tudiant
     	allButtons[0].style.display = "inline-block";
     	allButtons[1].style.display = "inherit";
     	allButtons[2].style.display = "inherit";

@@ -802,7 +802,7 @@ console.log(partDataset);
 	new_cell_0.innerHTML = "";
 	new_row.appendChild(new_cell_0);
 	var new_cell_1 = document.createElement('th');
-	new_cell_1.innerHTML = translations['leftTable2'][localStorage.lang]; //"Messages commentés";
+	new_cell_1.innerHTML = translations['leftTable2'][localStorage.lang]; //"Messages commentÃ©s";
 	new_row.appendChild(new_cell_1);
 
 	
@@ -851,7 +851,7 @@ console.log(partDataset);
 
 				var ans = postOrdonnedNoOrphan[this.pos].content;
 				var url = localStorage.baseUrl+"/discussion/forum/"+ans.commentable_id+"/threads/"+ans.id; // ans.thread_id
-				// gauche, table 2, message commenté
+				// gauche, table 2, message commentÃ©
 				$('#tableMessageHover')
 					.html("<a target='FUN' href='"+url+"'>link</a>, <a href='#hide' onclick='hidePost(\""+ans.id+"\")'><img src='Ressources/hide.png'/></a><br/>\"" + ans.body + "\"" +"<span>" + ans.username + "</span>")
 					.css({'display': 'inherit', 'top': this.getBoundingClientRect().top - 394-dTop + "px"});
@@ -1277,7 +1277,7 @@ function actualisePostPanel(postId, scrollTo, needPersonUpdate){
 	new_row.className += "firstRow";
 
 	var new_cell_0 = document.createElement('th');
-	new_cell_0.innerHTML = translations['rightTable2'][localStorage.lang]; //"Réponses au message";
+	new_cell_0.innerHTML = translations['rightTable2'][localStorage.lang]; //"RÃ©ponses au message";
 	new_row.appendChild(new_cell_0);
 
 	var new_row = new_tbody.insertRow(1);

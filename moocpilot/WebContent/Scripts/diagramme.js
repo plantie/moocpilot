@@ -31,7 +31,7 @@ function dataSelected(evt){
 		    }
 		    	/*
 		    if(i == 0){
-		    	document.getElementById("headerName").innerText = "MOOC-PILOT\n tableau de progression des élèves\nDonnèes de démonstrations";
+		    	document.getElementById("headerName").innerText = "MOOC-PILOT\n tableau de progression des élèves\n Données de démonstration";
 		    }	else	if(i == 1){
 				document.getElementById("headerName").innerText = "MOOC-PILOT\n tableau de progression des élèves\nVos données";
 		    }	else	{
@@ -128,7 +128,7 @@ function updateCohorteNames() {
     document.getElementById("cohorteSelect").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les �l�ves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("cohorteSelect").appendChild(option);
 
     for (var i = 0; i < cohorteList.length; i++) {
@@ -143,7 +143,7 @@ function updateListStudent(){
     document.getElementById("studentSelectData").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les �l�ves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("studentSelectData").appendChild(option);
     
     var cohorteState = document.getElementById("cohorteSelect").value;
@@ -333,9 +333,9 @@ function openBullePopup(d) {
     document.querySelector("#bullePopup").style.transform = "rotateY(" + bullePopupRotation + "deg)";
 	bullePopupRotation+=360;
 	
-	document.querySelector("#bullePopup a").innerText = d.length+" "+translations['eleves'][localStorage.lang]; //" �l�ves";
+	document.querySelector("#bullePopup a").innerText = d.length+" "+translations['eleves'][localStorage.lang]; //" élèves";
 	updateBulleStudentList();
-	//setTimeout(function(){document.querySelector("#bullePopup a").innerText = d.length+" �l�ves \ncollecte "+j+"  \n"+tabCohorte[0][i];updateBulleStudentList();},250);
+	//setTimeout(function(){document.querySelector("#bullePopup a").innerText = d.length+" élèves \ncollecte "+j+"  \n"+tabCohorte[0][i];updateBulleStudentList();},250);
 		
 	document.getElementById("bullePopup").style.display = "inherit";
 	//visualiseCohorteToggled();
@@ -345,7 +345,7 @@ function updateBulleStudentList(){
     document.getElementById("bulleStudentList").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les �l�ves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("bulleStudentList").appendChild(option);    
 
     for (var i = 0; i < openBulleContent.length; i++) {

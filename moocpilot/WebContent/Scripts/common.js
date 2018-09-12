@@ -13,14 +13,14 @@
 
 // Fourni par Anja 18/5/2018 // "Ressources/Modele_Bilan_MOOC-Plateforme_FUN.pdf"}, // 9
 var helpURL = "https://docs.google.com/document/d/1zIFfnf5Inz6srJ-LOVTbUqLl776ej4PR8pAcsT060tk/edit";
-// Si mooc est spécifié, on l'utilise !
+// Si mooc est spÃ©cifiÃ©, on l'utilise !
 if (window.location.search.startsWith("?mooc=")) {
   localStorage.moocId = window.location.search.substr(6);
 }
 // List of translations
 // List of hash #ID -> translations (fr, en, ...)
 var translations = {
-	'#aHeaderMenu': {'fr':"administrateur (réservé)",
+	'#aHeaderMenu': {'fr':"administrateur (rÃ©servÃ©)",
 		'en':"administrator (reserved)"},
 	'#head3': {'fr':"Bilan MOOC",
 		'en':"MOOC results"},
@@ -29,19 +29,19 @@ var translations = {
 	'span.orderNameText': {'fr':"Tri alphabetique:", 'en':"Sorted alphabetically"},
 
 	// admin
-	'#updateForumButton span': {'fr':"Récupération du forum",
+	'#updateForumButton span': {'fr':"RÃ©cupÃ©ration du forum",
 		'en':"Extract forum"},
-	'#updateDatabaseButton span': {'fr':"Récupération des collectes",
+	'#updateDatabaseButton span': {'fr':"RÃ©cupÃ©ration des collectes",
 		'en':"Extract collects"},
 	'#automaticCollectButton span': {'fr':"Activer la collecte automatique",
 		'en':"Activate automatic collection"},
 	'#startCollect span': {'fr':"Forcer une collecte manuellement",
 		'en':"Force manual collection"},
-	'#csvTableDiv a': {'fr':"Liste des collectes", // chargées à partir de FUN / EdX
+	'#csvTableDiv a': {'fr':"Liste des collectes", // chargÃ©es Ã  partir de FUN / EdX
 		'en':"List of data collections"},
 	'#automaticCollectInterfaceTitle': {'fr':"Ajout d'une collecte automatique",
 		'en':"Add automatic collection"},
-	'#datePickerDiv a': {'fr':"Sélectionner le début de la collecte automatique :",
+	'#datePickerDiv a': {'fr':"SÃ©lectionner le dÃ©but de la collecte automatique :",
 		'en':"Select start of automatic collection :"},
 	'#selectDelay option:nth-child(1)': {'fr':"Hebdomadaire",
 		'en':"Weekly"},
@@ -49,11 +49,11 @@ var translations = {
 		'en':"Biweekly"},
 	'#selectDelay option:nth-child(3)': {'fr':"Mensuelle",
 		'en':"Monthly"},
-	'#divSelectDelay a': {'fr':"Sélectionner la période de collecte :",
+	'#divSelectDelay a': {'fr':"SÃ©lectionner la pÃ©riode de collecte :",
 		'en':"Select collect period :"},
 	'automaticCollect-true': {'fr':"Activer la collecte automatique",
 		'en':"Activate automatic collection"},
-	'automaticCollect-false': {'fr':"Désactiver la collecte automatique",
+	'automaticCollect-false': {'fr':"DÃ©sactiver la collecte automatique",
 		'en':"Deactivate automatic collection"},
 	'automaticCollectLabel-true': {'fr':"Collecte automatique : Non active",
 		'en':"automatic collection: not active"},
@@ -78,9 +78,9 @@ var translations = {
 		'en':"Collect Name"},
 	'collectSave': {'fr':"Enregistrer la collecte en local",
 		'en':"Local save collect"},
-	'confirm-remove': {'fr':"Vous allez désactiver la collecte automatique,\ndes collectes régulières sont indispensables pour suivre votre cours.\Êtes vous sûr ?",
+	'confirm-remove': {'fr':"Vous allez dÃ©sactiver la collecte automatique,\ndes collectes rÃ©guliÃ¨res sont indispensables pour suivre votre cours.\ÃŠtes vous sÃ»r ?",
 		'en':"You will disable automatic collection,\nRegular collects are necessary to follow your course.\nAre you sure ?"},
-	'confirm-collect': {'fr':"Attention, les collectes effectuées en pleines journées peuvent recontrer des problèmes.\nVoulez-vous quand même la lancer?",
+	'confirm-collect': {'fr':"Attention, les collectes effectuÃ©es en pleines journÃ©es peuvent recontrer des problÃ¨mes.\nVoulez-vous quand mÃªme la lancer?",
 		'en':"Attention: Collect issued during day can have trouble.\nDo you still want to collect ?"},
 	
 	'help': {'fr':"Document d'aide",
@@ -89,43 +89,43 @@ var translations = {
   // https://docs.google.com/spreadsheets/d/1Z1DJTrcIGE5y7mfhKNhnAdB6Pwp8RmXdnAjeWAiixe4/edit?ts=5afd8aff#gid=0
   // 70 lines
 		
-  '#Title':{'fr':"MOOC Pilote: tableau de progression des élèves",'en':"MOOC Pilot : learner data tracking"},
-  '#ContactList':{'fr':"Notre équipe de recherche au laboratoire LGi2P de l'École des Mines d'Alès :\nMichel Crampes, professeur et chercheur,\nMichel Plantié, chercheur,\nAxel Garcia, développeur,\nPierre Jean, ingénieur de recherche\nEmail : social.networks@mines-ales.fr\nNumero de téléphone : 04 66 38 70 35",'en':"Our team at the laboratory of the École des Mines d'Alès\nMichel Crampes, professor and researcher\nMichel Plantié, researcher,\nAxel Garcia, developer,\nPierre Jean, research engineer\nEmail : social.networks@mines-ales.fr\nNTel : 04 66 38 70 35"},
+  '#Title':{'fr':"MOOC Pilote: tableau de progression des Ã©lÃ¨ves",'en':"MOOC Pilot : learner data tracking"},
+  '#ContactList':{'fr':"Notre Ã©quipe de recherche au laboratoire LGi2P de l'Ã‰cole des Mines d'AlÃ¨s :\nMichel Crampes, professeur et chercheur,\nMichel PlantiÃ©, chercheur,\nAxel Garcia, dÃ©veloppeur,\nPierre Jean, ingÃ©nieur de recherche\nEmail : social.networks@mines-ales.fr\nNumero de tÃ©lÃ©phone : 04 66 38 70 35",'en':"Our team at the laboratory of the Ã‰cole des Mines d'AlÃ¨s\nMichel Crampes, professor and researcher\nMichel PlantiÃ©, researcher,\nAxel Garcia, developer,\nPierre Jean, research engineer\nEmail : social.networks@mines-ales.fr\nNTel : 04 66 38 70 35"},
   '#ssm1 a':{'fr':"Afficher les bulles d'aides",'en':"Display help information"},
-  '#ptut':{'fr':"Paramètres du tuteur",'en':"Instructor settings"},
+  '#ptut':{'fr':"ParamÃ¨tres du tuteur",'en':"Instructor settings"},
   '.orderImportance':{'fr':"Ordre par importance",'en':"Order by importance"},
   '.orderDate':{'fr':"Ordre par date",'en':"Order by date"},
-  //'#head1':{'fr':"Représentations principales",'en':"Main graphs"},
-  '#head1':{'fr':"Représentations principales, Analyse forum, Résultats, Représentations Avancées",'en':"Main graphs, Forum Analysis, MOOC Results, Advanced Representations"},
+  //'#head1':{'fr':"ReprÃ©sentations principales",'en':"Main graphs"},
+  '#head1':{'fr':"ReprÃ©sentations principales, Analyse forum, RÃ©sultats, ReprÃ©sentations AvancÃ©es",'en':"Main graphs, Forum Analysis, MOOC Results, Advanced Representations"},
   '#head2':{'fr':"Analyse du forum",'en':"Forum Analysis"},
-  '#head4':{'fr':"Représentations avancées",'en':"Advanced representations"},
+  '#head4':{'fr':"ReprÃ©sentations avancÃ©es",'en':"Advanced representations"},
   //~ 'TR':{'fr':"Semaine",'en':"Week"},
   '#saveAndQuit':{'fr':"Actualisation",'en':"Refresh"},
   '#saveAndQuit2':{'fr':"Retour mode tuteur",'en':"Back to instructor mode"},
-  'SS1':{'fr':"Ce diagramme représente les inscrits de chaque période</br>Les colonnes représentent les périodes d'inscriptions.</br>Une colonne contient le nombre d'inscrits sur une période. </br>Une colonne est composée de deux parties : </br>-Le nombre de participants </br>-Le nombre de non-participants",'en':"This graph represents the learners in each registration period. </br> The columns represent the registration periods. </br>One column includes all of the learners who enrolled in a given time span. </br> A column is made up of two groups : </br> - The number of participants </br>- The number of non participants."},
+  'SS1':{'fr':"Ce diagramme reprÃ©sente les inscrits de chaque pÃ©riode</br>Les colonnes reprÃ©sentent les pÃ©riodes d'inscriptions.</br>Une colonne contient le nombre d'inscrits sur une pÃ©riode. </br>Une colonne est composÃ©e de deux parties : </br>-Le nombre de participants </br>-Le nombre de non-participants",'en':"This graph represents the learners in each registration period. </br> The columns represent the registration periods. </br>One column includes all of the learners who enrolled in a given time span. </br> A column is made up of two groups : </br> - The number of participants </br>- The number of non participants."},
   'leftTable1E':{'fr':"Emetteur",'en':"Sender"},
   'leftTable1C':{'fr':"Commentateur",'en':"Commenter"},
-  'leftTable2':{'fr':"Messages commentés",'en':"Commented messages"},
+  'leftTable2':{'fr':"Messages commentÃ©s",'en':"Commented messages"},
   'leftTable3':{'fr':"Messages orphelins",'en':"Orphan messages"},
   'rightTable1':{'fr':"Messages",'en':"Messages"},
-  'rightTable2':{'fr':"Réponses au message",'en':"Answers to messages"},
+  'rightTable2':{'fr':"RÃ©ponses au message",'en':"Answers to messages"},
   'rightTable3':{'fr':"Commentaires",'en':"Comments"},
-  'dashboard':{'fr':"Voir les données complètes sur le dashboard de la plateforme",'en':"See complete data on FUN dashboard"},
+  'dashboard':{'fr':"Voir les donnÃ©es complÃ¨tes sur le dashboard de la plateforme",'en':"See complete data on FUN dashboard"},
   'help':{'fr':"Document d'aide",'en':"Help document"},
   'stats':{'fr':"Statistiques",'en':"Statistics"},
   'N':{'fr':"Nombre d'inscrits",'en':"Number of learners"},
-  'Nok':{'fr':"Nombre d'inscrits éligibles à une certification",'en':"Course completers"},
-  'N1':{'fr':"Nombre de démarrés (nombre d'inscrits ayant une note supérieure à 0 au premier exerice noté, semaine 1)",'en':"Course starters (number of learners having completed the first graded exercise week 1)"},
-  'N2':{'fr':"Nombre d'assidus (nombre d'inscrits ayant une note supérieure à 0 au premier exerice noté, semaine 1 ainsi que celui semaine 2)",'en':"Keen learners (number of learners having completed the first graded exercise week 1 and the first graded exercise week 2)"},
-  'N1ok':{'fr':"Nombre de démarrés éligibles à une certification",'en':"Number of learners having completed the first graded exercise week 1 and eligible for a certification"},
-  'N2ok':{'fr':"Nombre d'assidus éligibles à une certification",'en':"Number of learners having completed the first graded exercise week 1 and the first graded exercise week 2 and eligible for a certification"},
-  'imgName0':{'fr':"Nombre d'élèves par collecte",'en':"Number of learners per data collection"},
-  'imgName1':{'fr':"Progression Générale - Bubble Chart",'en':"General progression - Bubble Chart"},
-  'imgName2':{'fr':"Dernier exercice réalisé par chaque élève",'en':"Exit points"},
-  'imgName3':{'fr':"Résultats d'un élève, datés dans le temps",'en':"Learner's results, timestamped"},
-  'imgName6':{'fr':"Nombre d'élèves par exercice selon leurs résultats",'en':"Number of learners per exercise and their results"},
-  'imgName5':{'fr':"Résultats des élèves selon les exercices",'en':"Learner's results per exercise"},
-  'imgName7':{'fr':"Progression Générale - Bar Chart",'en':"General progression - Bar Chart"},
+  'Nok':{'fr':"Nombre d'inscrits Ã©ligibles Ã  une certification",'en':"Course completers"},
+  'N1':{'fr':"Nombre de dÃ©marrÃ©s (nombre d'inscrits ayant une note supÃ©rieure Ã  0 au premier exerice notÃ©, semaine 1)",'en':"Course starters (number of learners having completed the first graded exercise week 1)"},
+  'N2':{'fr':"Nombre d'assidus (nombre d'inscrits ayant une note supÃ©rieure Ã  0 au premier exerice notÃ©, semaine 1 ainsi que celui semaine 2)",'en':"Keen learners (number of learners having completed the first graded exercise week 1 and the first graded exercise week 2)"},
+  'N1ok':{'fr':"Nombre de dÃ©marrÃ©s Ã©ligibles Ã  une certification",'en':"Number of learners having completed the first graded exercise week 1 and eligible for a certification"},
+  'N2ok':{'fr':"Nombre d'assidus Ã©ligibles Ã  une certification",'en':"Number of learners having completed the first graded exercise week 1 and the first graded exercise week 2 and eligible for a certification"},
+  'imgName0':{'fr':"Nombre d'Ã©lÃ¨ves par collecte",'en':"Number of learners per data collection"},
+  'imgName1':{'fr':"Progression GÃ©nÃ©rale - Bubble Chart",'en':"General progression - Bubble Chart"},
+  'imgName2':{'fr':"Dernier exercice rÃ©alisÃ© par chaque Ã©lÃ¨ve",'en':"Exit points"},
+  'imgName3':{'fr':"RÃ©sultats d'un Ã©lÃ¨ve, datÃ©s dans le temps",'en':"Learner's results, timestamped"},
+  'imgName6':{'fr':"Nombre d'Ã©lÃ¨ves par exercice selon leurs rÃ©sultats",'en':"Number of learners per exercise and their results"},
+  'imgName5':{'fr':"RÃ©sultats des Ã©lÃ¨ves selon les exercices",'en':"Learner's results per exercise"},
+  'imgName7':{'fr':"Progression GÃ©nÃ©rale - Bar Chart",'en':"General progression - Bar Chart"},
 
   '#tutorParameters div a':{'fr':"Seuil des notes",'en':"Grade threshold"},
   '#parameters div.optionsList div a':{'fr':"Seuil des notes",'en':"Grade threshold"},
@@ -135,7 +135,7 @@ var translations = {
   '#download':{'fr':"Sauvegarder en image",'en':"Save as picture"},
   '#classementFS input:nth-child(1)':{'fr':"Classement par semaine FUN",'en':"Sort by week FUN"},
   '#classementFS input:nth-child(2)':{'fr':"Classement par type d'exercice",'en':"Sort by exo type"},
-  '#exerciseSelector a':{'fr':"Exercice visualisé :",'en':"Exercice shown"},
+  '#exerciseSelector a':{'fr':"Exercice visualisÃ© :",'en':"Exercice shown"},
   '#optionViewer':{'fr':"Autres options",'en':"Other options"},
   '#optionViewer2':{'fr':"Masquer les options",'en':"Hide options"},
   'link':{'fr':"lien",'en':"link"},
@@ -147,33 +147,33 @@ var translations = {
   '#LO6 a':{'fr':"Afficher les nombres",'en':"Show numbers"},
   '#LO7 a':{'fr':"Agrandissement lors du survol",'en':"Zoom when hover over"},
   '#LO8 a':{'fr':"Cohorte seulement",'en':"Cohorte only"},
-  '#LO9':{'fr':"Nom d'un élève",'en':"Name of learner"},
+  '#LO9':{'fr':"Nom d'un Ã©lÃ¨ve",'en':"Name of learner"},
   //~ '#':{'fr':"",'en':""},
   'inscrits':{'fr':"Inscrits",'en':"Enrolled"},
   'collectes':{'fr':"Collectes",'en':"Data collections"},
   'collecte':{'fr':"Collecte",'en':"Data collection"},
   'participant':{'fr':"Participants",'en':"Participants"},
   'notparticipant':{'fr':"Non participants",'en':"Not participant"},
-  'eleves':{'fr':"élèves",'en':"learners"},
-  '#bulleStudentList option':{'fr':"Tous les élèves",'en':"All learners"},
-  '#cohorteSelect option':{'fr':"Tous les élèves",'en':"All learners"},
-  'tousEleves':{'fr':"Tous les élèves",'en':"All learners"},
+  'eleves':{'fr':"Ã©lÃ¨ves",'en':"learners"},
+  '#bulleStudentList option':{'fr':"Tous les Ã©lÃ¨ves",'en':"All learners"},
+  '#cohorteSelect option':{'fr':"Tous les Ã©lÃ¨ves",'en':"All learners"},
+  'tousEleves':{'fr':"Tous les Ã©lÃ¨ves",'en':"All learners"},
   '#noteSup':{'fr':"note >= 0.5",'en':"grade >= 0.5"},
   '#noteInf':{'fr':"note < 0.5",'en':"grade < 0.5"},
   '#noteNA':{'fr':"sans note",'en':"no grade"},
   '#noteAvg':{'fr':"note moyenne",'en':"avg grade"},
-  'a.visuLearner':{'fr':"Visualisation d'un élève",'en':"Zoom on one learner"},
-  'option.allLearners':{'fr':"Tous les élèves",'en':"All learners"},
-  '#resetSelectedCohorte':{'fr':"Réinitialiser la sélection",'en':"Change selection"},
-  '#connectDiv label':{'fr':"Mot de passe de connexion à l'administration :",'en':"Password to connect to administrator dashboard"},
+  'a.visuLearner':{'fr':"Visualisation d'un Ã©lÃ¨ve",'en':"Zoom on one learner"},
+  'option.allLearners':{'fr':"Tous les Ã©lÃ¨ves",'en':"All learners"},
+  '#resetSelectedCohorte':{'fr':"RÃ©initialiser la sÃ©lection",'en':"Change selection"},
+  '#connectDiv label':{'fr':"Mot de passe de connexion Ã  l'administration :",'en':"Password to connect to administrator dashboard"},
   'buttonDownload':{'fr':"Enregistrer en local",'en':"Save locally"},
-  '#dataSaveButton':{'fr':"Enregistrer les données des MOOCs",'en':"Save all data of all managed MOOCs"},
-  '#dataRestoreButton':{'fr':"Restaurer les données des MOOCs",'en':"Restore all saved data for managed MOOCs"},
+  '#dataSaveButton':{'fr':"Enregistrer les donnÃ©es des MOOCs",'en':"Save all data of all managed MOOCs"},
+  '#dataRestoreButton':{'fr':"Restaurer les donnÃ©es des MOOCs",'en':"Restore all saved data for managed MOOCs"},
   //~ '#':{'fr':"",'en':""},
   'totInscrit':{'fr':"du total des inscrits",'en':" of all enrolled"},
   'totParticipant':{'fr':"du total des participants",'en':" of all participants"},
   
-  'clicBulle':{'fr':"Cliquez sur la bulle pour afficher le détail",'en':"Clic on bubble to display details"},
+  'clicBulle':{'fr':"Cliquez sur la bulle pour afficher le dÃ©tail",'en':"Clic on bubble to display details"},
   'auTotal':{'fr':"au total",'en':", total"},
   'enC':{'fr':"en C",'en':"for C"},
   //~ '#':{'fr':"",'en':""},
@@ -192,34 +192,34 @@ imgName = [
   {"fr": translations['imgName1']['fr'],
    "en": translations['imgName1']['en'],
    "img": "screen1.png",
-   "url": "index.jsp"}, // 1 ; R5: "Progressions Cumulées" -> "Progression Générale - Bubble Chart"
+   "url": "index.jsp"}, // 1 ; R5: "Progressions CumulÃ©es" -> "Progression GÃ©nÃ©rale - Bubble Chart"
    // R6.2
-  {"fr": translations['imgName2']['fr'], //"Dernier exercice réalisé par chaque élève" /*"Progressions Réparties"*/,
+  {"fr": translations['imgName2']['fr'], //"Dernier exercice rÃ©alisÃ© par chaque Ã©lÃ¨ve" /*"Progressions RÃ©parties"*/,
    "en": translations['imgName2']['en'], //"Last exercice performed by student" /*"Progressions"*/,
    "img": "screen2.png",
    "url": "index.jsp"}, // 2
-  // R6.1: Suivi individuel -> Résultats d'un élève, datés dans le temps
-  {"fr": translations['imgName3']['fr'], //"Résultats d'un élève, datés dans le temps" /*"Évaluation et Suivi Individuel"*/,
+  // R6.1: Suivi individuel -> RÃ©sultats d'un Ã©lÃ¨ve, datÃ©s dans le temps
+  {"fr": translations['imgName3']['fr'], //"RÃ©sultats d'un Ã©lÃ¨ve, datÃ©s dans le temps" /*"Ã‰valuation et Suivi Individuel"*/,
    "en": translations['imgName3']['en'], //"Student results, with datestamp" /*"Evaluation and individual notations"*/,
    "img": "screen3.png",
    "url": "index.jsp"}, // 3
-  {"fr": "Nombre d'élèves par exercice selon leur période d'inscription",
+  {"fr": "Nombre d'Ã©lÃ¨ves par exercice selon leur pÃ©riode d'inscription",
    "en": "Number of learners by enrolment date",
    "img": "screen4.png",
    "url": "diagramme.jsp"}, // 4
-  {"fr": translations['imgName5']['fr'], //"Résultats des élèves par exercices",
+  {"fr": translations['imgName5']['fr'], //"RÃ©sultats des Ã©lÃ¨ves par exercices",
    "en": translations['imgName5']['en'], //"Student result by exercice",
    "img": "screen5.png",
    "url": "diagramme.jsp"}, // 5
    // R6.3 label change
-  {"fr": translations['imgName6']['fr'], //"Nombre d'élèves par exercice selon leurs résultats" /*"Qualité des résultats"*/,
+  {"fr": translations['imgName6']['fr'], //"Nombre d'Ã©lÃ¨ves par exercice selon leurs rÃ©sultats" /*"QualitÃ© des rÃ©sultats"*/,
    "en": translations['imgName6']['en'], //"Number of student by exercice according to results" /*"Result quality"*/,
    "img": "screen6.png",
    "url": "diagramme.jsp"}, // 6
-  {"fr": translations['imgName7']['fr'], // "Progression Générale - Bar Chart***",
+  {"fr": translations['imgName7']['fr'], // "Progression GÃ©nÃ©rale - Bar Chart***",
    "en": translations['imgName7']['en'], //"General progression - Bar Chart",
    "img": "screen7.png",
-   "url": "diagramme.jsp"}, // 7; R5: "Progression Générale" -> "Progression Générale - Bar Chart"
+   "url": "diagramme.jsp"}, // 7; R5: "Progression GÃ©nÃ©rale" -> "Progression GÃ©nÃ©rale - Bar Chart"
   {"fr": "Analyse du forum",
    "en": "Forum analysis",
    "img": "screen8.png",
@@ -239,65 +239,65 @@ imgTip = [
   {"fr": translations['SS1']['fr'],
    "en": translations['SS1']['fr']},
    
-  {'fr':"Ce diagramme représente le nombre d'élèves ayant fait les exercices selon la période où ils les ont effectués.</br>Les colonnes représentent les périodes de collectes.</br>Les lignes représentent les exercices.Une bulle contient l'ensemble des élèves ayant fait cet exercice dans la période.</br>"
+  {'fr':"Ce diagramme reprÃ©sente le nombre d'Ã©lÃ¨ves ayant fait les exercices selon la pÃ©riode oÃ¹ ils les ont effectuÃ©s.</br>Les colonnes reprÃ©sentent les pÃ©riodes de collectes.</br>Les lignes reprÃ©sentent les exercices.Une bulle contient l'ensemble des Ã©lÃ¨ves ayant fait cet exercice dans la pÃ©riode.</br>"
 	,'en':"This graph displays the number of learners having performed each exercise, based on when they performed them. </br>Columns represent data collection periods.</br>Lines represent exercises.<br/>One bubble contains all of the learners who completed this exericse in the given time span.</br>"},
 	
-  {'fr':"Ce diagramme représente dans chaque bulle le dernier exercice effectué par chaque élève selon la période où il l'a effectué.</br>Les colonnes représentent les périodes de collectes,</br>les lignes les exercices.<br/>Une bulle contient l'ensemble des élèves qui se sont arrêtés à cet exercice dans la période.</br>Chaque élève est présent dans une seule bulle par type d'exercice.</br>"
+  {'fr':"Ce diagramme reprÃ©sente dans chaque bulle le dernier exercice effectuÃ© par chaque Ã©lÃ¨ve selon la pÃ©riode oÃ¹ il l'a effectuÃ©.</br>Les colonnes reprÃ©sentent les pÃ©riodes de collectes,</br>les lignes les exercices.<br/>Une bulle contient l'ensemble des Ã©lÃ¨ves qui se sont arrÃªtÃ©s Ã  cet exercice dans la pÃ©riode.</br>Chaque Ã©lÃ¨ve est prÃ©sent dans une seule bulle par type d'exercice.</br>"
 	,'en':"This graph displays in each bubble the last exercise completed by each learner based on when they performed them.</br>Columns represent data collection periods.</br>Lines represent exercises.One bubble contains all of the learners who completed this exericse in the given time span.</br>Each learner is only present in one bubble per type of exercise.</br>"},
-  //~ {"fr": "Ce diagramme représente dans chaque bulle le dernier exercice effectué par chaque élève selon la période où il l'a effectué.</br>" +
-        //~ "Les colonnes représentent les périodes de collectes,</br>" +
+  //~ {"fr": "Ce diagramme reprÃ©sente dans chaque bulle le dernier exercice effectuÃ© par chaque Ã©lÃ¨ve selon la pÃ©riode oÃ¹ il l'a effectuÃ©.</br>" +
+        //~ "Les colonnes reprÃ©sentent les pÃ©riodes de collectes,</br>" +
         //~ "les lignes les exercices. " +
-        //~ "Une bulle contient l'ensemble des élèves qui se sont arrêtés à cet exercice dans la période.</br>" +
-        //~ "Chaque élève est présent dans une seule bulle par type d'exercice.</br>" ,
+        //~ "Une bulle contient l'ensemble des Ã©lÃ¨ves qui se sont arrÃªtÃ©s Ã  cet exercice dans la pÃ©riode.</br>" +
+        //~ "Chaque Ã©lÃ¨ve est prÃ©sent dans une seule bulle par type d'exercice.</br>" ,
    //~ "en": "This diagram show last exercidce done by student"},
 
-  {'fr':"Cette visualisation permet de voir le parcours d'un élève dans le cours.</br>Des émoticônes représentent les notes de l'élève pour l'exercice durant la semaine associée.</br>Ces émoticônes représentent les quartiles entre 0 et 1"
+  {'fr':"Cette visualisation permet de voir le parcours d'un Ã©lÃ¨ve dans le cours.</br>Des Ã©moticÃ´nes reprÃ©sentent les notes de l'Ã©lÃ¨ve pour l'exercice durant la semaine associÃ©e.</br>Ces Ã©moticÃ´nes reprÃ©sentent les quartiles entre 0 et 1"
 	  ,'en':"This graph shows the path of a learner in the course.</br>Icons show the scores of the learner in one week</br>Icons represent the results in quartiles from 0 to 1"},
-  //~ {"fr": "Cette visualisation permet de voir le parcours d'un élève dans le cours.</br>" +
-        //~ "Des émoticônes représentent les notes de l'élève pour l'exercice durant la semaine associée.</br>" +
-        //~ "Ces émoticônes représentent les quartiles entre 0 et 1.",
+  //~ {"fr": "Cette visualisation permet de voir le parcours d'un Ã©lÃ¨ve dans le cours.</br>" +
+        //~ "Des Ã©moticÃ´nes reprÃ©sentent les notes de l'Ã©lÃ¨ve pour l'exercice durant la semaine associÃ©e.</br>" +
+        //~ "Ces Ã©moticÃ´nes reprÃ©sentent les quartiles entre 0 et 1.",
    //~ "en": "This graph show path of student in the course"},
 
-  {'fr':"Ce diagramme statistique représente le nombre d'élèves ayant fait les exercices selon leur période d'inscription.</br>Les colonnes représentent les exercices.</br>Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>Elle est composée de plusieurs parties représentant la répartition des élèves selon leur période d'inscription."
+  {'fr':"Ce diagramme statistique reprÃ©sente le nombre d'Ã©lÃ¨ves ayant fait les exercices selon leur pÃ©riode d'inscription.</br>Les colonnes reprÃ©sentent les exercices.</br>Une colonne contient l'ensemble des Ã©lÃ¨ves ayant fait cet exercice.</br>Elle est composÃ©e de plusieurs parties reprÃ©sentant la rÃ©partition des Ã©lÃ¨ves selon leur pÃ©riode d'inscription."
 	  ,'en':"This graph displays the number of learners having performed each exercise, based on their registration period. </br>Columns represent data collection periods.</br>One column contains all of the learners who completed this exercise.</br>It is made up of several groups representing the distribution of learners based on their registration period.</br>"},
-  //~ {"fr": "Ce diagramme statistique représente le nombre d'élèves ayant fait les exercices selon leur période d'inscription.</br>" +
-        //~ "Les colonnes représentent les exercices.</br>" +
-        //~ "Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>" +
-        //~ "Elle est composée de plusieurs parties représentant la répartition des élèves selon leur période d'inscription.", 
+  //~ {"fr": "Ce diagramme statistique reprÃ©sente le nombre d'Ã©lÃ¨ves ayant fait les exercices selon leur pÃ©riode d'inscription.</br>" +
+        //~ "Les colonnes reprÃ©sentent les exercices.</br>" +
+        //~ "Une colonne contient l'ensemble des Ã©lÃ¨ves ayant fait cet exercice.</br>" +
+        //~ "Elle est composÃ©e de plusieurs parties reprÃ©sentant la rÃ©partition des Ã©lÃ¨ves selon leur pÃ©riode d'inscription.", 
    //~ "en": "This graph sho number of student having done a exercice according to their inscription date"},
 
-  {'fr':"Ce diagramme statistique représente la qualité des résultats d'un exercice.</br>Les colonnes représentent les quartiles entre 0 et 1.</br>Une colonne contient le nombre d'élèves ayant fait l'exercice indiqué avec une note comprise dans le quartile."
+  {'fr':"Ce diagramme statistique reprÃ©sente la qualitÃ© des rÃ©sultats d'un exercice.</br>Les colonnes reprÃ©sentent les quartiles entre 0 et 1.</br>Une colonne contient le nombre d'Ã©lÃ¨ves ayant fait l'exercice indiquÃ© avec une note comprise dans le quartile."
 	  ,'en':"This graph represents all of the learners results for an exercise and their success rates.</br>Columns represent the results in quartiles from 0 to 1.</br>A column contains all of the learners having completed an exercise and acheived a grade within the given quartile."},
-  //~ {"fr": "Ce diagramme statistique représente la qualité des résultats d'un exercice.</br>" +
-        //~ "Les colonnes représentent les quartiles entre 0 et 1.</br>" +
-        //~ "Une colonne contient le nombre d'élèves ayant fait l'exercice indiqué avec une note comprise dans le quartile.",
+  //~ {"fr": "Ce diagramme statistique reprÃ©sente la qualitÃ© des rÃ©sultats d'un exercice.</br>" +
+        //~ "Les colonnes reprÃ©sentent les quartiles entre 0 et 1.</br>" +
+        //~ "Une colonne contient le nombre d'Ã©lÃ¨ves ayant fait l'exercice indiquÃ© avec une note comprise dans le quartile.",
    //~ "en": "This diagram sho quality of results"},
 
-  {'fr':"Ce diagramme représente la qualité des résultats des exercices.</br>Les colonnes représentent les exercices.</br>Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>Elle est composée de plusieurs parties représentant la répartition des élèves selon leur résultat."
+  {'fr':"Ce diagramme reprÃ©sente la qualitÃ© des rÃ©sultats des exercices.</br>Les colonnes reprÃ©sentent les exercices.</br>Une colonne contient l'ensemble des Ã©lÃ¨ves ayant fait cet exercice.</br>Elle est composÃ©e de plusieurs parties reprÃ©sentant la rÃ©partition des Ã©lÃ¨ves selon leur rÃ©sultat."
 	  ,'en':"This graph represents the success rate of exercises. </br>Columns represent exercises.</br>One column contains all of the learners who completed this exercise.</br>It is made up of several groups representing the distribution of learners based on their results."},
-  //~ {"fr": "Ce diagramme représente la qualité des résultats des exercices.</br>" +
-        //~ "Les colonnes représentent les exercices.</br>" +
-        //~ "Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>" +
-        //~ "Elle est composée de plusieurs parties représentant la répartition des élèves selon leur résultat.",
+  //~ {"fr": "Ce diagramme reprÃ©sente la qualitÃ© des rÃ©sultats des exercices.</br>" +
+        //~ "Les colonnes reprÃ©sentent les exercices.</br>" +
+        //~ "Une colonne contient l'ensemble des Ã©lÃ¨ves ayant fait cet exercice.</br>" +
+        //~ "Elle est composÃ©e de plusieurs parties reprÃ©sentant la rÃ©partition des Ã©lÃ¨ves selon leur rÃ©sultat.",
    //~ "en": "This diagram show quality of results"},
 
-  {'fr':"Ce diagramme représente le nombre d'élèves ayant fait les exercices selon la période où ils les ont effectués.</br>Les colonnes représentent les exercices.</br>Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>Elle est composée de plusieurs parties représentant la répartition des élèves selon la période où ils les ont effectués."
+  {'fr':"Ce diagramme reprÃ©sente le nombre d'Ã©lÃ¨ves ayant fait les exercices selon la pÃ©riode oÃ¹ ils les ont effectuÃ©s.</br>Les colonnes reprÃ©sentent les exercices.</br>Une colonne contient l'ensemble des Ã©lÃ¨ves ayant fait cet exercice.</br>Elle est composÃ©e de plusieurs parties reprÃ©sentant la rÃ©partition des Ã©lÃ¨ves selon la pÃ©riode oÃ¹ ils les ont effectuÃ©s."
 	  ,'en':"This graph displays in each bubble the last exercise completed by each learner based on when they performed them.</br>Columns represent exercises.<br/>One column contains all of the learners who completed this exercise.</br>It is made up of several groups representing the distribution of learners based on their registration period."},
-  //~ {"fr": "Ce diagramme représente le nombre d'élèves ayant fait les exercices selon la période où ils les ont effectués.</br>" +
-        //~ "Les colonnes représentent les exercices.</br>" +
-        //~ "Une colonne contient l'ensemble des élèves ayant fait cet exercice.</br>" +
-        //~ "Elle est composée de plusieurs parties représentant la répartition des élèves selon la période où ils les ont effectués.",
+  //~ {"fr": "Ce diagramme reprÃ©sente le nombre d'Ã©lÃ¨ves ayant fait les exercices selon la pÃ©riode oÃ¹ ils les ont effectuÃ©s.</br>" +
+        //~ "Les colonnes reprÃ©sentent les exercices.</br>" +
+        //~ "Une colonne contient l'ensemble des Ã©lÃ¨ves ayant fait cet exercice.</br>" +
+        //~ "Elle est composÃ©e de plusieurs parties reprÃ©sentant la rÃ©partition des Ã©lÃ¨ves selon la pÃ©riode oÃ¹ ils les ont effectuÃ©s.",
    //~ "en": "This diagram show number of student having completed exercice"},
 
-  {'fr':"Ce diagramme représente l'ensemble des échanges effectués sur le forum.</br>Le rouge représente l'émetteur du post.<br/>Le vert représente une personne ayant répondu au message."
+  {'fr':"Ce diagramme reprÃ©sente l'ensemble des Ã©changes effectuÃ©s sur le forum.</br>Le rouge reprÃ©sente l'Ã©metteur du post.<br/>Le vert reprÃ©sente une personne ayant rÃ©pondu au message."
 	  ,'en':"This graph displays all of the forum exchanges.</br>Red represents the sender.</br>Green represents the person who responded to the message."},
-  //~ {"fr": "Ce diagramme représente l'ensemble des échanges effectués sur le forum.</br>" +
-        //~ "Le rouge représente l'émetteur du post.</br>" +
-        //~ "Le vert représente une personne ayant répondu au message.</br>",
+  //~ {"fr": "Ce diagramme reprÃ©sente l'ensemble des Ã©changes effectuÃ©s sur le forum.</br>" +
+        //~ "Le rouge reprÃ©sente l'Ã©metteur du post.</br>" +
+        //~ "Le vert reprÃ©sente une personne ayant rÃ©pondu au message.</br>",
    //~ "en": "This diagram show relations of students in the forum"},
-  {"fr": "Évolution future possible :</br> Génération d'un bilan du cours contenant les diagrammes et les données numériques de ce cours.",
+  {"fr": "Ã‰volution future possible :</br> GÃ©nÃ©ration d'un bilan du cours contenant les diagrammes et les donnÃ©es numÃ©riques de ce cours.",
    "en": "Futur possible evolutions"},
-  {'fr':"Générer un bilan de MOOC"
+  {'fr':"GÃ©nÃ©rer un bilan de MOOC"
 	  ,'en':"Generate a MOOC data report"},
   //~ {"fr": "Bilan du MOOC",
    //~ "en": "MOOC results"},
@@ -362,10 +362,11 @@ function courseName(callBack, dir){
 		//~ console.log(txt);
 		var lines = txt.split(/\r\n|\n/).sort();
 		lines.forEach(function (x){
-			t = x.split(/	/); // institut, course, session, isEdx, isFunUpdated
-			y = x.replace(/	/g, '|');
-			var id = t[0]+t[1]+t[2];
-			if (t[1]!==undefined) select+="<option value='"+y+"' "+(id == localStorage.moocId ? "selected=selected" : "")+">"+id+"</option>";
+            var id;
+			t = x.split('\t'); // institut, course, session, isEdx, isFunUpdated, courseFullName
+			y = t[0] +'|'+ t[1] +'|'+ t[2]+'|'+t[3]+ t[4];
+            id = t[0] + t[1] + t[2];
+			if (t[1]!==undefined) select+="<option value='"+y+"' "+(id == localStorage.moocId ? "selected=selected" : "")+">"+t[5]+"</option>";
 			//~ console.log("-"+x.split(" "))
 			})
 		$('#appNameDiv p, #headerName') // index.jsp diagramm.jsp & admin/index.jsp

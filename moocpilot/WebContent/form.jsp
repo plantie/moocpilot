@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-   pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html style = "height:100%;">
    <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       <title>Formulaire Mooc Pilot</title>
       <link href="Styles/style.css" rel="stylesheet" media="all" type="text/css">
       <link href="Styles/form.css" rel="stylesheet" media="all" type="text/css">
@@ -13,7 +13,7 @@
          <div><a href="http://socialnetworks.wp.mines-telecom.fr/"><img src="Ressources/imt.jpg"></a>
             <a><img src="Ressources/mines_ales_logo.jpg"></a>
          </div>
-         <a id="headerName">MOOC-PILOT<br> Formulaire d'évaluation de MOOCPILOT</a>
+         <a id="headerName">MOOC-PILOT<br> Formulaire d'Ã©valuation de MOOCPILOT</a>
          <div id="headerRightPart">
             <a class="link" href=".">Visualisation des<br>progressions</a>
             <a class="link" href="./diagramme.jsp">Visualisation des<br>statistiques</a>
@@ -22,13 +22,13 @@
                   <a>
                      contact
                      <span>
-                        <p>Notre équipe de recherche au laboratoire LGi2P de l'École des Mines d'Alès :</p>
+                        <p>Notre Ã©quipe de recherche au laboratoire LGi2P de l'Ã‰cole des Mines d'AlÃ¨s :</p>
                         <p>Michel Crampes, professeur et chercheur,</p>
-                        <p>Michel Plantié, chercheur,</p>
-                        <p>Axel Garcia, développeur,</p>
-                        <p>Pierre Jean, ingénieur de recherche</p>
+                        <p>Michel PlantiÃ©, chercheur,</p>
+                        <p>Axel Garcia, dÃ©veloppeur,</p>
+                        <p>Pierre Jean, ingÃ©nieur de recherche</p>
                         <p>Email : social.networks@mines-ales.fr</p>
-                        <p>Numero de téléphone : 04 66 38 70 35</p>
+                        <p>Numero de tÃ©lÃ©phone : 04 66 38 70 35</p>
                      </span>
                   </a>
                </div>

@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang = "fr">
    <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-      <title id='Title'>MOOC Pilote: graphiques de progression des élèves</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title id='Title'>MOOC Pilote: graphiques de progression des ï¿½lï¿½ves</title>
       <link href="Styles/style.css" rel="stylesheet" media="all" type="text/css">
       <link href="Styles/diagramme.css" rel="stylesheet" media="all" type="text/css">
       <link href="Styles/screenSelector.css" rel="stylesheet" media="all" type="text/css">
@@ -11,7 +13,7 @@
       <div id="loadDiv">
          <a id = "loadA">Traitement en cours<br>
          Etat :  20%<br>
-         Temps restant estimé : 5s<br></a>
+         Temps restant estimï¿½ : 5s<br></a>
          <progress id="loadBar" value="0" max="100"></progress>
       </div>
       <img id = "loaderGif" alt="Loading" src="Ressources/loading.gif">
@@ -45,23 +47,23 @@
                   <a href = "diagramme.jsp" class="headerMenuSelected"></a>
                   <a></a>
                </div>
-               <a style = "display:none" onclick="launchPresentation()" id="DemoButton">Démonstration</a>
+               <a style = "display:none" onclick="launchPresentation()" id="DemoButton">Dï¿½monstration</a>
                <div id="contact">
                   <a>
                      contact
                      <span>
-                        <p>Notre équipe de recherche au laboratoire LGi2P de l'École des Mines d'Alès :</p>
+                        <p>Notre ï¿½quipe de recherche au laboratoire LGi2P de l'ï¿½cole des Mines d'Alï¿½s :</p>
                         <p>Michel Crampes, professeur et chercheur,</p>
-                        <p>Michel Plantié, chercheur,</p>
-                        <p>Axel Garcia, développeur,</p>
-                        <p>Pierre Jean, ingénieur de recherche</p>
+                        <p>Michel Plantiï¿½, chercheur,</p>
+                        <p>Axel Garcia, dï¿½veloppeur,</p>
+                        <p>Pierre Jean, ingï¿½nieur de recherche</p>
                         <p>Email : social.networks@mines-ales.fr</p>
-                        <p>Numero de téléphone : 04 66 38 70 35</p>
+                        <p>Numero de tï¿½lï¿½phone : 04 66 38 70 35</p>
                      </span>
                   </a>
                </div>
                <div>					
-                  <a id='aHeaderMenu' href = "admin" class="headerMenu">administrateur (réservé)</a>
+                  <a id='aHeaderMenu' href = "admin" class="headerMenu">administrateur (rï¿½servï¿½)</a>
                   <a></a>
                </div>
             </div>
@@ -96,12 +98,12 @@
          <a></a>
          <i class="fa fa-arrows"></i>				
          <div>
-            <a class="visuLearner" style = "width:50%;font-size:13px;">Visualisation d'un élève</a>
+            <a class="visuLearner" style = "width:50%;font-size:13px;">Visualisation d'un ï¿½lï¿½ve</a>
             <select style = "background-color: red;width:120px;" onchange = "updateBulleStudentListCall()" id = "bulleStudentList">
-               <option class="allLearners" value = "">Tous les élèves</option>
+               <option class="allLearners" value = "">Tous les ï¿½lï¿½ves</option>
             </select>
          </div>
-         <button id = "resetSelectedCohorte">Réinitialiser la sélection</button>
+         <button id = "resetSelectedCohorte">Rï¿½initialiser la sï¿½lection</button>
       </div>
       <div id = "menu">
          <div id = "screenSelectorArrows">
@@ -111,18 +113,18 @@
          <div id = "screenSelectorSpace"></div>
          <div style="display:none" id = "dataSelection">
             <div onclick="callDemoJSON(useJSON)">
-               <span>Données de démonstration</span>
+               <span>Donnï¿½es de dï¿½monstration</span>
             </div>
             <div>
-               <span>Essayez avec vos données</span>
+               <span>Essayez avec vos donnï¿½es</span>
                <input type="file" name="xlfile" id="xlf" accept=".xls" />
             </div>
             <div onclick="callSavedJSON(useJSON)">
-               <span>Voir les dernières données</span>
+               <span>Voir les derniï¿½res donnï¿½es</span>
             </div>
          </div>
          <div class = "optionsList" id = "tutorParameters">
-            <span id='ptut'>Paramètres du tuteur</span>
+            <span id='ptut'>Paramï¿½tres du tuteur</span>
             <div>
                <a>Seuil des notes</a>
                <input oninput = "stopMoreOf()" id="moreOf" step = "0.1" value = "0.0" type = "number" min = "0" max = "1">
@@ -130,31 +132,31 @@
             <div>
                <a id = "AcohorteSelect" style = "width:50%;">Visualisation d'une cohorte</a>
                <select onchange = "changeCohorte()" id = "cohorteSelect">
-                  <option class="allLearners" value = "0">Tous les élèves</option>
+                  <option class="allLearners" value = "0">Tous les ï¿½lï¿½ves</option>
                </select>
             </div>
          </div>
          <div id = "parameters" class = "notRequired">
-            <label style ="display:none"><input style = "margin-left: 22px; margin-top:15px;" type="radio" name="mode" value="grouped"> Dépilé</label>
-            <label style ="display:none"><input type="radio" name="mode" value="stacked" checked> Empilé</label>
+            <label style ="display:none"><input style = "margin-left: 22px; margin-top:15px;" type="radio" name="mode" value="grouped"> Dï¿½pilï¿½</label>
+            <label style ="display:none"><input type="radio" name="mode" value="stacked" checked> Empilï¿½</label>
             <div id="pourcentDiv" class = "notRequired">
                <a>Afficher en pourcentage</a>
                <input onclick = "callDisplayDiagramme()" id = "isPourcent" type = "checkbox">
             </div>
             <select style = "display : none" onchange="callDisplayDiagramme()" id="visualisationMode">
-               <option value="0">Nombre d'élèves par exercice selon leur période d'inscription</option>
-               <option value="1">Nombre d'élèves inscrits par collecte</option>
-               <option value="2">Résultats des élèves par exercices</option>
-               <option value="3">Nombre d'élèves par exercice selon leurs résultats</option>
-               <option value="4">Progression Générale</option>
+               <option value="0">Nombre d'ï¿½lï¿½ves par exercice selon leur pï¿½riode d'inscription</option>
+               <option value="1">Nombre d'ï¿½lï¿½ves inscrits par collecte</option>
+               <option value="2">Rï¿½sultats des ï¿½lï¿½ves par exercices</option>
+               <option value="3">Nombre d'ï¿½lï¿½ves par exercice selon leurs rï¿½sultats</option>
+               <option value="4">Progression Gï¿½nï¿½rale</option>
                <option value="10">Bilan MOOC</option>
             </select>
             <div id = "newViewSelection" style = "display : none;">
-               <label class = "radioParameterLabel">Données cumulées<input onchange = "callDisplayDiagramme()" class="shape" name="visualisationMode" value="0" type="radio" checked="true"></label>
-               <label class = "radioParameterLabel">Données réparties<input onchange = "callDisplayDiagramme()" class="shape" name="visualisationMode" value="1" type="radio"></label>
-               <label class = "radioParameterLabel">Progression Générale<input onchange = "callDisplayDiagramme()" class="shape" name="visualisationMode" value="2" type="radio"></label>
-               <label class = "radioParameterLabel">Progression Générale<input onchange = "callDisplayDiagramme()" class="shape" name="visualisationMode" value="3" type="radio"></label>
-               <label class = "radioParameterLabel">Progression Générale<input onchange = "callDisplayDiagramme()" class="shape" name="visualisationMode" value="4" type="radio"></label>
+               <label class = "radioParameterLabel">Donnï¿½es cumulï¿½es<input onchange = "callDisplayDiagramme()" class="shape" name="visualisationMode" value="0" type="radio" checked="true"></label>
+               <label class = "radioParameterLabel">Donnï¿½es rï¿½parties<input onchange = "callDisplayDiagramme()" class="shape" name="visualisationMode" value="1" type="radio"></label>
+               <label class = "radioParameterLabel">Progression Gï¿½nï¿½rale<input onchange = "callDisplayDiagramme()" class="shape" name="visualisationMode" value="2" type="radio"></label>
+               <label class = "radioParameterLabel">Progression Gï¿½nï¿½rale<input onchange = "callDisplayDiagramme()" class="shape" name="visualisationMode" value="3" type="radio"></label>
+               <label class = "radioParameterLabel">Progression Gï¿½nï¿½rale<input onchange = "callDisplayDiagramme()" class="shape" name="visualisationMode" value="4" type="radio"></label>
             </div>
             <div class = "notRequired">
                <span id="sizeBarText"></span>
@@ -172,14 +174,14 @@
                  		<input onclick = "callDisplayDiagramme()" id = "weekMode" type = "checkbox" checked = "true">
                  	</div>	 -->
             <div style = "display:none;" >
-               <a class="visuLearner" style = "width:50%;">Visualisation d'un élève</a>
-               <input id=studentSelect oninput = "changeStudent()" list="studentSelectData" title = "Double clique pour afficher la liste des élèves">
+               <a class="visuLearner" style = "width:50%;">Visualisation d'un ï¿½lï¿½ve</a>
+               <input id=studentSelect oninput = "changeStudent()" list="studentSelectData" title = "Double clique pour afficher la liste des ï¿½lï¿½ves">
                <datalist id=studentSelectData></datalist>
             </div>
             <span id="exerciceNumberText"></span>
             <input title="Changer d'exercice" id="exerciceNumber" min="0" max="10" value="5" step="1" oninput="callDisplayDiagramme()" type="range">					    
             <div id="exerciseSelector" style = "display:none" class = "notRequired">
-               <a>Exercice visualisé :</a>
+               <a>Exercice visualisï¿½ :</a>
             </div>
             <div id="options">
                <div id="optionsList">
@@ -204,7 +206,7 @@
       <div id = "screenSelectorArea">
          <div id = "screenSelectorCover" onclick="swapScreenMode(false)"></div>
 	 
-	 <div class="tooltips headline" id="head1">Représentations principales</div>
+	 <div class="tooltips headline" id="head1">Reprï¿½sentations principales</div>
 	 <!-- data-no: current, next, back -->
 	 
 	<!-- Formulaire en ligne -->
@@ -217,7 +219,7 @@
             <img alt="Loading" src="">
          </div>
 -->
-         <div class = "tooltips tooltipsbottom block" id="screen6" data-no="6,5,2" onclick="selectScreen(this)"> <!-- Nombre d'élèves par exercice selon leurs résultats // Qualité des résultats -->
+         <div class = "tooltips tooltipsbottom block" id="screen6" data-no="6,5,2" onclick="selectScreen(this)"> <!-- Nombre d'ï¿½lï¿½ves par exercice selon leurs rï¿½sultats // Qualitï¿½ des rï¿½sultats -->
             <div>
                <a>title</a>
             </div>
@@ -225,35 +227,35 @@
             <img alt="Loading" src="">
          </div>
 
-         <div class = "tooltips tooltipsbottom block" id="screen5" data-no="5,3,6" onclick="selectScreen(this)"> <!-- Résultats des élèves par exercices -->
+         <div class = "tooltips tooltipsbottom block" id="screen5" data-no="5,3,6" onclick="selectScreen(this)"> <!-- Rï¿½sultats des ï¿½lï¿½ves par exercices -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen3" data-no="3,1,5" onclick="selectScreen(this)"> <!-- Résultats d'un élève, datés dans le temps // Évaluation et Suivi Individuel -->
+         <div class = "tooltips tooltipsbottom block" id="screen3" data-no="3,1,5" onclick="selectScreen(this)"> <!-- Rï¿½sultats d'un ï¿½lï¿½ve, datï¿½s dans le temps // ï¿½valuation et Suivi Individuel -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen2" data-no="2,6,7" onclick="selectScreen(this)"><!-- Dernier exercice réalisé par chaque élève // Progressions Réparties -->
+         <div class = "tooltips tooltipsbottom block" id="screen2" data-no="2,6,7" onclick="selectScreen(this)"><!-- Dernier exercice rï¿½alisï¿½ par chaque ï¿½lï¿½ve // Progressions Rï¿½parties -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen1" data-no="1,7,3" onclick="selectScreen(this)"> <!-- Progression Générale - Bubble Chart -->
+         <div class = "tooltips tooltipsbottom block" id="screen1" data-no="1,7,3" onclick="selectScreen(this)"> <!-- Progression Gï¿½nï¿½rale - Bubble Chart -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipsbottom block" id="screen7" data-no="7,2,1" onclick="selectScreen(this)"><!-- Progression Générale - Bar Chart -->
+         <div class = "tooltips tooltipsbottom block" id="screen7" data-no="7,2,1" onclick="selectScreen(this)"><!-- Progression Gï¿½nï¿½rale - Bar Chart -->
             <div>
                <a>title</a>
             </div>
@@ -281,16 +283,16 @@
             <img alt="Loading" src="">
          </div>
 	 
-	 <div class="tooltips headline" id="head4">Avancé</div>
+	 <div class="tooltips headline" id="head4">Avancï¿½</div>
 
-         <div class = "tooltips tooltipstop block" id="screen0" data-no="0,4,4" onclick="selectScreen(this)"> <!-- Nombre d'élèves par collecte -->
+         <div class = "tooltips tooltipstop block" id="screen0" data-no="0,4,4" onclick="selectScreen(this)"> <!-- Nombre d'ï¿½lï¿½ves par collecte -->
             <div>
                <a>title</a>
             </div>
             <span>test</span>
             <img alt="Loading" src="">
          </div>
-         <div class = "tooltips tooltipstop block" id="screen4" data-no="4,0,0" onclick="selectScreen(this)"> <!-- Nombre d'élèves par exercice selon leur période d'inscription -->
+         <div class = "tooltips tooltipstop block" id="screen4" data-no="4,0,0" onclick="selectScreen(this)"> <!-- Nombre d'ï¿½lï¿½ves par exercice selon leur pï¿½riode d'inscription -->
             <div>
                <a>title</a>
             </div>
