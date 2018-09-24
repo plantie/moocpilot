@@ -176,6 +176,7 @@ var translations = {
   'clicBulle':{'fr':"Cliquez sur la bulle pour afficher le détail",'en':"Clic on bubble to display details"},
   'auTotal':{'fr':"au total",'en':", total"},
   'enC':{'fr':"en C",'en':"for C"},
+  'newName': {'fr':"Nouveau nom",'en':"New name"},
   //~ '#':{'fr':"",'en':""},
   //~ '#':{'fr':"",'en':""},
   //~ '#':{'fr':"",'en':""},
@@ -369,7 +370,11 @@ function courseName(callBack, dir){
             id = t[0] + t[1] + t[2];
             courseFullName = t[0] + t[1] + t[2];
             if (t[5] != undefined) {
-                courseFullName = t[5] + " -"+t[2];
+                if (localStorage[id]) {
+                    courseFullName = localStorage[id];
+                } else {
+                    courseFullName = t[5] + " -" + t[2];
+                }
             }
 
             if (t[1]!==undefined) opts.set(courseFullName,"<option value='"+y+"' "+(id == localStorage.moocId ? "selected=selected" : "")+">"+courseFullName+"</option>");
@@ -379,7 +384,7 @@ function courseName(callBack, dir){
             select+=value[1];
         });
 		$('#appNameDiv p, #headerName') // index.jsp diagramm.jsp & admin/index.jsp
-			.html("<a href='.'>MOOC</a>: <select id='moocId'>"+select+"</select>")
+            .html("<a href='.'>MOOC</a>: <select id='moocId'>"+select+"</select> <img onclick='editName()' src='/Ressources/icon_pen.png' style='width:30px; height:30px;'/>")
 			.change(function(evt){
 				console.log(evt.target);
 				var x = $(evt.target).val()
@@ -473,6 +478,14 @@ function courseNameOLD(callBack){
 	/*
 	document.querySelectorAll("#headerMenu div>a:first-child")[0].innerText = "Progression de " + courseName;
 	document.querySelectorAll("#headerMenu div>a:first-child")[1].innerText = "Statistique de " + courseName;*/
+}
+
+function editName() {
+    var nn = prompt(translations['newName'][localStorage.lang], localStorage.moocId);
+    if (nn != null) {
+        localStorage[localStorage.moocId] = nn;
+        $('select#moocId option:checked').text(nn);
+    }
 }
 
 /*

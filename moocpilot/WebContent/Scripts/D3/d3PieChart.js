@@ -101,7 +101,7 @@ function gradePie(cible, data, names, moy){
 	svg.on('mouseover', tipPieChart.show)
 		.on('mouseout', tipPieChart.hide)*/
     listTextPie.push("<span style = 'color:#FF8005'>"+names[1]+ "/" + names[2] +" "+translations['#noteInf'][localStorage.lang]+"</span>" // apprenants avec une note <= 0.5
-	+"</br><span style = 'color:#6e6eff'>"+names[0]+ "/" + names[2] +" "+translations['#noteInf'][localStorage.lang]+" </span>" // apprenants avec une note > 0.5
+	+"</br><span style = 'color:#6e6eff'>"+names[0]+ "/" + names[2] +" "+translations['#noteSup'][localStorage.lang]+" </span>" // apprenants avec une note > 0.5
 	+"</br><span> "+translations['#noteAvg'][localStorage.lang]+" : "+moy+"</span>"); // Note moyenne
 	
 	var g = svg.selectAll(".arc")
