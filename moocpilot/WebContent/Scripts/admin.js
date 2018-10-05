@@ -104,7 +104,7 @@ function switchCollectButton(){
 		
 		automaticActivated = false;
 	}	else	{
-		//~ document.getElementById("automaticCollectButton").firstElementChild.innerText = "D�sactiver la collecte automatique";
+		//~ document.getElementById("automaticCollectButton").firstElementChild.innerText = "Désactiver la collecte automatique";
 		//~ document.getElementById("automaticCollectLabels").firstElementChild.innerText = "Collecte automatique : Active";
 
 		i18n[localStorage.lang]['weekdays']
@@ -383,7 +383,7 @@ function callTraitementCsv(){
 	}
 
 	if(alreadyExist()){
-		alert("Erreur : Une collecte similaire existe d�j�");
+		alert("Erreur : Une collecte similaire existe déjà");
 		return;
 	}
 	
@@ -621,7 +621,7 @@ function setFunUserParameters() {
             }	else	if(xhr.responseText == "Error : User Informations"){
             	alert("Identifiant ou mot de passe incorrect.");
             }	else	{
-            	alert("Ce cours n'existe pas, v�rifiez vos informations.");
+            	alert("Ce cours n'existe pas, vérifiez vos informations.");
             }
         }
     }
@@ -670,7 +670,7 @@ function updateForumDatabase(){
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 1) {
             document.getElementById("loaderGif").style.display = "none";
-            alert("R�cup�ration en cours, attente estim�e 2 heures");
+            alert("Récupération en cours, attente estimée 2 heures");
         }
     }
     xhr.open('POST', '../forumRequest?moocId='+localStorage.moocId);
@@ -713,7 +713,7 @@ function setFunTask() {
 	dateCollect.setUTCMinutes(0);
 	dateCollect.setUTCSeconds(0);
 	dateCollect.setUTCMilliseconds(0);
-	if (!confirm("Vous allez mettre en place la collecte automatique qui d�butera le " + dateCollect.toLocaleDateString("fr-FR", options) + " et qui sera r�p�t�e de mani�re " + getPeriod() + " les " + i18n[localStorage.lang]['weekdays'][dateCollect.getDay()] + "s. �tes vous s�r?")) {
+	if (!confirm("Vous allez mettre en place la collecte automatique qui débutera le " + dateCollect.toLocaleDateString("fr-FR", options) + " et qui sera répétée de manière " + getPeriod() + " les " + i18n[localStorage.lang]['weekdays'][dateCollect.getDay()] + "s. êtes vous sûr?")) {
 	    dateCollect == undefined;
 		return;
 	} else {
@@ -779,7 +779,7 @@ function startManualCollectFun(){
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             document.getElementById("loaderGif").style.display = "none";
-            alert("Collecte lanc�e.");
+            alert("Collecte lancée.");
         }
     }
     xhr.open('POST', '../StartCollect?moocId='+localStorage.moocId);
@@ -907,9 +907,9 @@ var tomorrow = new Date();
 
 var i18n = {
 	'fr':{
-	    previousMonth : 'Mois Pr�c�dent',
+	    previousMonth : 'Mois Précédent',
 	    nextMonth     : 'Mois Suivant',
-	    months        : ['Janvier','F�vrier','Mars','Avril','Mai','Juin','Juillet','Ao�t','Septembre','Octobre','Novembre','Decembre'],
+	    months        : ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'],
 	    weekdays      : ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
 	    weekdaysShort : ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam']
 	},
