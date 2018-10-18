@@ -60,7 +60,6 @@ public class ShellScriptTaskListenerTest {
         Date nextDate = null;
         // Here we expect to have the date on the following week as the timer Start date is past
         td = new timerData(
-                ShellScriptTaskListener.TASK_TYPE_RETRIEVE,
                 new Date(currentTimeL-2000),
                 7,
                 "Dartmouth_IMTxDART.IMT.C.021T2018");
@@ -69,7 +68,6 @@ public class ShellScriptTaskListenerTest {
 
         // Here we expect to have the date on the following week as the timer Start date is past 2x the delay
         td = new timerData(
-                ShellScriptTaskListener.TASK_TYPE_RETRIEVE,
                 new Date(currentTimeL- 14 * ShellScriptTaskListener.FULL_DAY_MS - 2000 ),
                 7,
                 "Dartmouth_IMTxDART.IMT.C.021T2018");
@@ -78,7 +76,6 @@ public class ShellScriptTaskListenerTest {
 
         // Here we expect to have the next date on the same day
         td = new timerData(
-                ShellScriptTaskListener.TASK_TYPE_RETRIEVE,
                 new Date(currentTimeL + 1000),
                 7,
                 "Dartmouth_IMTxDART.IMT.C.021T2018");
@@ -96,7 +93,6 @@ public class ShellScriptTaskListenerTest {
         final long ERROR_MARGIN = 5;
         // Here we expect to have the date on the same day + 1000 ms
         td = new timerData(
-                ShellScriptTaskListener.TASK_TYPE_RETRIEVE,
                 new Date(currentTimeL+1000),
                 7,
                 "Dartmouth_IMTxDART.IMT.C.021T2018");
@@ -106,7 +102,6 @@ public class ShellScriptTaskListenerTest {
 
         // Here we expect to have the date on the following week
         td = new timerData(
-                ShellScriptTaskListener.TASK_TYPE_RETRIEVE,
                 new Date(currentTimeL-1000),
                 7,
                 "Dartmouth_IMTxDART.IMT.C.021T2018");

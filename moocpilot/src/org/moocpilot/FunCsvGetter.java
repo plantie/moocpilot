@@ -116,9 +116,7 @@ public class FunCsvGetter extends HttpServlet {
 
     private void automaticCollect(Date startDay, long delay, String contextPath, String moocId) {
         ShellScriptTaskListener shellScriptTaskListener = new ShellScriptTaskListener();
-        shellScriptTaskListener.addTimerTask(ShellScriptTaskListener.TASK_TYPE_RETRIEVE, startDay, delay, moocId);
-        shellScriptTaskListener.addTimerTask(ShellScriptTaskListener.TASK_TYPE_PROCESS, new Date(startDay.getTime() + ShellScriptTaskListener.SIX_HOURS_MS), delay, moocId);
-        //30000
+        shellScriptTaskListener.addTimerTask(startDay, delay, moocId);
     }
 
     private static boolean setUserParameters(String path) {//TESTED
