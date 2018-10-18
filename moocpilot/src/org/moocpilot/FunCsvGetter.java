@@ -62,7 +62,14 @@ public class FunCsvGetter extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
 
-
+    /**
+     * Set the next automatic collection. Collection will start on the same hour and day +/- 30 min
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String moocId = request.getParameter("moocId");
         System.out.println("FunCsvGetter.doPost, moocId=" + moocId);
@@ -102,15 +109,16 @@ public class FunCsvGetter extends HttpServlet {
         if (delay == -1) {
             return;
         }
-        startDay.setTime(startDay.getTime() + (long) (Math.random() * 1800000));
+        startDay.setTime(startDay.getTime() + (long) (Math.random() * ShellScriptTaskListener.SIX_HOURS_MS)); //
 
         automaticCollect(startDay, delay, contextPath, moocId);
     }
 
     private void automaticCollect(Date startDay, long delay, String contextPath, String moocId) {
         ShellScriptTaskListener shellScriptTaskListener = new ShellScriptTaskListener();
-        shellScriptTaskListener.addTimerTask(0, startDay, delay, moocId);
-        shellScriptTaskListener.addTimerTask(1, new Date(startDay.getTime() + (1000 * 60 * 60 * 6)), delay, moocId);//30000
+        shellScriptTaskListener.addTimerTask(ShellScriptTaskListener.TASK_TYPE_RETRIEVE, startDay, delay, moocId);
+        shellScriptTaskListener.addTimerTask(ShellScriptTaskListener.TASK_TYPE_PROCESS, new Date(startDay.getTime() + ShellScriptTaskListener.SIX_HOURS_MS), delay, moocId);
+        //30000
     }
 
     private static boolean setUserParameters(String path) {//TESTED

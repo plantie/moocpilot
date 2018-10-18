@@ -6,12 +6,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -28,6 +24,10 @@ import javax.servlet.annotation.WebListener;
  */
 @WebListener
 public class ShellScriptTaskListener implements ServletContextListener, Serializable {
+    public static final long  SIX_HOURS_MS = 1000 * 60 * 60 * 6;
+    public static final long  FULL_DAY_MS = (1000 * 60 * 60 * 24);
+    public static final int  TASK_TYPE_RETRIEVE = 0;
+    public static final int  TASK_TYPE_PROCESS = 1;
     /**
      *
      */
@@ -68,7 +68,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
     }
 
     // Get iterator over timers from "timerDatas.ser"
-    ArrayList<timerData> readTimerData() {
+    protected ArrayList<timerData> readTimerData() {
         try {
             FileInputStream fin = new FileInputStream(path + "/timerDatas.ser");
             ObjectInputStream ois = new ObjectInputStream(fin);
@@ -79,7 +79,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
         }
     }
 
-    void saveTimerData(ArrayList<timerData> timerDatas) {
+    protected void saveTimerData(ArrayList<timerData> timerDatas) {
         try {
             FileOutputStream fout = new FileOutputStream(path + "/timerDatas.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fout);
@@ -143,7 +143,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
     }
 
     @SuppressWarnings({"resource", "unchecked"})
-    private void setTimerTasks() throws ClassNotFoundException, IOException {
+    protected void setTimerTasks() throws ClassNotFoundException, IOException {
         System.out.println("ShellScriptTaskListener.setTimerTasks");
         if (timer != null) {
             timer.cancel();
@@ -152,13 +152,14 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
         ArrayList<timerData> timerDatas = readTimerData();
 
         for (int i = 0; i < timerDatas.size(); i++) {
-            switch (timerDatas.get(i).type) {
-                case 0:
-                    setTimerSetCollect(timerDatas.get(i).getTimeBefore(), timerDatas.get(i).delay * (1000 * 60 * 60 * 24), timerDatas.get(i).moocId);
+            timerData td = timerDatas.get(i);
+            td.adjustTime();
+            switch (td.type) {
+                case TASK_TYPE_RETRIEVE:
+                    setTimerRetrieveCollect(td.getTimeBefore(), td.delay * ShellScriptTaskListener.FULL_DAY_MS, td.moocId);
                     break;
-                case 1:
-                    timerDatas.get(i).adjustTime();
-                    setTimerGetCollect(timerDatas.get(i).getTimeBefore(), timerDatas.get(i).delay * (1000 * 60 * 60 * 24), timerDatas.get(i).moocId);
+                case TASK_TYPE_PROCESS:
+                    setTimerProcessCollect(td.getTimeBefore(), td.delay * ShellScriptTaskListener.FULL_DAY_MS, td.moocId);
                     break;
                 default:
                     break;
@@ -174,71 +175,79 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
 
         ArrayList<timerData> timerDatas = readTimerData();
 
-        timerDatas.add(new timerData(type, dayStart, delay, moocId));
+        timerData timerData = new timerData(type, dayStart, delay, moocId);
+
+        timerDatas.add(timerData);
+
         switch (type) {
-            case 0:
-                setTimerSetCollect(timerDatas.get(timerDatas.size() - 1).getTimeBefore(), delay * (1000 * 60 * 60 * 24), moocId);
+            case TASK_TYPE_RETRIEVE:
+                setTimerRetrieveCollect(timerData.getTimeBefore(), delay * ShellScriptTaskListener.FULL_DAY_MS, moocId);
                 break;
-            case 1:
-                setTimerGetCollect(timerDatas.get(timerDatas.size() - 1).getTimeBefore(), delay * (1000 * 60 * 60 * 24), moocId);
+            case TASK_TYPE_PROCESS:
+                setTimerProcessCollect(timerData.getTimeBefore(), delay * ShellScriptTaskListener.FULL_DAY_MS, moocId);
                 break;
             default:
                 break;
         }
-
         saveTimerData(timerDatas);
     }
 
-    private void setTimerSetCollect(long timeBefore, long delayBetween, String moocId) {
-        final String moocId2 = moocId;
-        TimerTask timerTask = new TimerTask() {
+    protected void setTimerRetrieveCollect(long timeBefore, long delayBetween, final String moocId) {
+        class SetCollectTask extends TimerTask {
+            private String moocId;
+            public SetCollectTask(String moocId) {
+                this.moocId = moocId;
+            }
             @Override
             public void run() {
 
                 System.out.println("SetCollect");
                 try {
-                    FunCsvGetter.startCollect(path + "/" + moocId2);
+                    FunCsvGetter.startCollect(path + "/" + this.moocId);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
-            ;
-        };
+        }
+        TimerTask timerTask = new SetCollectTask(moocId);
         timer.scheduleAtFixedRate(timerTask, timeBefore, delayBetween);
     }
 
-    private void setTimerGetCollect(long timeBefore, long delayBetween, String moocId) {
-        final String moocId2 = moocId;
-        TimerTask timerTask = new TimerTask() {
+    protected void setTimerProcessCollect(long timeBefore, long delayBetween, String moocId) {
+        class GetCollectTask extends TimerTask {
+            private String moocId;
+            public GetCollectTask(String moocId) {
+                this.moocId = moocId;
+            }
             @Override
             public void run() {
                 System.out.println("GetCollect");
                 try {
-                    FunCsvGetter.getCollectList(path + "/" + moocId2);
+                    FunCsvGetter.getCollectList(path + "/" + this.moocId);
 
-                    String contextPath = path + "/" + moocId2;
+                    String contextPath = path + "/" + this.moocId;
                     //String contextPath = getClass().getClassLoader().getResource("/Csv").getPath();
                     CsvList csvList = new CsvList(contextPath);
                     ArrayList<String> csvListName = new ArrayList<String>();
                     CsvTraitement csvTraitement = new CsvTraitement(csvList.getPathCourse("0", csvListName), csvListName);
-                    csvTraitement.SaveResponse(getClass().getClassLoader().getResource(("../../data/" + moocId2 + "/versionLoaded.txt")).getPath());
+                    csvTraitement.SaveResponse(path +"/"+"data/" + this.moocId + "/versionLoaded.txt");
                     //csvTraitement.SaveResponse(getClass().getClassLoader().getResource(("../../UploadedFiles/versionLoaded.txt")).getPath());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
-            ;
-        };
+        }
+        TimerTask timerTask = new GetCollectTask(moocId);
         timer.scheduleAtFixedRate(timerTask, timeBefore, delayBetween);
     }
 
     // EG: update to keep moocId
-    public class timerData implements Serializable {
+    public static class timerData implements Serializable {
         private static final long serialVersionUID = 4233740471441119448L;
 
-        int type;//0 = set collect; 1 = get collecte
+        int type;   //TASK_TYPE_RETRIEVE, TASK_TYPE_PROCESS
         Date dayStart;
         long delay;
         String moocId;
@@ -253,15 +262,14 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
         public Date geThisOrtNextDate() {
             Date nextDate = new Date(this.dayStart.getTime());//on prend le time de daystart
             Date actualDate = new Date();//on prend le time de actualDate
-
-            while (nextDate.before(actualDate)) {
-                nextDate = new Date(nextDate.getTime() + this.delay * (1000 * 60 * 60 * 24));
+            while (nextDate.before(actualDate)) { // We increment the date from delay x fullday each time
+                // La prochaine date est dépassée donc on prends la suivante
+                nextDate = new Date(nextDate.getTime() + this.delay * ShellScriptTaskListener.FULL_DAY_MS);
             }
-
             return nextDate;
         }
 
-        public long getTimeBefore() {//vérifié la logique
+        public long getTimeBefore() {
             Date nextDate = this.geThisOrtNextDate();
             Date actualDate = new Date();//on prends le timestamp actuel
             return nextDate.getTime() - actualDate.getTime();
@@ -271,7 +279,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
          * Change first day if type of timer is 1, so we are ready for next collection if date is past
          */
         public void adjustTime() {
-            if (this.type == 1) {
+            if (TASK_TYPE_PROCESS == this.type) {
                 this.dayStart = geThisOrtNextDate();
             }
         }

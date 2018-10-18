@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.moocpilot</groupId>
   <artifactId>moocpilot</artifactId>
-  <version>2.2.0</version>
+  <version>2.3.0</version>
   <packaging>war</packaging>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -20,6 +20,7 @@
         <version>3.0.0</version>
         <configuration>
           <warSourceDirectory>WebContent</warSourceDirectory>
+		  <packagingExcludes>**/test/*.class</packagingExcludes>
         </configuration>
       </plugin>
     </plugins>
