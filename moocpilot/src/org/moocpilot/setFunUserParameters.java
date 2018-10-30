@@ -1,20 +1,15 @@
 package org.moocpilot;
 
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.Map;
+import java.util.logging.Level;
 
 /**
  * Servlet implementation class setFunUserParameters
@@ -38,13 +33,13 @@ public class setFunUserParameters extends HttpServlet {
     @SuppressWarnings("resource")
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String moocId = request.getParameter("moocId");
-        System.out.println("setFunUserParameters.doPost " + moocId);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "setFunUserParameters.doPost " + moocId);
         if (!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))) {
             //if(!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/ShellScripts/password.txt"))){
             return;
         }
         response.setContentType("application/javascript");
-        System.out.println("setFunUserParameters.doPost 2");
+        MoocPilotLogger.LOGGER.log(Level.INFO, "setFunUserParameters.doPost 2");
 
         java.util.Scanner s = new java.util.Scanner(request.getPart("userName").getInputStream()).useDelimiter("\\A");
         String userName = s.hasNext() ? s.next() : "";
@@ -67,7 +62,7 @@ public class setFunUserParameters extends HttpServlet {
 
         boolean isFunUpdated = false;
 
-        System.out.println("setFunUserParameters.doPost->" + userName + ", courseId=" + courseId + ", sessionName=" + sessionName + ", isEdx=" + isEdx);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "setFunUserParameters.doPost->" + userName + ", courseId=" + courseId + ", sessionName=" + sessionName + ", isEdx=" + isEdx);
 
         String realPath = getServletContext().getRealPath("/ShellScripts");
 
@@ -103,7 +98,7 @@ public class setFunUserParameters extends HttpServlet {
         FileOutputStream fout;
         String newPath = getServletContext().getRealPath("/") + "/data/" + funUserParameters.instituteName + funUserParameters.courseId + funUserParameters.sessionName;
         try {
-            System.out.println("DIR " + newPath);
+            MoocPilotLogger.LOGGER.log(Level.INFO, "DIR " + newPath);
             new File(newPath).mkdirs();
             fout = new FileOutputStream(newPath + "/funUserParameters.ser");
             //fout = new FileOutputStream(getServletContext().getRealPath("/ShellScripts") + "/funUserParameters.ser");
@@ -114,7 +109,7 @@ public class setFunUserParameters extends HttpServlet {
             File f = new File(getServletContext().getRealPath("/") + "/data/courses.txt");
             FileWriter fw = new FileWriter(f, true);
             String line = instituteName + "\t" + courseId + "\t" + sessionName + "\t" + isEdx + "\t" + isFunUpdated
-                    + "\t"+courseName + "\n";
+                    + "\t" + courseName + "\n";
             fw.write(line.toCharArray(), 0, line.length());
             fw.close();
 
@@ -123,7 +118,7 @@ public class setFunUserParameters extends HttpServlet {
             e.printStackTrace();
         }
 
-        System.out.println("before getCollectList");
+        MoocPilotLogger.LOGGER.log(Level.INFO, "before getCollectList");
         FunCsvGetter.getCollectList(newPath);
 
         PrintWriter pw = response.getWriter();

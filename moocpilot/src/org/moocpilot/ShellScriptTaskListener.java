@@ -1,19 +1,12 @@
 package org.moocpilot;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.*;
-import java.util.Timer;
-import java.util.function.Predicate;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-
+import java.io.*;
+import java.util.*;
+import java.util.Timer;
+import java.util.logging.Level;
 /*
  *
  *
@@ -25,10 +18,12 @@ import javax.servlet.annotation.WebListener;
  */
 @WebListener
 public class ShellScriptTaskListener implements ServletContextListener, Serializable {
-    public static final long  SIX_HOURS_MS = 1000 * 60 * 60 * 6;
-    public static final long  FULL_DAY_MS = (1000 * 60 * 60 * 24);
-    public static final int  TASK_TYPE_RETRIEVE = 0;
-    public static final int  TASK_TYPE_PROCESS = 1;
+    public static final long SIX_HOURS_MS = 1000 * 60 * 60 * 6;
+    public static final long FULL_DAY_MS = (1000 * 60 * 60 * 24);
+    public static final int TASK_TYPE_RETRIEVE = 0;
+    public static final int TASK_TYPE_PROCESS = 1;
+
+
     /**
      *
      */
@@ -44,7 +39,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
      * Default constructor.
      */
     public ShellScriptTaskListener() { // String contextPath
-//~ System.out.println("ShellScriptTaskListener");
+//~ MoocPilotLogger.LOGGER.log(Level.INFO,"ShellScriptTaskListener");
     }
 
     /**
@@ -59,7 +54,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
      */
     public void contextInitialized(ServletContextEvent arg0) {
         path = arg0.getServletContext().getRealPath("/data");
-        System.out.println("ShellScriptTaskListener.contextInitialized, path=" + path);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "ShellScriptTaskListener.contextInitialized, path=" + path);
         //path = arg0.getServletContext().getRealPath("/ShellScripts");
         try {
             setTimerTasks();
@@ -81,16 +76,18 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
             return new ArrayList<timerData>();// empty list
         }
     }
-    private ArrayList<timerData> filterOutTimerData( ArrayList<timerData> timerDatas ) {
+
+    private ArrayList<timerData> filterOutTimerData(ArrayList<timerData> timerDatas) {
         // Filter out timerData with Type == 1
         ArrayList<timerData> ts = new ArrayList<timerData>();
-        for(timerData tdata : timerDatas) {
-            if (tdata.type == 0 ) {
+        for (timerData tdata : timerDatas) {
+            if (tdata.type == 0) {
                 ts.add(tdata);
             }
         }
         return ts;
     }
+
     protected void saveTimerData(ArrayList<timerData> timerDatas) {
         try {
             ArrayList<timerData> ts = filterOutTimerData(timerDatas);
@@ -106,7 +103,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
     // EG: update to keep moocId
     @SuppressWarnings({"resource", "unchecked"})
     public String getTimerList(String moocId) {
-        System.out.println("ShellScriptTaskListener.getTimerList, path=" + path + ", moocId=" + moocId);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "ShellScriptTaskListener.getTimerList, path=" + path + ", moocId=" + moocId);
 
         ArrayList<timerData> timerDatas = readTimerData();
         Iterator<timerData> it = timerDatas.iterator();
@@ -127,7 +124,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
     @SuppressWarnings({"unchecked", "resource"})
     public void removeTimer(String moocId) {
         //public void removeTimer(int indexTimer){//removetimer 0 suffit du coup pour reset all si un seul timer
-        System.out.println("ShellScriptTaskListener.removeTimer " + moocId);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "ShellScriptTaskListener.removeTimer " + moocId);
 
         ArrayList<timerData> timerDatas = readTimerData();
 
@@ -136,7 +133,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
         while (it.hasNext()) {
             timerData td = it.next();
             if (td.moocId.equals(moocId)) {
-                System.out.println("    removeTimer for " + td.moocId);
+                MoocPilotLogger.LOGGER.log(Level.INFO, "    removeTimer for " + td.moocId);
                 it.remove();
             }
         }
@@ -157,7 +154,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
 
     @SuppressWarnings({"resource", "unchecked"})
     protected void setTimerTasks() throws ClassNotFoundException, IOException {
-        System.out.println("ShellScriptTaskListener.setTimerTasks");
+        MoocPilotLogger.LOGGER.log(Level.INFO, "ShellScriptTaskListener.setTimerTasks");
         if (timer != null) {
             timer.cancel();
         }
@@ -174,7 +171,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
 
     @SuppressWarnings({"unchecked", "resource"})
     public void addTimerTask(Date dayStart, long delay, String moocId) {
-        System.out.println("ShellScriptTaskListener.addTimerTask, moocId=" + moocId);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "ShellScriptTaskListener.addTimerTask, moocId=" + moocId);
 
         ArrayList<timerData> timerDatas = readTimerData();
 
@@ -190,13 +187,15 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
     protected void setTimerRetrieveCollect(long timeBefore, long delayBetween, final String moocId) {
         class SetCollectTask extends TimerTask {
             private String moocId;
+
             public SetCollectTask(String moocId) {
                 this.moocId = moocId;
             }
+
             @Override
             public void run() {
 
-                System.out.println("SetCollect");
+                MoocPilotLogger.LOGGER.log(Level.INFO, "SetCollect");
                 try {
                     FunCsvGetter.startCollect(path + "/" + this.moocId);
                 } catch (IOException e) {
@@ -212,12 +211,14 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
     protected void setTimerProcessCollect(long timeBefore, long delayBetween, String moocId) {
         class GetCollectTask extends TimerTask {
             private String moocId;
+
             public GetCollectTask(String moocId) {
                 this.moocId = moocId;
             }
+
             @Override
             public void run() {
-                System.out.println("GetCollect");
+                MoocPilotLogger.LOGGER.log(Level.INFO, "GetCollect");
                 try {
                     FunCsvGetter.getCollectList(path + "/" + this.moocId);
 
@@ -225,7 +226,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
                     CsvList csvList = new CsvList(contextPath);
                     ArrayList<String> csvListName = new ArrayList<String>();
                     CsvTraitement csvTraitement = new CsvTraitement(csvList.getPathCourse("0", csvListName), csvListName);
-                    csvTraitement.SaveResponse(path +"/" + this.moocId + "/versionLoaded.txt");
+                    csvTraitement.SaveResponse(path + "/" + this.moocId + "/versionLoaded.txt");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

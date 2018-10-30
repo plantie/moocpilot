@@ -6,28 +6,20 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.lang.ProcessBuilder.Redirect;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.lang.ProcessBuilder.Redirect;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+
 
 /**
  * Servlet implementation class FunCsvGetter
@@ -51,6 +43,7 @@ public class FunCsvGetter extends HttpServlet {
     public static String localPath = null;
     public static String MOD = "/../../ShellScripts";
 
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -72,12 +65,12 @@ public class FunCsvGetter extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String moocId = request.getParameter("moocId");
-        System.out.println("FunCsvGetter.doPost, moocId=" + moocId);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter.doPost, moocId=" + moocId);
         String contextPath = getServletContext().getRealPath("/data/" + moocId);
         if (localPath == null) {
             // EG: get local path used in all functions
             localPath = getServletContext().getRealPath("/");
-            System.out.println("*** FunCsvGetter: localPath=" + localPath);
+            MoocPilotLogger.LOGGER.log(Level.INFO, "*** FunCsvGetter: localPath=" + localPath);
         }
 
         if (!Connect.isCookieTrue(request.getCookies(), getServletContext().getRealPath("/data/password.txt"))) {
@@ -120,7 +113,7 @@ public class FunCsvGetter extends HttpServlet {
     }
 
     private static boolean setUserParameters(String path) {//TESTED
-        System.out.println("FunCsvGetter setUserParameters, path=" + path);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter setUserParameters, path=" + path);
         FunUserParameters funUserParameters;
         try {
             FileInputStream fin = new FileInputStream(path + "" + "/funUserParameters.ser");
@@ -128,7 +121,7 @@ public class FunCsvGetter extends HttpServlet {
             ObjectInputStream ois = new ObjectInputStream(fin);
             funUserParameters = (FunUserParameters) ois.readObject();
         } catch (ClassNotFoundException | IOException e) {
-            System.out.println("setUserParameters ERROR");
+            MoocPilotLogger.LOGGER.log(Level.INFO, "setUserParameters ERROR");
             return false;
         }
         userName = funUserParameters.userName;
@@ -138,12 +131,12 @@ public class FunCsvGetter extends HttpServlet {
         sessionName = funUserParameters.sessionName;
         isEdx = funUserParameters.isEdx;
         isFunUpdated = funUserParameters.isFunUpdated;
-        System.out.println("	setUserParameters OK, userName=" + userName);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "	setUserParameters OK, userName=" + userName);
         return true;
     }
 
     public static void startCollect(String contextShellScriptsPath) throws IOException {
-        System.out.println("FunCsvGetter startCollect, contextShellScriptsPath=" + contextShellScriptsPath);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter startCollect, contextShellScriptsPath=" + contextShellScriptsPath);
         if (!setUserParameters(contextShellScriptsPath)) {
             return;
         }
@@ -183,7 +176,7 @@ public class FunCsvGetter extends HttpServlet {
     }
 
     private static boolean extractFile(String cibledFile, String contextShellScriptsPath) throws IOException {
-        System.out.println("FunCsvGetter extractFile " + cibledFile + ", " + contextShellScriptsPath + ", localPath=" + localPath);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter extractFile " + cibledFile + ", " + contextShellScriptsPath + ", localPath=" + localPath);
 
         if (!setUserParameters(contextShellScriptsPath)) {
             return false;
@@ -214,7 +207,7 @@ public class FunCsvGetter extends HttpServlet {
         }
         csvList.addWeek("0", index, cibledFileName);
         csvList.save();
-        System.out.println("extractFile " + cibledFile + ", " + contextShellScriptsPath);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "extractFile " + cibledFile + ", " + contextShellScriptsPath);
 
         File output = new File(filePath);
 
@@ -230,7 +223,7 @@ public class FunCsvGetter extends HttpServlet {
             path = contextShellScriptsPath + MOD + "/edx-extract-grade-report.sh";
             pb = new ProcessBuilder(path, cibledFile);
         }
-        System.out.println("extractFile " + cibledFile + ", " + contextShellScriptsPath);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "extractFile " + cibledFile + ", " + contextShellScriptsPath);
         pb.redirectOutput(output);
         pb.redirectError(Redirect.INHERIT);
         Process p = pb.start();
@@ -243,7 +236,7 @@ public class FunCsvGetter extends HttpServlet {
     }
 
     public static boolean loginWorking(String contextPath, String testedUserName, String testedUserPassword, boolean isEdx) throws IOException {
-        System.out.println("FunCsvGetter.loginWorking, contextPath(ShellScripts)=" + contextPath + ", testedUserName=" + testedUserName + ", isEdx=" + isEdx);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter.loginWorking, contextPath(ShellScripts)=" + contextPath + ", testedUserName=" + testedUserName + ", isEdx=" + isEdx);
         unlockPermission("/verifUser.sh", contextPath);
 
         String path = contextPath + "/verifUser.sh";
@@ -268,7 +261,7 @@ public class FunCsvGetter extends HttpServlet {
     }
 
     public static boolean courseInformationsWorking(String contextPath, String testedUserName, String testedUserPassword, String testedInstituteName, String testedCourseId, String testedSessionName, boolean isFunUpdated, boolean isEdx) throws IOException {
-        System.out.println("FunCsvGetter.courseInformationsWorking, contextPath(ShellScripts)=" + contextPath + ", testedUserName=" + testedUserName + ", isEdx=" + isEdx);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter.courseInformationsWorking, contextPath(ShellScripts)=" + contextPath + ", testedUserName=" + testedUserName + ", isEdx=" + isEdx);
         unlockPermission("/verifCourse.sh", contextPath);
 
         String path = contextPath + "/verifCourse.sh";
@@ -302,8 +295,8 @@ public class FunCsvGetter extends HttpServlet {
         return result.indexOf("<!DOCTYPE html>") == -1;
     }
 
-    public static Map<String,String> getCourseInfo(String contextPath, String testedUserName, String testedUserPassword, String testedInstituteName, String testedCourseId, String testedSessionName, boolean isFunUpdated, boolean isEdx) throws IOException {
-        System.out.println("FunCsvGetter.getCourseInfo, contextPath(ShellScripts)=" + contextPath + ", testedUserName=" + testedUserName + ", isEdx=" + isEdx);
+    public static Map<String, String> getCourseInfo(String contextPath, String testedUserName, String testedUserPassword, String testedInstituteName, String testedCourseId, String testedSessionName, boolean isFunUpdated, boolean isEdx) throws IOException {
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter.getCourseInfo, contextPath(ShellScripts)=" + contextPath + ", testedUserName=" + testedUserName + ", isEdx=" + isEdx);
         unlockPermission("/getCourseInfo.sh", contextPath);
 
         String path = contextPath + "/getCourseInfo.sh";
@@ -333,20 +326,20 @@ public class FunCsvGetter extends HttpServlet {
             builder.append(System.getProperty("line.separator"));
         }
         String result = builder.toString();
-        Map<String, String> returnedMap = new HashMap<String,String>();
+        Map<String, String> returnedMap = new HashMap<String, String>();
         Document jsoupdoc = Jsoup.parse(result);
         Elements courseinfos = jsoupdoc.select("li[id^=field-course]");
-        for ( Element courseinfo: courseinfos ) {
-            String elementname = courseinfo.attr("id").replaceFirst("field-course-","");
+        for (Element courseinfo : courseinfos) {
+            String elementname = courseinfo.attr("id").replaceFirst("field-course-", "");
             String elementvalue = courseinfo.getElementsByTag("b").first().text();
-            returnedMap.put(elementname,elementvalue);
+            returnedMap.put(elementname, elementvalue);
         }
         return returnedMap;
 
     }
 
     public static void getCollectList(String contextPath) throws IOException {//work
-        System.out.println("FunCsvGetter.getCollectList, contextPath=" + contextPath);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter.getCollectList, contextPath=" + contextPath);
 
         // NEW CONTEXT PATH !
         if (!setUserParameters(contextPath)) {
@@ -386,13 +379,13 @@ public class FunCsvGetter extends HttpServlet {
         StringBuilder builder = new StringBuilder();
         String line = null;
         while ((line = reader.readLine()) != null) {
-//~ System.out.println("    FunCsvGetter.getCollectList + "+line);
+//~ MoocPilotLogger.LOGGER.log(Level.INFO,"    FunCsvGetter.getCollectList + "+line);
             builder.append(line);
             builder.append(System.getProperty("line.separator"));
         }
         String result = builder.toString();
         //grade_report_2
-        System.out.println("    FunCsvGetter.getCollectList, result=" + result);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "    FunCsvGetter.getCollectList, result=" + result);
 
         String lineStart;
         if (!isEdx) {
@@ -407,7 +400,7 @@ public class FunCsvGetter extends HttpServlet {
         while (unknownFiles && searchIndex != -1) {
             searchIndex = result.indexOf("\"", searchIndex + 6);
             fileName = result.substring(searchIndex + 1, result.indexOf("\"", searchIndex + 1));
-            System.out.println("    FunCsvGetter.getCollectList, fileName=" + fileName);
+            MoocPilotLogger.LOGGER.log(Level.INFO, "    FunCsvGetter.getCollectList, fileName=" + fileName);
             if (fileName.indexOf("grade_report") != -1 && fileName.indexOf("problem_grade_report") == -1 && fileName.indexOf("grade_report_err") == -1/* && dateAfterSeptember(fileName)*/) {
 
                 if (!isEdx) {
@@ -436,7 +429,7 @@ public class FunCsvGetter extends HttpServlet {
     }
 
     public static void getPostsList(String contextPath2, String contextPath) throws IOException {//work
-        System.out.println("FunCsvGetter getPostsList, contextPath2=" + contextPath2 + ", " + contextPath);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter getPostsList, contextPath2=" + contextPath2 + ", " + contextPath);
 
         if (!setUserParameters(contextPath)) {
             return;
@@ -455,7 +448,7 @@ public class FunCsvGetter extends HttpServlet {
         int actualPage = 1;
         int maxPage = 1;
         while (actualPage <= maxPage) {
-            System.out.println("	FunCsvGetter getPostsList, actualPage=" + actualPage);
+            MoocPilotLogger.LOGGER.log(Level.INFO, "	FunCsvGetter getPostsList, actualPage=" + actualPage);
             String path;
             ProcessBuilder pb;
 
@@ -529,7 +522,7 @@ public class FunCsvGetter extends HttpServlet {
                 //maxPage = 1; //Coupure a enlever après test
                 maxPage = Integer.parseInt(result.substring(searchIndex + 2, result.indexOf(",", searchIndex + 1)));
             }
-            System.out.println("_________________________________");
+            MoocPilotLogger.LOGGER.log(Level.INFO, "_________________________________");
             actualPage++;
         }
 
@@ -537,7 +530,7 @@ public class FunCsvGetter extends HttpServlet {
     }
 
     private static void getPosts(String contextPath, String contextPath2, ArrayList<String> idList, ArrayList<String> commentableIdList) throws IOException {
-        System.out.println("FunCsvGetter getPosts, contextPath2=" + contextPath + ", " + contextPath2);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter getPosts, contextPath2=" + contextPath + ", " + contextPath2);
 
         String url;
         if (isEdx) url = "https://courses.edx.org/";
@@ -611,7 +604,7 @@ public class FunCsvGetter extends HttpServlet {
 
     // Called every time !!!0
     private static void unlockPermission(String scriptName, String contextPath) throws IOException {
-        System.out.println("FunCsvGetter.unlockPermission: " + contextPath + scriptName);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter.unlockPermission: " + contextPath + scriptName);
         String[] command = {"/bin/chmod", "+x", contextPath + scriptName};
         Runtime rt = Runtime.getRuntime();
         Process pr = rt.exec(command);
