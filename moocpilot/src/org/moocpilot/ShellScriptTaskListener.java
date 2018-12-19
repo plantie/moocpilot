@@ -4,6 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Timer;
 import java.util.logging.Level;
@@ -18,6 +19,8 @@ import java.util.logging.Level;
  */
 @WebListener
 public class ShellScriptTaskListener implements ServletContextListener, Serializable {
+    public static final int  TIME_OF_DAY_SCHEDULE =  22; // Always 22.00
+    public static final long SCHEDULE_DELAY = 1000 * 60 * 60 * 1;
     public static final long SIX_HOURS_MS = 1000 * 60 * 60 * 6;
     public static final long FULL_DAY_MS = (1000 * 60 * 60 * 24);
     public static final int TASK_TYPE_RETRIEVE = 0;
@@ -77,11 +80,24 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
         }
     }
 
+    /**
+     * filteroutTimerData
+     * Utilisé pour filtrer l'ancien format de date (avec des types) et pour remettre
+     * les dates à des heures entre 22 et minuit
+     * @param timerDatas
+     * @return
+     */
     private ArrayList<timerData> filterOutTimerData(ArrayList<timerData> timerDatas) {
         // Filter out timerData with Type == 1
         ArrayList<timerData> ts = new ArrayList<timerData>();
         for (timerData tdata : timerDatas) {
             if (tdata.type == 0) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(tdata.dayStart);
+                cal.set(Calendar.HOUR_OF_DAY, ShellScriptTaskListener.TIME_OF_DAY_SCHEDULE);
+                cal.set(Calendar.MINUTE, 00);
+                cal.set(Calendar.SECOND, 00);
+                tdata.dayStart = cal.getTime();
                 ts.add(tdata);
             }
         }
@@ -94,6 +110,10 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
             FileOutputStream fout = new FileOutputStream(path + "/timerDatas.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(ts);
+            // Print out all timer datas
+            for (timerData tdata : timerDatas) {
+                MoocPilotLogger.LOGGER.log(Level.INFO,tdata.toString());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,8 +183,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
 
         for (int i = 0; i < timerDatas.size(); i++) {
             timerData td = timerDatas.get(i);
-            setTimerRetrieveCollect(td.getTimeBefore(), td.delay * ShellScriptTaskListener.FULL_DAY_MS, td.moocId);
-            setTimerProcessCollect(td.getTimeBefore(), td.delay * ShellScriptTaskListener.FULL_DAY_MS + ShellScriptTaskListener.SIX_HOURS_MS, td.moocId);
+            scheduleTask(td);
         }
         saveTimerData(timerDatas);
     }
@@ -175,13 +194,28 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
 
         ArrayList<timerData> timerDatas = readTimerData();
 
-        timerData timerData = new timerData(dayStart, delay, moocId);
+        timerData td = new timerData(dayStart, delay, moocId);
 
-        timerDatas.add(timerData);
+        timerDatas.add(td);
 
-        setTimerRetrieveCollect(timerData.getTimeBefore(), delay * ShellScriptTaskListener.FULL_DAY_MS, moocId);
-        setTimerProcessCollect(timerData.getTimeBefore(), delay * ShellScriptTaskListener.FULL_DAY_MS + ShellScriptTaskListener.SIX_HOURS_MS, moocId);
+        scheduleTask(td);
+
         saveTimerData(timerDatas);
+    }
+
+    /**
+     * scheduleTask
+     * Refactor setTimerTasks + addTimerTask
+     * @param td
+     */
+    private void scheduleTask(timerData td) {
+        int scheddelay = (int)  (Math.random() * ShellScriptTaskListener.SCHEDULE_DELAY);
+        setTimerRetrieveCollect(td.getTimeBefore() + scheddelay,
+                td.delay * ShellScriptTaskListener.FULL_DAY_MS,
+                td.moocId);
+        setTimerProcessCollect(td.getTimeBefore() + scheddelay + ShellScriptTaskListener.SIX_HOURS_MS,
+                td.delay * ShellScriptTaskListener.FULL_DAY_MS + ShellScriptTaskListener.SIX_HOURS_MS,
+                td.moocId);
     }
 
     protected void setTimerRetrieveCollect(long timeBefore, long delayBetween, final String moocId) {
@@ -195,7 +229,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
             @Override
             public void run() {
 
-                MoocPilotLogger.LOGGER.log(Level.INFO, "SetCollect");
+                MoocPilotLogger.LOGGER.log(Level.INFO, "SetCollect for:" + this.moocId);
                 try {
                     FunCsvGetter.startCollect(path + "/" + this.moocId);
                 } catch (IOException e) {
@@ -206,6 +240,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
         }
         TimerTask timerTask = new SetCollectTask(moocId);
         timer.scheduleAtFixedRate(timerTask, timeBefore, delayBetween);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "Schedule Get Collect for "+ moocId+" in "+timeBefore);
     }
 
     protected void setTimerProcessCollect(long timeBefore, long delayBetween, String moocId) {
@@ -218,7 +253,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
 
             @Override
             public void run() {
-                MoocPilotLogger.LOGGER.log(Level.INFO, "GetCollect");
+                MoocPilotLogger.LOGGER.log(Level.INFO, "Process Collect for:" + this.moocId);
                 try {
                     FunCsvGetter.getCollectList(path + "/" + this.moocId);
 
@@ -235,6 +270,7 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
         }
         TimerTask timerTask = new GetCollectTask(moocId);
         timer.scheduleAtFixedRate(timerTask, timeBefore, delayBetween);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "Schedule Process Collect for "+ moocId+" in "+timeBefore);
         //timer.scheduleAtFixedRate(timerTask, 3000, 7);
     }
 
@@ -276,6 +312,17 @@ public class ShellScriptTaskListener implements ServletContextListener, Serializ
             Date nextDate = this.geThisOrtNextDate();
             Date actualDate = new Date();//on prends le timestamp actuel
             return nextDate.getTime() - actualDate.getTime();
+        }
+
+        @Override
+        public String toString() {
+            return String.format("{\"dayStart\":\"%s\",\"delay\":\"%d\",\"moocId\":\"%s\"}",
+                    SimpleDateFormat.getDateTimeInstance().format(this.dayStart),
+                    this.delay,
+                    this.moocId
+                    );
+
+
         }
     }
 }

@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.lang.ProcessBuilder.Redirect;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 
 
@@ -102,7 +99,14 @@ public class FunCsvGetter extends HttpServlet {
         if (delay == -1) {
             return;
         }
-        startDay.setTime(startDay.getTime() + (long) (Math.random() * ShellScriptTaskListener.SIX_HOURS_MS)); //
+        // Date should always be 22.00, but we make sure it is here
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startDay);
+        cal.set(Calendar.HOUR_OF_DAY, 22);
+        cal.set(Calendar.MINUTE, 00);
+        cal.set(Calendar.SECOND, 00);
+        startDay = cal.getTime();
 
         automaticCollect(startDay, delay, contextPath, moocId);
     }
