@@ -69,13 +69,9 @@ function callSavedJSON(callBack) {//appelle le fichier JSON sauvegardé
                 sheetNames = response.sheetList;
                 TabHashtable = response.tabHashtable;
                 collectNames = response.csvListName;
-console.log(response);
                 callBack();
             }
-console.log("tabEleves, sheetNames, collectNames");
-console.log(tabEleves);
-console.log(sheetNames);
-console.log(collectNames);
+
         }
     }
     // EG change location of file
