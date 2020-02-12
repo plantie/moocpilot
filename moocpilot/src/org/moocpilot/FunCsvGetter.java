@@ -157,30 +157,14 @@ public class FunCsvGetter extends HttpServlet {
         String path;
 
         unlockPermission("/generate-grade-report.sh", contextShellScriptsPath + MOD);
-        cibledFile = "courses/" + MOOCid;
         path = contextShellScriptsPath + MOD + "/generate-grade-report.sh";
-/*
-	    if(!isEdx){
-		    unlockPermission("/generate-grade-report.sh", contextShellScriptsPath+MOD);
-		    if(!isFunUpdated){
-		    	cibledFile = "https://www.fun-mooc.fr/courses/"+instituteName+"/"+courseId+"/"+sessionName;
-		    }	else	{
-			    cibledFile = "https://www.fun-mooc.fr/courses/course-v1:"+instituteName+"+"+courseId+"+"+sessionName;
-		    }
-			path = contextShellScriptsPath+MOD + "/generate-grade-report.sh";
-	    }	else	{
-		    unlockPermission("/edx-generate-grade-report.sh", contextShellScriptsPath+MOD);
-		    cibledFile = "https://courses.edx.org/courses/"+"course-v1:IMTx+NET01x+1T2017";
-			path = contextShellScriptsPath+MOD + "/edx-generate-grade-report.sh";
-	    }
-*/
-        ProcessBuilder pb = new ProcessBuilder(path, userName, userPassword, cibledFile, url);
+        ProcessBuilder pb = new ProcessBuilder(path, userName, userPassword, MOOCid, url);
         pb.redirectError(Redirect.INHERIT);
         pb.start();
     }
 
-    private static boolean extractFile(String cibledFile, String contextShellScriptsPath) throws IOException {
-        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter extractFile " + cibledFile + ", " + contextShellScriptsPath + ", localPath=" + localPath);
+    private static boolean extractFile(String cibledFileName, String contextShellScriptsPath) throws IOException {
+        MoocPilotLogger.LOGGER.log(Level.INFO, "FunCsvGetter extractFile " + cibledFileName + ", " + contextShellScriptsPath + ", localPath=" + localPath);
 
         if (!setUserParameters(contextShellScriptsPath)) {
             return false;
@@ -200,34 +184,28 @@ public class FunCsvGetter extends HttpServlet {
         }
 
         String filePath = contextPath + "/0-" + index + ".csv";
-        String cibledFileName;
-        if (!isEdx) {
-            cibledFileName = cibledFile.substring(cibledFile.lastIndexOf("/") + 1);
-        } else {
-            cibledFileName = cibledFile.substring(cibledFile.indexOf(sessionName.substring(sessionName.indexOf(":") + 1).replace("+", "_")), cibledFile.indexOf(".csv") + 4);
-        }
         if (csvList.listCourse.size() != 0 && csvList.nameExist("0", cibledFileName)) {
             return false;
         }
         csvList.addWeek("0", index, cibledFileName);
         csvList.save();
-        MoocPilotLogger.LOGGER.log(Level.INFO, "extractFile " + cibledFile + ", " + contextShellScriptsPath);
+        MoocPilotLogger.LOGGER.log(Level.INFO, "extractFile " + cibledFileName + ", " + contextShellScriptsPath);
 
         File output = new File(filePath);
 
         String path;
         ProcessBuilder pb;
 
-        if (!isEdx) {
-            unlockPermission("/extract-grade-report.sh", contextShellScriptsPath + MOD);
-            path = contextShellScriptsPath + MOD + "/extract-grade-report.sh";
-            pb = new ProcessBuilder(path, userName, userPassword, cibledFile);
-        } else {
-            unlockPermission("/edx-extract-grade-report.sh", contextShellScriptsPath + MOD);
-            path = contextShellScriptsPath + MOD + "/edx-extract-grade-report.sh";
-            pb = new ProcessBuilder(path, cibledFile);
-        }
-        MoocPilotLogger.LOGGER.log(Level.INFO, "extractFile " + cibledFile + ", " + contextShellScriptsPath);
+        String url;
+        if (isEdx) url = "https://courses.edx.org/";
+        else url = "https://www.fun-mooc.fr/";
+
+        unlockPermission("/extract-grade-report.sh", contextShellScriptsPath + MOD);
+        path = contextShellScriptsPath + MOD + "/extract-grade-report.sh";
+        String MOOCid = "course-v1:" + instituteName + "+" + courseId + "+" + sessionName;
+        pb = new ProcessBuilder(path, userName, userPassword, cibledFileName, MOOCid, url);
+
+        MoocPilotLogger.LOGGER.log(Level.INFO, "extractFile " + cibledFileName + ", " + contextShellScriptsPath);
         pb.redirectOutput(output);
         pb.redirectError(Redirect.INHERIT);
         Process p = pb.start();
@@ -273,17 +251,11 @@ public class FunCsvGetter extends HttpServlet {
         String url;
         if (isEdx) url = "https://courses.edx.org/";
         else url = "https://www.fun-mooc.fr/";
-        String MOOCid;
-        if (!isFunUpdated) MOOCid = testedInstituteName + "/" + testedCourseId + "/" + testedSessionName;
-        else MOOCid = "course-v1:" + testedInstituteName + "+" + testedCourseId + "+" + testedSessionName;
+
+        String MOOCid = "course-v1:" + testedInstituteName + "+" + testedCourseId + "+" + testedSessionName;
 
         ProcessBuilder pb;
-        pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/" + MOOCid + "/instructor/api/list_report_downloads", url);
-        //~ if(!isFunUpdated){
-        //~ pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/"+testedInstituteName+"/"+testedCourseId+"/"+testedSessionName+"/instructor/api/list_report_downloads", url);
-        //~ }	else	{
-        //~ pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/course-v1:"+testedInstituteName+"+"+testedCourseId+"+"+testedSessionName+"/instructor/api/list_report_downloads", url);
-        //~ }
+        pb = new ProcessBuilder(path, testedUserName, testedUserPassword, MOOCid , url);
         pb.redirectError(Redirect.INHERIT);
         Process p = pb.start();
 
@@ -313,12 +285,7 @@ public class FunCsvGetter extends HttpServlet {
         else MOOCid = "course-v1:" + testedInstituteName + "+" + testedCourseId + "+" + testedSessionName;
 
         ProcessBuilder pb;
-        pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/" + MOOCid + "/instructor#view-course_info", url);
-        //~ if(!isFunUpdated){
-        //~ pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/"+testedInstituteName+"/"+testedCourseId+"/"+testedSessionName+"/instructor/api/list_report_downloads", url);
-        //~ }	else	{
-        //~ pb = new ProcessBuilder(path, testedUserName, testedUserPassword, "courses/course-v1:"+testedInstituteName+"+"+testedCourseId+"+"+testedSessionName+"/instructor/api/list_report_downloads", url);
-        //~ }
+        pb = new ProcessBuilder(path, testedUserName, testedUserPassword, MOOCid, url);
         pb.redirectError(Redirect.INHERIT);
         Process p = pb.start();
 
@@ -354,28 +321,13 @@ public class FunCsvGetter extends HttpServlet {
         String url;
         if (isEdx) url = "https://courses.edx.org/";
         else url = "https://www.fun-mooc.fr/";
-        String MOOCid;
-        if (!isFunUpdated) MOOCid = instituteName + "/" + courseId + "/" + sessionName;
-        else MOOCid = "course-v1:" + instituteName + "+" + courseId + "+" + sessionName;
 
-        // EG: updates
+        String MOOCid = "course-v1:" + instituteName + "+" + courseId + "+" + sessionName;
+
         ProcessBuilder pb;
-        //if(!isEdx){
         unlockPermission("/get-reports.sh", contextPath + MOD);
         path = contextPath + MOD + "/get-reports.sh";
-        pb = new ProcessBuilder(path, userName, userPassword, "courses/" + MOOCid + "/instructor/api/list_report_downloads", url);
-        //~ if(!isFunUpdated){
-        //~ pb = new ProcessBuilder(path, userName, userPassword, "courses/"+instituteName+"/"+courseId+"/"+sessionName+"/instructor/api/list_report_downloads", url);
-        //~ }	else	{
-        //~ pb = new ProcessBuilder(path, userName, userPassword, "courses/course-v1:"+instituteName+"+"+courseId+"+"+sessionName+"/instructor/api/list_report_downloads", url);
-        //~ }
-/*
-		}	else	{
-		    unlockPermission("/edx-get-reports.sh", contextPath+MOD);
-			path = contextPath+MOD + "/edx-get-reports.sh";
-			pb = new ProcessBuilder(path, userName, userPassword, "https://courses.edx.org/courses/"+sessionName);
-		}
-*/
+        pb = new ProcessBuilder(path, userName, userPassword,  MOOCid, url);
         pb.redirectError(Redirect.INHERIT);
         Process p = pb.start();
 
@@ -383,7 +335,6 @@ public class FunCsvGetter extends HttpServlet {
         StringBuilder builder = new StringBuilder();
         String line = null;
         while ((line = reader.readLine()) != null) {
-//~ MoocPilotLogger.LOGGER.log(Level.INFO,"    FunCsvGetter.getCollectList + "+line);
             builder.append(line);
             builder.append(System.getProperty("line.separator"));
         }
@@ -392,11 +343,7 @@ public class FunCsvGetter extends HttpServlet {
         MoocPilotLogger.LOGGER.log(Level.INFO, "    FunCsvGetter.getCollectList, result=" + result);
 
         String lineStart;
-        if (!isEdx) {
-            lineStart = "\"name\":";
-        } else {
-            lineStart = "\"url\":";
-        }
+        lineStart = "\"name\":";
 
         boolean unknownFiles = true;
         int searchIndex = result.indexOf(lineStart, 0);
@@ -406,26 +353,8 @@ public class FunCsvGetter extends HttpServlet {
             fileName = result.substring(searchIndex + 1, result.indexOf("\"", searchIndex + 1));
             MoocPilotLogger.LOGGER.log(Level.INFO, "    FunCsvGetter.getCollectList, fileName=" + fileName);
             if (fileName.indexOf("grade_report") != -1 && fileName.indexOf("problem_grade_report") == -1 && fileName.indexOf("grade_report_err") == -1/* && dateAfterSeptember(fileName)*/) {
-
-                if (!isEdx) {
-                    if (!extractFile(url + "get-grades/" + MOOCid + "/" + fileName, contextPath)) {
-                        unknownFiles = false;
-                    }
-/*
-				    if(!isFunUpdated){
-				    	if(!extractFile("https://www.fun-mooc.fr/get-grades/"+instituteName+"/"+courseId+"/"+sessionName+"/"+fileName, contextPath)){
-				    		unknownFiles = false;
-						}
-				    }	else	{
-						if(!extractFile("https://www.fun-mooc.fr/get-grades/course-v1:"+instituteName+"+"+courseId+"+"+sessionName+"/"+fileName, contextPath)){
-							unknownFiles = false;
-						}
-				    }
-*/
-                } else {
-                    if (!extractFile(fileName, contextPath)) {
-                        unknownFiles = false;
-                    }
+                if (!extractFile(fileName, contextPath)) {
+                    unknownFiles = false;
                 }
             }
             searchIndex = result.indexOf(lineStart, searchIndex);
@@ -443,8 +372,7 @@ public class FunCsvGetter extends HttpServlet {
         if (isEdx) url = "https://courses.edx.org/";
         else url = "https://www.fun-mooc.fr/";
         String MOOCid;
-        if (!isFunUpdated) MOOCid = instituteName + "/" + courseId + "/" + sessionName;
-        else MOOCid = "course-v1:" + instituteName + "+" + courseId + "+" + sessionName;
+        MOOCid = "course-v1:" + instituteName + "+" + courseId + "+" + sessionName;
 
         ArrayList<String> idList = new ArrayList<String>();
         ArrayList<String> commentableIdList = new ArrayList<String>();
@@ -460,23 +388,8 @@ public class FunCsvGetter extends HttpServlet {
             unlockPermission("/get-posts.sh", contextPath + MOD);
             path = contextPath + MOD + "/get-posts.sh";
             // ATTENTION: "discussion/forum?ajax" -> "discussion/forum/?ajax"
-            pb = new ProcessBuilder(path, userName, userPassword, "courses/" + MOOCid + "/discussion/forum/?ajax=1&page=" + actualPage + "&sort_key=date&sort_order=desc", url);
-/*			
-			if(!isEdx){//a adapté
-			    unlockPermission("/get-posts.sh", contextPath+MOD);
-				path = contextPath+MOD + "/get-posts.sh";
-				
-			    if(!isFunUpdated){
-					pb = new ProcessBuilder(path, userName, userPassword, 
-							"https://www.fun-mooc.fr/courses/"+instituteName+"/"+courseId+"/"+sessionName+"/discussion/forum?ajax=1&page="+actualPage+"&sort_key=date&sort_order=desc");
-			    }	else	{
-					pb = new ProcessBuilder(path, userName, userPassword, 
-							"https://www.fun-mooc.fr/courses/course-v1:"+instituteName+"+"+courseId+"+"+sessionName+"/discussion/forum?ajax=1&page="+actualPage+"&sort_key=date&sort_order=desc");
-			    }
-			}	else	{
-				return;
-			}
-*/
+            pb = new ProcessBuilder(path, userName, userPassword, MOOCid, String.valueOf(actualPage) , url);
+
             pb.redirectError(Redirect.INHERIT);
             Process p = pb.start();
 
@@ -495,13 +408,6 @@ public class FunCsvGetter extends HttpServlet {
 
             lineStartId = "\"id\"";
             lineStartCommentableId = "\"commentable_id\"";
-			/*
-			if(!isEdx){
-				lineStartId = "\"id\"";
-				lineStartCommentableId = "\"commentable_id\"";
-			}	else	{
-				//lineStartId = "\"url\":";
-			}*/
 
             boolean unknownFiles = true;
             int searchIndex = result.indexOf(lineStartId, 0);
@@ -539,9 +445,9 @@ public class FunCsvGetter extends HttpServlet {
         String url;
         if (isEdx) url = "https://courses.edx.org/";
         else url = "https://www.fun-mooc.fr/";
+
         String MOOCid;
-        if (!isFunUpdated) MOOCid = instituteName + "/" + courseId + "/" + sessionName;
-        else MOOCid = "course-v1:" + instituteName + "+" + courseId + "+" + sessionName;
+        MOOCid = "course-v1:" + instituteName + "+" + courseId + "+" + sessionName;
 
         Timer timer = new Timer("Forum Download");
         StringBuilder posts = new StringBuilder();
@@ -553,23 +459,7 @@ public class FunCsvGetter extends HttpServlet {
             // EG simple
             unlockPermission("/get-thread.sh", contextPath + MOD);
             path = contextPath + MOD + "/get-thread.sh";
-            pb = new ProcessBuilder(path, userName, userPassword, "courses/" + MOOCid + "/discussion/forum/" + commentableIdList.get(i) + "/threads/" + idList.get(i) + "?ajax=1&resp_skip=0&resp_limit=25", url);
-/*			
-			if(!isEdx){//a adapté
-			    unlockPermission("/get-thread.sh", contextPath+MOD);
-				path = contextPath+MOD + "/get-thread.sh";
-			    if(!isFunUpdated){
-			    	pb = new ProcessBuilder(path, userName, userPassword, 
-							"https://www.fun-mooc.fr/courses/"+instituteName+"/"+courseId+"/"+sessionName+"/discussion/forum/"+ commentableIdList.get(i) +"/threads/" + idList.get(i) + "?ajax=1&resp_skip=0&resp_limit=25");
-			    }	else	{
-			    	pb = new ProcessBuilder(path, userName, userPassword, 
-							"https://www.fun-mooc.fr/courses/course-v1:"+instituteName+"+"+courseId+"+"+sessionName+"/discussion/forum/"+ commentableIdList.get(i) +"/threads/" + idList.get(i) + "?ajax=1&resp_skip=0&resp_limit=25");
-			    }
-				
-			}	else	{
-				return;
-			}
-*/
+            pb = new ProcessBuilder(path, userName, userPassword, MOOCid, commentableIdList.get(i) + "/threads/" + idList.get(i), url);
             pb.redirectError(Redirect.INHERIT);
             Process p = pb.start();
 
