@@ -5,7 +5,7 @@ PASSWORD=$2
 COURSE_ID=$3
 PLATFORM_URL=$4
 
-echo "get-reports	$LOGIN	$PASSWORD	$CIBLED_URL	$URL" >> /tmp/mooc.log
+echo "get-reports	$LOGIN	$PASSWORD	$COURSE_ID $CIBLED_URL	$PLATFORM_URL" >> /tmp/mooc.log
 
 ################### Login
 curl -s --referer $PLATFORM_URL $PLATFORM_URL -c $COOKIES_FILE -o /dev/null

@@ -149,8 +149,7 @@ public class FunCsvGetter extends HttpServlet {
         if (isEdx) url = "https://courses.edx.org/";
         else url = "https://www.fun-mooc.fr/";
         String MOOCid;
-        if (!isFunUpdated) MOOCid = instituteName + "/" + courseId + "/" + sessionName;
-        else MOOCid = "course-v1:" + instituteName + "+" + courseId + "+" + sessionName;
+        MOOCid = "course-v1:" + instituteName + "+" + courseId + "+" + sessionName;
 
 
         String cibledFile;
@@ -281,8 +280,7 @@ public class FunCsvGetter extends HttpServlet {
         if (isEdx) url = "https://courses.edx.org/";
         else url = "https://www.fun-mooc.fr/";
         String MOOCid;
-        if (!isFunUpdated) MOOCid = testedInstituteName + "/" + testedCourseId + "/" + testedSessionName;
-        else MOOCid = "course-v1:" + testedInstituteName + "+" + testedCourseId + "+" + testedSessionName;
+        MOOCid = "course-v1:" + testedInstituteName + "+" + testedCourseId + "+" + testedSessionName;
 
         ProcessBuilder pb;
         pb = new ProcessBuilder(path, testedUserName, testedUserPassword, MOOCid, url);

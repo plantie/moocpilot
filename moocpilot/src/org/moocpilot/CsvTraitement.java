@@ -2,13 +2,11 @@ package org.moocpilot;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.poi.util.ArrayUtil;
 
 import java.io.FileReader;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 
 //EG: writer
@@ -292,12 +290,15 @@ MoocPilotLogger.LOGGER.log(Level.INFO,"   listColumnUtilsName="+this.listColumnU
 
     private ArrayList<String> SetListColumnNoteName() {
         ArrayList<String> finalListColumnNoteName = new ArrayList<String>();
+        List<String> fieldstoExclude = Arrays.asList("id", "username","grade");
 
         for (int i = 0; i < this.listColumnName.size(); i++) {
-            if (listColumnName.get(i).indexOf("Avg") != -1) {
-                finalListColumnNoteName.add(listColumnName.get(i).substring(0, listColumnName.get(i).length() - 4));
-                MoocPilotLogger.LOGGER.log(Level.INFO, "CsvTraitement.SetListColumnNoteName, add " + listColumnName.get(i).substring(0, listColumnName.get(i).length() - 4)); // QCM, TP
-            }
+
+            if (listColumnName.get(i).indexOf("Cohort Name") != -1) break;
+            if (fieldstoExclude.contains(listColumnName.get(i)) || listColumnName.get(i).indexOf("Avg") != -1 ) continue;
+
+            MoocPilotLogger.LOGGER.log(Level.INFO, "CsvTraitement.SetListColumnNoteName, add " + listColumnName.get(i)); // QCM, T
+            finalListColumnNoteName.add(listColumnName.get(i));
         }
 
         return finalListColumnNoteName;
@@ -313,7 +314,7 @@ MoocPilotLogger.LOGGER.log(Level.INFO,"   listColumnUtilsName="+this.listColumnU
                 if (colName.indexOf("Enrollment Track") != -1) {
                     break;
                 }
-                if (colName.indexOf("Avg") == -1 && colName.indexOf("Cohort Name") == -1) {
+                if (colName.indexOf("Avg") == -1 && colName.indexOf("Cohort Name") == -1 && colName.indexOf("Experiment Group") == -1) {
                     listUtilsName.add(i);
                     MoocPilotLogger.LOGGER.log(Level.INFO, "CsvTraitement.SetListColumnUtilsName, add " + i + ": " + colName); // 2(grade),3,4,5,6(QCM), 8,9,10(TP)
 /*

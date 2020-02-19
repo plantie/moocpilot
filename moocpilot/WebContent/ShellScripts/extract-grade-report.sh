@@ -7,7 +7,7 @@ REPORT_NAME=$3
 COURSE_ID=$4
 PLATFORM_URL=$5
 
-echo "extract-grade-report	$LOGIN	$PASSWORD	$COURSE_ID	$PLATFORM_URL" >> /tmp/mooc.log
+echo "extract-grade-report	$LOGIN	$PASSWORD	$REPORT_NAME $COURSE_ID	$PLATFORM_URL" >> /tmp/mooc.log
 
 ################### Login
 curl -s --referer $PLATFORM_URL $PLATFORM_URL -c $COOKIES_FILE -o /dev/null
