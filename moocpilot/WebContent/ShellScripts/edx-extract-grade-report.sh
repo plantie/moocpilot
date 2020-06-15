@@ -1,3 +1,0 @@
-CIBLED_URL=$1
-
-curl $CIBLED_URL

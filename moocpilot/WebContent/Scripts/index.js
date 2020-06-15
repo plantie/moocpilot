@@ -36,7 +36,8 @@ document.getElementById("slideBar").addEventListener("input", onInputActualisati
 
 //document.querySelectorAll('input[name="visualisationMode"]')[1].checked = true;
 var dataReceived = false;
-callSavedJSON(function(){dataReceived = true});
+//callSavedJSON(function(){dataReceived = true});
+courseName(function(){callSavedJSON(function(){dataReceived = true});}, "");
 
 //document.getElementById("visualisationMode").value = "0";
 /*document.getElementById("maxPeriodeToggle").addEventListener("change", actualisation);*/
@@ -139,7 +140,7 @@ function updateBulleStudentList(){
     document.getElementById("bulleStudentList").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les élèves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("bulleStudentList").appendChild(option);    
 
     for (var i = 0; i < ciblesEleves.length; i++) {
@@ -224,6 +225,7 @@ function displaySlideBar(evt){
 }
 
 function changeModeVisualisation(){
+console.log("changeModeVisualisation !")
 	//menu = parseInt(document.getElementById("visualisationMode").value);
 	menu = parseInt(document.querySelector('input[name="visualisationMode"]:checked').value) + parseInt(document.querySelector('input[name="visualisationModeOption"]:checked').value);
 	//menu = parseInt(document.querySelector('input[name="visualisationMode"]:checked').value);
@@ -692,9 +694,9 @@ function generateTable() {//Genere le tableau en fonction du nombre de semaine
     for (var i = 0; i < sheetNames.length; i++) {
         var r0ctemp = document.createElement("td");
         if(menu >= 2){
-            r0ctemp.appendChild(document.createTextNode("Collecte " + (i + 1)));
+            r0ctemp.appendChild(document.createTextNode(translations['collecte'][localStorage.lang]+" " + (i + 1)));
         }	else	{
-            r0ctemp.appendChild(document.createTextNode("Collecte " + i + "\u2192" + (i + 1)));
+            r0ctemp.appendChild(document.createTextNode(translations['collecte'][localStorage.lang]+" " + i + "\u2192" + (i + 1)));
         }
         r0.appendChild(r0ctemp);
         r1.appendChild(document.createElement("td"));
@@ -870,7 +872,7 @@ function updateCohorteNames() {
     document.getElementById("cohorteSelect").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les élèves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("cohorteSelect").appendChild(option);
 
     for (var i = 0; i < cohorteList.length; i++) {
@@ -885,7 +887,7 @@ function updateListStudent(){
     document.getElementById("studentSelectData").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les élèves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("studentSelectData").appendChild(option);
     
     var cohorteState = document.getElementById("cohorteSelect").value;
@@ -932,16 +934,13 @@ function changeStudent(){
 	actualisation(1, 0); 
 }
 
+/* EG: updated to manage several MOOC !
+ => moved to common.js
 
 
-
-
-
-
-
-
-
+*/
 var courseName;
+/*
 function courseName(){
 	var rightPart =	document.location.href.lastIndexOf("/");
 	var leftPart =	document.location.href.lastIndexOf("/", rightPart-1);
@@ -951,11 +950,9 @@ function courseName(){
 	}
 	listDataSelection[3].firstElementChild.textContent = "Voir les dernières données du MOOC " + courseName;
 	document.querySelector("#appNameDiv p").innerText = "MOOC-PILOT : " + courseName;
-	/*
-	document.querySelectorAll("#headerMenu div>a:first-child")[0].innerText = "Progression de " + courseName;
-	document.querySelectorAll("#headerMenu div>a:first-child")[1].innerText = "Statistique de " + courseName;*/
 }
-courseName();
+*/
+
 if (localStorage.selectedMenu != 3) {
     localStorage.setItem("selectedMenu",3);
 }
@@ -1030,6 +1027,8 @@ function noteV3(index, j){
 	}
 }
 
+// EG: récup comment
+/*fonction pour extraire des matrices bipartites des élèves avec leurs notes*/
 function extractBipartiteAllV3(cibledCohorte){
 	extractBipartiteV3Simple(false,cibledCohorte);
 	extractBipartiteV3Simple(true,cibledCohorte);
@@ -1037,6 +1036,9 @@ function extractBipartiteAllV3(cibledCohorte){
 	extractBipartiteV3Complexe(true,cibledCohorte);
 }
 
+// EG: récup comment
+/* Simple : une colonne par note qui affiche 1 si l'élève a fait l'exercice.
+Complexe : 5 colonnes par note qui représente la note de l'élève: 0 ; 0->0.25; 0.25->0.5; 0.5->0.75; 0.75->1*/
 function extractBipartiteV3Simple(transpose, cibledCohorte){
 	textArray = new Array();
 	elevesUtils = tabEleves.filter(function(eleve) {
@@ -1216,11 +1218,11 @@ function realIndex(index){
 
 function displayOptions(){
 	if(displayedOptions){
-		document.getElementById("optionViewer").innerText = "Autres options";
+		document.getElementById("optionViewer").innerText = translations['#optionViewer'][localStorage.lang]; //  "Autres options";
 		document.getElementById("realOptions").style.display = "none";
 		displayedOptions = false;
 	}	else	{
-		document.getElementById("optionViewer").innerText = "Masquer les options";
+		document.getElementById("optionViewer").innerText = translations['#optionViewer2'][localStorage.lang]; //"Masquer les options";
 		document.getElementById("realOptions").style.display = "inherit";
 		displayedOptions = true;
 	}

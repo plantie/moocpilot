@@ -4,7 +4,7 @@ function Note(nom, note, semaine)
     this.note = note;
     this.semaine = semaine;
     
-    //déclaration des fonctions associées:
+    //dÃ©claration des fonctions associÃ©es:
     
     this.getNoteNom = getNoteNom;
     this.getNoteNote = getNoteNote;

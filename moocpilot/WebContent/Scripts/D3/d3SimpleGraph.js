@@ -79,7 +79,7 @@ function displaySimpleGraph(){
         .attr("d", valueline(noOrphanByWeek));
 
     svg.append("text")
-        .text(function(){return "Messages commentés" + "(" + d3.sum(noOrphanByWeek, function(d) { return d.quantity; }) +")";})
+        .text(function(){return "Messages commentÃ©s" + "(" + d3.sum(noOrphanByWeek, function(d) { return d.quantity; }) +")";})
         .style("font-size", "10px")
         .attr("x", 65)
         .attr("y", -6);

@@ -1,3 +1,14 @@
+/* EG: headline added in screenSelectorArea */
+#screenSelectorArea div.headline {
+	width: 100%;
+	height: auto;
+	cursor:none;
+	border:3px solid white /* EG changed EBE8DE */;
+	background-color:white;
+}
+#screenSelectorArea div.headline:hover {
+	border:3px solid white /* EG changed EBE8DE */;
+}
 #screenSelectorArea{
 	position: fixed;
 	background-color:white;
@@ -5,11 +16,13 @@
 	padding :10px;
 	border-radius : 10px;
 	z-index:0;
+	height: 2000px;
+	//overflow-y: scroll; /* EG: scrollbar for main panel */
 }
 
 #screenSelectorArea>div{	
 	float: left;
-	background-color:#EBE8DE;
+	background-color:white /* EG changed EBE8DE */;
 	text-align:center;
 	box-sizing: border-box;
 }
@@ -70,9 +83,10 @@ div.tooltips {
   	width:10px;
   	height:7px;
 }
+/* EG: modif to see info box with link */ 
 div.tooltips span {
 	padding: 10px;
-	pointer-events:none;
+	//pointer-events:none;
 	position: absolute;
 	width:300px;
 	color: black;
@@ -83,7 +97,7 @@ div.tooltips span {
 	font-size:12px;
 	visibility: hidden;
 	border-radius: 6px;
-	top:-180px;
+	/*top:-180px;*/
 	border:1px solid black;
 	display:none;
 }
@@ -141,8 +155,8 @@ div.tooltips.tooltipsbottomdiag span:after {
   border-left: 8px solid transparent;
 }
 div:hover.tooltips.tooltipsbottomdiag span {
-  visibility: visible;
-  display:inherit;
+  //visibility: visible;
+  //display:inherit;
   opacity: 1;
   margin-left: -288px;
   z-index: 999;

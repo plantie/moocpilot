@@ -30,7 +30,7 @@ function dataSelectionLink(index){
 
 function neverPresentation(){
 	endPresentation();
-	setPresentationCookie(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!DÃ©sactivÃ© lors des tests;
+	setPresentationCookie(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!DÃƒÂ©sactivÃƒÂ© lors des tests;
 }
 
 
@@ -126,10 +126,10 @@ function changePresentationPanel(domElement, presentationPanelText, fixed){
 	}
 }
 
-var text0 = "<p>Ce panneau permet de revoir cette démonstration ou de sélectionner des données à afficher.</p><p>Les données de démonstrations sont des données fictives. </p><p>Utilisez les pour mieux prendre en main l'outil et comprendre son fonctionnement.</p><p>Vous pouvez importer vos propres données dans l'application afin de les visualiser</p><p>Vous pouvez visualiser les dernières données du cours</p>";
-var text1 = "<p>Un groupe de progression des élèves est représenté par une bulle.</p><p>En ligne les différents travaux soumis aux élèves.</p><p>En colonne les collectes.</p>";
-var text2 = "<p>Différents modes de visualisation sont possibles.</p>	<p>En mode 'Progressions Cumulées', pour une colonne de collecte, une bulle représente l'ensemble des élèves qui ont fait l'exercice correspondant. Conséquence : un élève apparait dans autant de bulles que d'exercices faits</p><p>En mode 'Progressions Réparties', pour une colonne de collecte et un type d'exercice, une bulle représente l'ensemble des élèves qui se sont arrêtés à cet exercice et n'ont pas poursuivi. Conséquence : un élève apparait une seule fois par type d'exercices</p>";
-var text3 = "<p>Le 'Seuil des notes' permet de définir la note minimale requise pour apparaître dans un groupe de progression des élèves.</p><p>Le bouton 'Sauvegarder en image' permet d'extraire la vue actuelle sous forme d'image.</p>";
+var text0 = "<p>Ce panneau permet de revoir cette dÃ©monstration ou de sÃ©lectionner des donnÃ©es Ã  afficher.</p><p>Les donnÃ©es de dÃ©monstrations sont des donnÃ©es fictives. </p><p>Utilisez les pour mieux prendre en main l'outil et comprendre son fonctionnement.</p><p>Vous pouvez importer vos propres donnÃ©es dans l'application afin de les visualiser</p><p>Vous pouvez visualiser les derniÃ¨res donnÃ©es du cours</p>";
+var text1 = "<p>Un groupe de progression des Ã©lÃ¨ves est reprÃ©sentÃ© par une bulle.</p><p>En ligne les diffÃ©rents travaux soumis aux Ã©lÃ¨ves.</p><p>En colonne les collectes.</p>";
+var text2 = "<p>DiffÃ©rents modes de visualisation sont possibles.</p>	<p>En mode 'Progressions CumulÃ©es', pour une colonne de collecte, une bulle reprÃ©sente l'ensemble des Ã©lÃ¨ves qui ont fait l'exercice correspondant. ConsÃ©quence : un Ã©lÃ¨ve apparait dans autant de bulles que d'exercices faits</p><p>En mode 'Progressions RÃ©parties', pour une colonne de collecte et un type d'exercice, une bulle reprÃ©sente l'ensemble des Ã©lÃ¨ves qui se sont arrÃªtÃ©s Ã  cet exercice et n'ont pas poursuivi. ConsÃ©quence : un Ã©lÃ¨ve apparait une seule fois par type d'exercices</p>";
+var text3 = "<p>Le 'Seuil des notes' permet de dÃ©finir la note minimale requise pour apparaÃ®tre dans un groupe de progression des Ã©lÃ¨ves.</p><p>Le bouton 'Sauvegarder en image' permet d'extraire la vue actuelle sous forme d'image.</p>";
 var text4 = "";
 
 function changePresentationPage(){

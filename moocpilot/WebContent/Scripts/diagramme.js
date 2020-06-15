@@ -31,7 +31,7 @@ function dataSelected(evt){
 		    }
 		    	/*
 		    if(i == 0){
-		    	document.getElementById("headerName").innerText = "MOOC-PILOT\n tableau de progression des élèves\nDonnèes de démonstrations";
+		    	document.getElementById("headerName").innerText = "MOOC-PILOT\n tableau de progression des élèves\n Données de démonstration";
 		    }	else	if(i == 1){
 				document.getElementById("headerName").innerText = "MOOC-PILOT\n tableau de progression des élèves\nVos données";
 		    }	else	{
@@ -45,7 +45,8 @@ function dataSelected(evt){
 }
 
 var courseName;
-courseName();
+//courseName();
+/*
 function courseName(){
 	var rightPart =	document.location.href.lastIndexOf("/");
 	var leftPart =	document.location.href.lastIndexOf("/", rightPart-1);
@@ -54,11 +55,9 @@ function courseName(){
 		courseName = "Unknown Name";
 	}
 	document.querySelector("#appNameDiv p").innerText = "MOOC-PILOT : " + courseName;
-	/*
-	document.querySelectorAll("#headerMenu div>a:first-child")[0].innerText = "Progression de " + courseName;
-	document.querySelectorAll("#headerMenu div>a:first-child")[1].innerText = "Statistique de " + courseName;*/
 }
 
+*/
 window.addEventListener("resize", changeSize);
 
 
@@ -88,7 +87,8 @@ if (localStorage.selectedMenu != 3) {
 }
 //listDataSelection.item(localStorage.selectedMenu-1).dispatchEvent(new CustomEvent('click'));
 var dataReceived = false;
-callSavedJSON(function(){dataReceived = true});
+//callSavedJSON(function(){dataReceived = true});
+courseName(function(){callSavedJSON(function(){dataReceived = true});}, "");
 
 
 var exerciseNames;
@@ -128,7 +128,7 @@ function updateCohorteNames() {
     document.getElementById("cohorteSelect").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les �l�ves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("cohorteSelect").appendChild(option);
 
     for (var i = 0; i < cohorteList.length; i++) {
@@ -143,7 +143,7 @@ function updateListStudent(){
     document.getElementById("studentSelectData").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les �l�ves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("studentSelectData").appendChild(option);
     
     var cohorteState = document.getElementById("cohorteSelect").value;
@@ -333,9 +333,9 @@ function openBullePopup(d) {
     document.querySelector("#bullePopup").style.transform = "rotateY(" + bullePopupRotation + "deg)";
 	bullePopupRotation+=360;
 	
-	document.querySelector("#bullePopup a").innerText = d.length+" �l�ves";
+	document.querySelector("#bullePopup a").innerText = d.length+" "+translations['eleves'][localStorage.lang]; //" élèves";
 	updateBulleStudentList();
-	//setTimeout(function(){document.querySelector("#bullePopup a").innerText = d.length+" �l�ves \ncollecte "+j+"  \n"+tabCohorte[0][i];updateBulleStudentList();},250);
+	//setTimeout(function(){document.querySelector("#bullePopup a").innerText = d.length+" élèves \ncollecte "+j+"  \n"+tabCohorte[0][i];updateBulleStudentList();},250);
 		
 	document.getElementById("bullePopup").style.display = "inherit";
 	//visualiseCohorteToggled();
@@ -345,7 +345,7 @@ function updateBulleStudentList(){
     document.getElementById("bulleStudentList").innerHTML = "";
     var option = document.createElement("option");
     option.value = "";
-    option.text = "Tous les �l�ves";
+    option.text = translations['tousEleves'][localStorage.lang]; //"Tous les élèves";
     document.getElementById("bulleStudentList").appendChild(option);    
 
     for (var i = 0; i < openBulleContent.length; i++) {

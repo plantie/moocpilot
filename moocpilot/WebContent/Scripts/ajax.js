@@ -1,4 +1,5 @@
 
+// EG: TODO to be removed ?
 function callDemoJSON(callBack){
     document.getElementById("waitingPanel").style.display = "inherit";
     xhr = new XMLHttpRequest();
@@ -23,6 +24,7 @@ function callDemoJSON(callBack){
     xhr.send();
 }
 
+// EG: TODO to be removed ?
 function callLog(){
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -48,6 +50,14 @@ function callSavedJSON(callBack) {//appelle le fichier JSON sauvegardé
     		lock = true;
 			document.getElementById("waitingPanel").style.display = "none";
 			alert("Aucun fichier disponible");
+		// EG: empty data...
+		/*
+                tabEleves = [{'cohorte':'Default Group', 'dateInscription':1, 'email':'', id:'007', login:'XXX'}];
+                sheetNames = [1];
+                TabHashtable = {};
+                collectNames = ["dummy.csv"];
+                callBack();
+		*/
     	}
         if (xhr.readyState == 4 && xhr.status == 200) {
             document.getElementById("waitingPanel").style.display = "none";
@@ -61,9 +71,12 @@ function callSavedJSON(callBack) {//appelle le fichier JSON sauvegardé
                 collectNames = response.csvListName;
                 callBack();
             }
+
         }
     }
-    xhr.open('GET', 'UploadedFiles/versionLoaded.txt' + getRandom(), true);
+    // EG change location of file
+    xhr.open('GET', 'data/'+localStorage.moocId+'/versionLoaded.txt' + getRandom(), true);
+    //xhr.open('GET', 'UploadedFiles/versionLoaded.txt' + getRandom(), true);
     xhr.send();
 }
 
@@ -116,7 +129,3 @@ function callJsonTraitement(evt) {//call la fonction avec la fonction de callBac
 }
 //document.getElementById('xlf').addEventListener('change', callJsonTraitement, false);
 
-
-function getRandom(){
-	return '?rand='+Math.floor(Math.random() * 1000000);
-}
